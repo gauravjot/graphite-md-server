@@ -1,0 +1,30 @@
+<!-- Sidebar starts -->
+<div
+  id="sidebar"
+  aria-hidden="false"
+  class="fixed overflow-y-auto backdrop-blur-sm top-16 mt-px left-0 bottom-0 w-80 bg-white/90 dark:bg-black/90 border-r border-gray-200 dark:border-gray-800"
+>
+  <div class="px-6 py-8">
+    <!-- Sidebar menu starts -->
+    <div class="font-medium text-sm text-gray-700 dark:text-gray-400 px-2">
+      DOCS
+    </div>
+    <ul id="sidebar-doc-list">
+      <% for (doc of docs) { %>
+      <li
+        id="<%= doc.slice(0, -3).replaceAll(' ','_') %>"
+        class="m-0 border-t border-gray-200 dark:border-gray-800/50 hover:bg-gray-100 hover:dark:bg-gray-800/50 hover:rounded hover:border-none first:border-none"
+      >
+        <a
+          href="/<%= doc.slice(0, -3).replaceAll(' ','_') %>"
+          class="hover:no-underline p-2 block"
+        >
+          <%= doc.slice(0, -3) %>
+        </a>
+      </li>
+      <% } %>
+    </ul>
+    <!-- Sidebar menu ends -->
+  </div>
+</div>
+<!-- Sidebar ends -->
