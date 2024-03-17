@@ -15,3 +15,14 @@ const http = require("http");
 ## Installing Node.js
 
 To install Node.js, go to the [official Node.js website](https://nodejs.org/) and download the installer. Follow the instructions to install Node.js.
+
+## Uses of Node.js
+
+-   Web servers
+-   Command-line tools
+-   API servers
+-   Real-time chat applications
+-   Web applications
+-   Desktop applications
+-   Internet of Things (IoT) applications
+-   Microservices

@@ -1,23 +1,23 @@
 {
-  "name": "docs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "live": "nodemon server.js",
-    "dev": "nodemon server.js & npm run css",
-    "css": "npx tailwindcss -i ./source.css -o ./public/css/styles.css --minify --watch"
-  },
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "body-parse": "^0.1.0",
-    "ejs": "^3.1.9",
-    "express": "^4.18.3",
-    "gray-matter": "^4.0.3",
-    "markdown-it": "^14.0.0"
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.4.1"
-  }
+	"name": "docs",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"live": "nodemon ./src/server.js",
+		"css": "npx tailwindcss -i ./src/source.css -o ./public/css/styles.css --minify --watch",
+		"dev": "npm run live & npm run css"
+	},
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"body-parse": "^0.1.0",
+		"ejs": "^3.1.9",
+		"express": "^4.18.3",
+		"gray-matter": "^4.0.3",
+		"markdown-it": "^14.0.0"
+	},
+	"devDependencies": {
+		"tailwindcss": "^3.4.1"
+	}
 }
