@@ -12,7 +12,7 @@ html,
 }
 
 body {
-	@apply font-sans bg-gray-50 text-gray-700 dark:bg-gray-950 dark:text-white leading-[1.6];
+	@apply font-sans bg-zinc-50 text-zinc-700 dark:bg-zinc-950 dark:text-white leading-[1.6];
 }
 
 h1,
@@ -21,7 +21,7 @@ h3,
 h4,
 h5,
 h6 {
-	@apply font-serif font-medium leading-[1.6] !text-black dark:!text-white;
+	@apply font-serif font-medium leading-[1.6] !text-black dark:!text-white focus:outline-none focus-visible:outline-none;
 }
 
 body,
@@ -42,31 +42,31 @@ ul {
 }
 
 .container {
-	@apply w-[94%] md:w-[92%] lg:w-[88%] max-w-4xl mx-auto;
+	@apply w-[90%] md:w-[92%] lg:w-[94%] max-w-7xl mx-auto;
 }
 
 h1 {
-	@apply text-5xl my-8 leading-[1.3];
+	@apply text-4xl md:text-5xl my-8 leading-[1.3];
 }
 
 h2 {
-	@apply text-4xl my-8;
+	@apply text-3xl md:text-4xl my-8;
 }
 
 h3 {
-	@apply text-3xl my-7;
+	@apply text-2xl md:text-3xl my-7;
 }
 
 h4 {
-	@apply text-2xl my-7;
+	@apply text-xl md:text-2xl my-7;
 }
 
 h5 {
-	@apply text-xl my-6;
+	@apply text-lg md:text-xl my-6;
 }
 
 h6 {
-	@apply text-lg my-6;
+	@apply text-base md:text-lg my-6;
 }
 
 p {
@@ -82,7 +82,7 @@ img {
 }
 
 a {
-	@apply text-blue-700 dark:text-blue-300 no-underline hover:underline;
+	@apply text-blue-700 dark:text-blue-300 no-underline hover:underline focus:outline-none focus-visible:outline-none;
 }
 
 #md-content ul {
@@ -106,7 +106,7 @@ a {
 }
 
 #md-content li::marker {
-	@apply text-gray-400 dark:text-gray-500;
+	@apply text-zinc-400 dark:text-zinc-500;
 }
 
 video {
@@ -117,20 +117,22 @@ video {
 
 code,
 pre {
-	@apply font-mono text-base leading-6;
+	@apply font-mono text-[15px] md:text-base leading-6;
 }
 
 pre {
+	@apply bg-black/5 dark:bg-white/5 rounded w-full;
+	@apply overflow-auto;
 	margin: 30px auto 0px;
 }
 
 code {
-	@apply bg-black/10 dark:bg-white/20 text-gray-800 dark:text-gray-200 rounded px-1 tracking-tight font-medium;
+	@apply bg-black/10 dark:bg-white/20 text-zinc-800 dark:text-zinc-200 rounded px-1 tracking-tight font-medium;
 }
 
 pre > code {
-	@apply bg-black/5 dark:bg-white/5 rounded w-full;
-	@apply text-gray-700 dark:text-gray-100 p-5 inline-block;
+	@apply bg-transparent;
+	@apply text-zinc-700 dark:text-zinc-100 p-3 md:p-5 inline-block;
 }
 
 :not(pre) > code {
@@ -138,7 +140,7 @@ pre > code {
 }
 
 blockquote {
-	@apply border-solid border-l-2 border-gray-300 dark:border-gray-700 pl-4;
+	@apply border-solid border-l-2 border-zinc-300 dark:border-zinc-700 pl-4;
 	font-style: italic;
 }
 
@@ -185,16 +187,41 @@ blockquote {
 /* Sidebar */
 #sidebar,
 #content {
-	@apply transition-transform duration-300 ease-in-out;
+	transition-property: margin-left, width;
+	@apply duration-300 ease-in-out;
 }
 #content {
 	transition-property: margin-left;
 }
 #sidebar[aria-hidden="true"] {
-	transform: translateX(-100%);
+	@apply w-12 md:w-20;
 }
 #sidebar[aria-hidden="false"] {
-	transform: translateX(0);
+	@apply w-80;
+}
+#sidebar > div {
+	@apply w-80 md:w-64;
+}
+#sidebar[aria-hidden="true"] > div {
+	animation: fadeOut 0.15s linear forwards;
+}
+#sidebar[aria-hidden="false"] > div {
+	animation: fadeIn 0.15s linear forwards;
+}
+#sidebar > #sidebar-toggle {
+	@apply w-10 md:w-14;
+}
+#sidebar[aria-hidden="true"] > #sidebar-toggle {
+	animation: none;
+	@apply right-2 md:right-6 transition-all duration-300 ease-in-out;
+}
+#sidebar[aria-hidden="false"] > #sidebar-toggle .ic-sidebar {
+	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="24px" stroke-width="1.6" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.25 10L5.5 12L7.25 14" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 21V3" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
+	@apply size-6 dark:invert-[0.7] scale-75;
+}
+#sidebar[aria-hidden="true"] > #sidebar-toggle .ic-sidebar {
+	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="24px" stroke-width="1.6" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 21V3" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.5 10L7.25 12L5.5 14" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
+	@apply size-6 dark:invert-[0.7] scale-75;
 }
 #sidebar-doc-list li {
 	@apply hover:pt-px;
@@ -203,7 +230,7 @@ blockquote {
 	@apply hover:pt-0;
 }
 #sidebar-doc-list li[aria-current="page"] {
-	@apply bg-gray-200/50 dark:bg-gray-800/80 border-none rounded font-medium hover:pt-0;
+	@apply bg-zinc-200/50 dark:bg-zinc-800/80 border-none rounded font-medium hover:pt-0;
 }
 #sidebar-doc-list li[aria-current="page"] + li,
 #sidebar-doc-list li:hover + li {
@@ -212,12 +239,53 @@ blockquote {
 #sidebar-doc-list li:hover + li[aria-current="page"] {
 	@apply pt-0;
 }
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		display: none;
+	}
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+		display: block;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+/* Table of Contents */
+#toc li a {
+	@apply text-[15px] my-1.5 block text-zinc-700 dark:text-zinc-300 hover:text-blue-700 dark:hover:text-blue-300;
+}
+#toc li a[aria-current="true"] {
+	@apply text-blue-700 dark:text-blue-300;
+}
 
 /* Blog */
 #md-content {
-	font-size: 17px;
 	line-height: 1.7;
+	@apply text-[15px] sm:text-base;
 }
-#md-content p {
-	@apply leading-[1.7] dark:text-gray-400 text-gray-600;
+#md-content p,
+#md-content li {
+	@apply leading-[1.7] dark:text-zinc-400 text-zinc-600;
+}
+#md-content .header-anchor {
+	@apply text-zinc-900 dark:text-zinc-50 hover:no-underline;
+}
+#md-content .header-anchor:after {
+	content: "#";
+	@apply text-zinc-900/50 dark:text-zinc-50/50 ml-2 opacity-0;
+	font-size: 80%;
+}
+#md-content .header-anchor:hover:after {
+	@apply opacity-100;
+}
+#md-content h2 {
+	@apply border-b border-zinc-300 dark:border-zinc-800 pb-1 pt-2;
 }

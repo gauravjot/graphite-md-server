@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
+const anchor = require("markdown-it-anchor");
 
 // if you have a public dir with static scripts and styles
 app.use(express.static("public"));
@@ -33,9 +34,16 @@ app.get("/:article", (req, res) => {
 	);
 
 	// use markdown-it to convert content to HTML
-	var md = require("markdown-it")();
-	let content = file.content;
-	var result = md.render(content);
+	const md = require("markdown-it")();
+	md.use(anchor, {
+		slugify: (s) =>
+			encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-")),
+		permalink: anchor.permalink.headerLink({
+			safariReaderFix: true,
+		}),
+	});
+	const content = file.content;
+	const result = md.render(content);
 
 	const docs = fs
 		.readdirSync(path.join(__dirname, "..", "content"))

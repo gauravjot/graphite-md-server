@@ -2,17 +2,17 @@
 <div
 	id="sidebar"
 	aria-hidden="false"
-	class="fixed overflow-hidden backdrop-blur-sm top-16 mt-px left-0 bottom-0 w-80 bg-white/90 dark:bg-black/90 border-r border-gray-200 dark:border-gray-800"
+	class="fixed overflow-hidden backdrop-blur-sm bg-zinc-50/90 dark:bg-zinc-950/90 top-16 mt-px bottom-0"
 >
-	<div class="px-6 py-8 relative h-[calc(100%-2.27rem)] overflow-y-auto">
+	<div class="pr-4 md:mr-12 py-8 relative h-[calc(100%-2.27rem)] overflow-y-auto">
 		<!-- Sidebar menu starts -->
 
-		<div class="font-medium text-sm text-gray-700 dark:text-gray-400 px-2">DOCS</div>
+		<div class="font-medium text-sm text-zinc-700 dark:text-zinc-400 px-2">DOCS</div>
 		<ul id="sidebar-doc-list" class="pb-16 my-4">
 			<% for (doc of docs) { %>
 			<li
 				id="<%= doc.slice(0, -3).replaceAll(' ','_') %>"
-				class="m-0 border-t border-gray-200 dark:border-gray-800/50 hover:bg-gray-100 hover:dark:bg-gray-800/50 hover:rounded hover:border-none first:border-none"
+				class="m-0 border-t border-zinc-200 dark:border-zinc-800/50 hover:bg-zinc-100 hover:dark:bg-zinc-800/50 hover:rounded hover:border-none first:border-none"
 			>
 				<a
 					href="/<%= doc.slice(0, -3).replaceAll(' ','_') %>"
@@ -28,17 +28,30 @@
 	</div>
 	<!-- Sidebar footer starts -->
 	<div
-		class="fixed bottom-0 left-0 right-0 h-9 flex place-items-center border-t dark:border-gray-800 gap-3 text-sm px-6 text-gray-500 dark:text-gray-400"
+		class="fixed bottom-0 left-0 right-0 pr-4 md:mr-12 h-14 border-t dark:border-zinc-800 flex place-items-center gap-3 text-xs px-4 text-zinc-500 dark:text-zinc-400"
 	>
-		<span>Version 1.0.0</span>
-		<a
-			class="text-gray-800 dark:text-gray-200"
-			href="http://github.com/gauravjot/graphite-md-server"
-			target="_blank"
-			rel="noopener noreferrer"
-			>Check Updates</a
+		<span>v1.0.0</span>
+		<span class="flex-1">
+			<a
+				class="text-zinc-800 dark:text-zinc-200"
+				href="http://github.com/gauravjot/graphite-md-server"
+				target="_blank"
+				rel="noopener noreferrer"
+				>GitHub</a
+			></span
 		>
 	</div>
 	<!-- Sidebar footer ends -->
+	<!-- Toggle button -->
+	<div id="sidebar-toggle" class="fixed bottom-0 right-4 md:right-16 py-2 md:p-2">
+		<button
+			onClick="toggleSidebar()"
+			title="Toggle Sidebar"
+			class="hover:bg-black/10 dark:hover:bg-zinc-800 size-10 flex place-items-center justify-center rounded-md"
+		>
+			<span class="ic-sidebar"></span>
+		</button>
+	</div>
+	<!-- Toggle button ends -->
 </div>
 <!-- Sidebar ends -->

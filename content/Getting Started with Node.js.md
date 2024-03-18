@@ -16,6 +16,20 @@ const http = require("http");
 
 To install Node.js, go to the [official Node.js website](https://nodejs.org/) and download the installer. Follow the instructions to install Node.js.
 
+### Verifying the installation
+
+To verify the installation, open a terminal and run the following command:
+
+```bash
+node -v
+```
+
+#### Expected output
+
+```bash
+v14.17.0
+```
+
 ## Uses of Node.js
 
 -   Web servers
