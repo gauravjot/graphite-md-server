@@ -1,12 +1,13 @@
 {
 	"name": "docs",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "",
 	"main": "server.js",
 	"scripts": {
-		"live": "nodemon ./src/server.js",
+		"live": "node ./src/server.js",
 		"css": "npx tailwindcss -i ./src/source.css -o ./public/css/styles.css --minify --watch",
-		"dev": "npm run live & npm run css"
+		"nodemon": "npx nodemon ./src/server.js",
+		"dev": "npm run nodemon & npm run css"
 	},
 	"author": "",
 	"license": "MIT",

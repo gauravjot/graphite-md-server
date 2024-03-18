@@ -4,7 +4,9 @@
 	aria-hidden="false"
 	class="fixed overflow-hidden backdrop-blur-sm bg-zinc-50/90 dark:bg-zinc-950/90 top-16 mt-px bottom-0"
 >
-	<div class="pr-4 md:mr-12 py-8 relative h-[calc(100%-2.27rem)] overflow-y-auto">
+	<div
+		class="pr-4 lg:pr-8 xl:pr-12 2xl:pr-16 py-8 relative h-[calc(100%-2.27rem)] overflow-y-auto"
+	>
 		<!-- Sidebar menu starts -->
 
 		<div class="font-medium text-sm text-zinc-700 dark:text-zinc-400 px-2">DOCS</div>
@@ -28,22 +30,24 @@
 	</div>
 	<!-- Sidebar footer starts -->
 	<div
-		class="fixed bottom-0 left-0 right-0 pr-4 md:mr-12 h-14 border-t dark:border-zinc-800 flex place-items-center gap-3 text-xs px-4 text-zinc-500 dark:text-zinc-400"
+		class="fixed bottom-0 left-0 right-0 pr-4 lg:pr-8 xl:pr-12 2xl:pr-16 text-xs text-zinc-500 dark:text-zinc-400"
 	>
-		<span>v1.1.0</span>
-		<span class="flex-1">
-			<a
-				class="text-zinc-800 dark:text-zinc-200"
-				href="https://github.com/gauravjot/graphite-md-server/releases"
-				target="_blank"
-				rel="noopener noreferrer"
-				>GitHub</a
-			></span
-		>
+		<div class="flex place-items-center h-14 gap-3 border-t dark:border-zinc-800">
+			<span>v1.1.0</span>
+			<span class="flex-1">
+				<a
+					class="text-zinc-800 dark:text-zinc-200"
+					href="https://github.com/gauravjot/graphite-md-server/releases"
+					target="_blank"
+					rel="noopener noreferrer"
+					>GitHub</a
+				></span
+			>
+		</div>
 	</div>
 	<!-- Sidebar footer ends -->
 	<!-- Toggle button -->
-	<div id="sidebar-toggle" class="fixed bottom-0 right-4 md:right-16 py-2 md:p-2">
+	<div id="sidebar-toggle">
 		<button
 			onClick="toggleSidebar()"
 			title="Toggle Sidebar"

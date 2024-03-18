@@ -16,12 +16,12 @@ function toggleTheme() {
 }
 
 // Sidebar toggle: breakpoint `md`
-let isMobile = window.matchMedia("only screen and (max-width: 768px)").matches;
+let isMobile = window.matchMedia("only screen and (max-width: 1024px)").matches;
 if (isMobile) {
 	hideSidebar();
 }
 window.addEventListener("resize", () => {
-	isMobile = window.matchMedia("only screen and (max-width: 768px)").matches;
+	isMobile = window.matchMedia("only screen and (max-width: 1024px)").matches;
 	if (isMobile) {
 		hideSidebar();
 	} else {
@@ -38,23 +38,23 @@ function toggleSidebar() {
 function showSidebar() {
 	if (isMobile) {
 		document.getElementById("sidebar").setAttribute("aria-hidden", "false");
-		document.getElementById("content").classList.remove("ml-80");
+		document.getElementById("content").classList.remove("sidebar-open");
 		document.getElementById("content").classList.add("ml-12");
 	} else {
 		document.getElementById("sidebar").setAttribute("aria-hidden", "false");
-		document.getElementById("content").classList.add("ml-80");
-		document.getElementById("content").classList.remove("ml-20");
+		document.getElementById("content").classList.add("sidebar-open");
+		document.getElementById("content").classList.remove("ml-16");
 	}
 }
 function hideSidebar() {
 	if (isMobile) {
 		document.getElementById("sidebar").setAttribute("aria-hidden", "true");
-		document.getElementById("content").classList.remove("ml-80");
+		document.getElementById("content").classList.remove("sidebar-open");
 		document.getElementById("content").classList.add("ml-12");
 	} else {
 		document.getElementById("sidebar").setAttribute("aria-hidden", "true");
-		document.getElementById("content").classList.remove("ml-80");
-		document.getElementById("content").classList.add("ml-20");
+		document.getElementById("content").classList.remove("sidebar-open");
+		document.getElementById("content").classList.add("ml-16");
 	}
 }
 

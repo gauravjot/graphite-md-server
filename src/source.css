@@ -42,7 +42,7 @@ ul {
 }
 
 .container {
-	@apply w-[90%] md:w-[92%] lg:w-[94%] max-w-7xl mx-auto;
+	@apply w-[90%] md:w-[92%] lg:w-[94%] max-w-[1600px] mx-auto;
 }
 
 h1 {
@@ -185,22 +185,29 @@ blockquote {
 }
 
 /* Sidebar */
-#sidebar,
+#sidebar {
+	transition-property: margin-left, width;
+	@apply duration-300 ease-in-out;
+}
 #content {
 	transition-property: margin-left, width;
 	@apply duration-300 ease-in-out;
 }
 #content {
 	transition-property: margin-left;
+	@apply pl-1;
+}
+#content.sidebar-open {
+	@apply lg:ml-64 xl:ml-72 2xl:ml-80;
 }
 #sidebar[aria-hidden="true"] {
-	@apply w-12 md:w-20;
+	@apply w-10 hover:bg-zinc-100 dark:hover:bg-zinc-900 bg-transparent;
 }
 #sidebar[aria-hidden="false"] {
-	@apply w-80;
+	@apply w-64 xl:w-72 2xl:w-80 max-w-full;
 }
 #sidebar > div {
-	@apply w-80 md:w-64;
+	@apply w-64 xl:w-72 2xl:w-80;
 }
 #sidebar[aria-hidden="true"] > div {
 	animation: fadeOut 0.15s linear forwards;
@@ -209,11 +216,11 @@ blockquote {
 	animation: fadeIn 0.15s linear forwards;
 }
 #sidebar > #sidebar-toggle {
-	@apply w-10 md:w-14;
+	@apply size-10 right-4 lg:right-8 xl:right-10 2xl:right-12 fixed bottom-0 my-2 transition-all;
 }
 #sidebar[aria-hidden="true"] > #sidebar-toggle {
 	animation: none;
-	@apply right-2 md:right-6 transition-all duration-300 ease-in-out;
+	@apply right-0 duration-300 ease-in-out;
 }
 #sidebar[aria-hidden="false"] > #sidebar-toggle .ic-sidebar {
 	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="24px" stroke-width="1.6" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.25 10L5.5 12L7.25 14" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 21V3" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
