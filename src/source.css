@@ -216,7 +216,7 @@ blockquote {
 	animation: fadeIn 0.15s linear forwards;
 }
 #sidebar > #sidebar-toggle {
-	@apply size-10 right-4 lg:right-8 xl:right-10 2xl:right-12 fixed bottom-0 my-2 transition-all;
+	@apply size-10 right-4 lg:right-8 xl:right-12 2xl:right-16 fixed bottom-0 my-2 transition-all;
 }
 #sidebar[aria-hidden="true"] > #sidebar-toggle {
 	animation: none;
@@ -230,21 +230,48 @@ blockquote {
 	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="24px" stroke-width="1.6" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 21V3" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.5 10L7.25 12L5.5 14" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
 	@apply size-6 dark:invert-[0.7] scale-75;
 }
-#sidebar-doc-list li {
-	@apply hover:pt-px;
+#sidebar-doc-list a {
+	@apply block py-1 my-1;
 }
-#sidebar-doc-list li:first-child {
-	@apply hover:pt-0;
+#sidebar-doc-list a[aria-current="page"] {
+	@apply px-2 bg-zinc-200/50 dark:bg-zinc-800/80 border-none rounded font-medium;
 }
-#sidebar-doc-list li[aria-current="page"] {
-	@apply bg-zinc-200/50 dark:bg-zinc-800/80 border-none rounded font-medium hover:pt-0;
+/* #sidebar-doc-list .accordion ul {
+	@apply h-0 overflow-hidden transition-all;
 }
-#sidebar-doc-list li[aria-current="page"] + li,
-#sidebar-doc-list li:hover + li {
-	@apply border-none pt-px;
+#sidebar-doc-list .accordion ul.active {
+	@apply h-[auto] overflow-hidden transition-all;
+} */
+#sidebar-doc-list > ul ul {
+	@apply pl-2.5 grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows 0.15s ease-in-out;
 }
-#sidebar-doc-list li:hover + li[aria-current="page"] {
-	@apply pt-0;
+#sidebar-doc-list .accordion > ul > div {
+	@apply overflow-hidden;
+}
+#sidebar-doc-list .accordion[aria-expanded="true"] > ul {
+	grid-template-rows: 1fr;
+}
+#sidebar-doc-list .accordion > .accordion__button:after {
+	content: "";
+	@apply w-5 h-5 absolute right-4 top-2.5 rotate-0 dark:invert-[0.7];
+	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="20px" height="20px" stroke-width="1.6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M6 9L12 15L18 9" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
+	background-repeat: no-repeat;
+	transition: transform 0.15s ease-in-out;
+}
+#sidebar-doc-list .accordion[aria-expanded="true"] > .accordion__button:after {
+	@apply rotate-180;
+}
+#sidebar-doc-list .accordion .accordion__button {
+	@apply flex items-center justify-between w-full py-2 mt-1 relative pr-12;
+	@apply border-b dark:border-zinc-900 text-[15px] font-medium;
+}
+#sidebar-doc-list .accordion .accordion__button span {
+	@apply truncate text-ellipsis overflow-hidden inline-block;
+}
+#sidebar-doc-list .accordion[aria-expanded="true"] > .accordion__button > span {
+	@apply overflow-auto whitespace-normal inline-block text-left;
 }
 @keyframes fadeOut {
 	0% {

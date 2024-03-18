@@ -9,21 +9,9 @@
 	>
 		<!-- Sidebar menu starts -->
 
-		<div class="font-medium text-sm text-zinc-700 dark:text-zinc-400 px-2">DOCS</div>
+		<div class="font-medium text-sm text-zinc-700 dark:text-zinc-400">DOCS</div>
 		<ul id="sidebar-doc-list" class="pb-16 my-4">
-			<% for (doc of docs) { %>
-			<li
-				id="<%= doc.slice(0, -3).replaceAll(' ','_') %>"
-				class="m-0 border-t border-zinc-200 dark:border-zinc-800/50 hover:bg-zinc-100 hover:dark:bg-zinc-800/50 hover:rounded hover:border-none first:border-none"
-			>
-				<a
-					href="/<%= doc.slice(0, -3).replaceAll(' ','_') %>"
-					class="hover:no-underline p-2 block text-sm"
-				>
-					<%= doc.slice(0, -3) %>
-				</a>
-			</li>
-			<% } %>
+			<%- docs %>
 		</ul>
 
 		<!-- Sidebar menu ends -->
@@ -33,7 +21,7 @@
 		class="fixed bottom-0 left-0 right-0 pr-4 lg:pr-8 xl:pr-12 2xl:pr-16 text-xs text-zinc-500 dark:text-zinc-400"
 	>
 		<div class="flex place-items-center h-14 gap-3 border-t dark:border-zinc-800">
-			<span>v1.1.0</span>
+			<span>v1.2.0</span>
 			<span class="flex-1">
 				<a
 					class="text-zinc-800 dark:text-zinc-200"
