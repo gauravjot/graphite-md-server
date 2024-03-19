@@ -52,6 +52,10 @@ npm run live
 -   `public` directory: Contains static files like CSS, JS, and images.
 -   `src/source.css`: The source CSS file for the server. Use this to add more classes. DO NOT edit `public/css/style.css` directly as it will be overwritten by Tailwind.
 
+## How To Use
+
+Please see [src/index.md](src/index.md) for more information.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

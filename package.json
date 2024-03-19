@@ -7,7 +7,8 @@
 		"live": "node ./src/server.js",
 		"css": "npx tailwindcss -i ./src/source.css -o ./public/css/styles.css --minify --watch",
 		"nodemon": "npx nodemon ./src/server.js",
-		"dev": "npm run nodemon & npm run css"
+		"dev": "npm run nodemon & npm run css",
+		"build": "node ./build.js"
 	},
 	"author": "",
 	"license": "MIT",
@@ -16,6 +17,7 @@
 		"ejs": "^3.1.9",
 		"express": "^4.18.3",
 		"gray-matter": "^4.0.3",
+		"highlight.js": "^11.9.0",
 		"markdown-it": "^14.0.0",
 		"markdown-it-anchor": "^8.6.7"
 	},

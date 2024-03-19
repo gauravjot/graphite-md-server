@@ -94,19 +94,22 @@ a {
 }
 
 #md-content li {
-	@apply ml-5 mt-3 pl-2.5;
+	@apply ml-5 mt-2.5 pl-2.5;
 }
 
-#md-content ul li {
+#md-content ul > li {
 	@apply list-disc;
 }
 
-#md-content ol li {
+#md-content ol > li {
 	@apply list-decimal;
 }
 
 #md-content li::marker {
 	@apply text-zinc-400 dark:text-zinc-500;
+}
+#md-content li > p {
+	@apply mb-2;
 }
 
 video {
@@ -131,7 +134,7 @@ code {
 }
 
 pre > code {
-	@apply bg-transparent;
+	@apply bg-transparent !font-normal;
 	@apply text-zinc-700 dark:text-zinc-100 p-3 md:p-5 inline-block;
 }
 
@@ -230,10 +233,11 @@ blockquote {
 	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="24px" stroke-width="1.6" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 21V3" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.5 10L7.25 12L5.5 14" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
 	@apply size-6 dark:invert-[0.7] scale-75;
 }
-#sidebar-doc-list a {
-	@apply block py-1 my-1;
+#sidebar-doc-list a,
+#sidebar-nav-list a {
+	@apply block py-1 my-1 text-[15px] 2xl:text-base;
 }
-#sidebar-doc-list a[aria-current="page"] {
+#sidebar-doc-list a[aria-current="true"] {
 	@apply px-2 bg-zinc-200/50 dark:bg-zinc-800/80 border-none rounded font-medium;
 }
 /* #sidebar-doc-list .accordion ul {
@@ -243,7 +247,7 @@ blockquote {
 	@apply h-[auto] overflow-hidden transition-all;
 } */
 #sidebar-doc-list > ul ul {
-	@apply pl-2.5 grid;
+	@apply pl-2 grid border-l-4 border-zinc-300 dark:border-zinc-800;
 	grid-template-rows: 0fr;
 	transition: grid-template-rows 0.15s ease-in-out;
 }
@@ -265,7 +269,7 @@ blockquote {
 }
 #sidebar-doc-list .accordion .accordion__button {
 	@apply flex items-center justify-between w-full py-2 mt-1 relative pr-12;
-	@apply border-b dark:border-zinc-900 text-[15px] font-medium;
+	@apply text-[15px] 2xl:text-base font-medium;
 }
 #sidebar-doc-list .accordion .accordion__button span {
 	@apply truncate text-ellipsis overflow-hidden inline-block;
@@ -322,4 +326,70 @@ blockquote {
 }
 #md-content h2 {
 	@apply border-b border-zinc-300 dark:border-zinc-800 pb-1 pt-2;
+}
+
+/* Syntax Highlighting */
+.hljs-comment {
+	@apply text-zinc-500 dark:text-zinc-500;
+}
+.hljs-punctuation,
+.hljs-tag {
+	color: #444a;
+}
+.hljs-tag .hljs-attr,
+.hljs-tag .hljs-name {
+	color: #444;
+}
+.hljs-attribute,
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-name,
+.hljs-selector-tag {
+	@apply text-[#ce5249] dark:text-[#ff7b72];
+}
+.hljs-deletion,
+.hljs-number,
+.hljs-quote,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-string,
+.hljs-template-tag,
+.hljs-type {
+	@apply text-[#4f8bbd] dark:text-[#a5d6ff];
+}
+.hljs-section,
+.hljs-title {
+	@apply text-[#8c53c8] dark:text-[#d2a8ff];
+}
+.hljs-link,
+.hljs-operator,
+.hljs-regexp,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-symbol,
+.hljs-template-variable,
+.hljs-variable {
+	@apply text-slate-800 dark:text-slate-300;
+}
+.hljs-literal {
+	@apply text-[#3d78ac] dark:text-[#79c0ff];
+}
+.hljs-addition,
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code {
+	@apply text-[hsl(283,29%,49%)] dark:text-[hsl(283,63%,75%)];
+}
+.hljs-meta {
+	color: #1f7199;
+}
+.hljs-meta .hljs-string {
+	color: #38a;
+}
+.hljs-emphasis {
+	font-style: italic;
+}
+.hljs-strong {
+	font-weight: 700;
 }
