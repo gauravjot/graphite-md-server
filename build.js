@@ -58,8 +58,6 @@ function build() {
 	const fs = require("fs");
 	const distDir = path.join(__dirname, "dist");
 	if (!fs.existsSync(distDir)) {
-		// empty dist folder
-		fs.rm(distDir, { recursive: true, force: true });
 		fs.mkdirSync(distDir);
 	}
 

@@ -44,6 +44,17 @@ For non-development purposes use this command.
 npm run live
 ```
 
+## Deploy on Vercel
+
+Experimental support for Vercel is available. Simply clone this repository and then start a new project on Vercel. Point Vercel to use your cloned repository and use the following settings for the deployment:
+
+-   Framework Preset: Other
+-   Root Directory: `./`
+-   Build Command: `npm run build`
+-   Output Directory: `dist`
+
+> Note: The `dist` directory is created when you run the `npm run build` command.
+
 ## Structure
 
 -   `src/server.js`: The main file of the server.
@@ -52,7 +63,7 @@ npm run live
 -   `public` directory: Contains static files like CSS, JS, and images.
 -   `src/source.css`: The source CSS file for the server. Use this to add more classes. DO NOT edit `public/css/style.css` directly as it will be overwritten by Tailwind.
 
-## How To Use
+## How To Use and Write Documentation
 
 Please see [src/index.md](src/index.md) for more information.
 
