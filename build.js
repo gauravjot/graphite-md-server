@@ -1,14 +1,18 @@
-const ejs = require("ejs");
-const path = require("path");
-const fs = require("fs");
-const {
-	getFiles,
-	generateDocPage,
-	getDocURI,
-	generateHomePage,
-} = require("./src/utils.js");
+import { fileLoader, compile } from "ejs";
+import path from "path";
+import { cp, writeFile, mkdir, existsSync } from "fs";
+import { getFiles, generateDocPage, getDocURI, generateHomePage } from "./src/utils.js";
+import { fileURLToPath } from "url";
+import { minify } from "minify";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const distDir = path.join(__dirname, "dist");
+
+/**
+ * Minify Options
+ */
 
 /**
  * [THIS IS THE SKETCHY BIT ABOUT THE BUILD SCRIPT]
@@ -31,8 +35,8 @@ function escapeInternalLinks(html) {
 
 function generate_HomePage() {
 	const templatePath = path.join(__dirname, "src", "ejs", "index.ejs");
-	const templateStr = ejs.fileLoader(templatePath, "utf8");
-	const template = ejs.compile(templateStr, { filename: templatePath });
+	const templateStr = fileLoader(templatePath, "utf8");
+	const template = compile(templateStr, { filename: templatePath });
 
 	var html = template(generateHomePage());
 	html = escapeInternalLinks(html);
@@ -46,7 +50,7 @@ function generate_HomePage() {
  * @param {{path: string; title: string; files?: [];}[]} docTree
  * @returns
  */
-function generate_DocPages(template, docTree) {
+async function generate_DocPages(template, docTree) {
 	for (let i = 0; i < docTree.length; i++) {
 		if (docTree[i].files) {
 			// this is a directory
@@ -58,39 +62,56 @@ function generate_DocPages(template, docTree) {
 		const generate = generateDocPage(fn);
 		var html = template(generate);
 		html = escapeInternalLinks(html);
-		fs.writeFileSync(path.join(distDir, fn + ".html"), html);
+		await minify.html(html).then((data) => {
+			html = data;
+		});
+		writeFile(path.join(distDir, fn + ".html"), html, (err) => {
+			if (err) {
+				console.error("Error writing file", err);
+			}
+		});
 		console.log("=> Generated " + fn + ".html");
 	}
 }
 
-function build() {
+async function build() {
 	// Save in dist folder
 	console.log("\nBuilding...\n");
-	if (!fs.existsSync(distDir)) {
-		fs.mkdirSync(distDir);
+	if (!existsSync(distDir)) {
+		mkdir(distDir, (err) => {
+			if (err) {
+				console.error("Error creating dist folder", err);
+			}
+		});
 		console.log("\nCreated dist folder");
 	}
 
 	// Save Home Page
 	console.log("\nGenerating Home Page");
-	fs.writeFileSync(path.join(distDir, "index.html"), generate_HomePage());
-	console.log("=> Generated index.html\n");
+	await minify.html(generate_HomePage()).then((data) => {
+		writeFile(path.join(distDir, "index.html"), data, (err) => {
+			if (err) {
+				console.error("Error writing file", err);
+			}
+		});
+		console.log("=> Generated index.html\n");
+	});
 
 	/*
 	 * Save Doc Pages
 	 */
 	// Since all docs pages use same template
 	const templatePath = path.join(__dirname, "src", "ejs", "doc.ejs");
-	const templateStr = ejs.fileLoader(templatePath, "utf8");
-	const template = ejs.compile(templateStr, { filename: templatePath });
+	const templateStr = fileLoader(templatePath, "utf8");
+	const template = compile(templateStr, { filename: templatePath });
 	// Get the files
 	const docs = getFiles(path.join(__dirname, "content"));
 	console.log("Generating Doc Pages");
 	// Generate the pages
-	generate_DocPages(template, docs);
+	await generate_DocPages(template, docs);
 
 	// Copy public folder files to dist folder
-	fs.cp(
+	cp(
 		path.join(__dirname, "public"),
 		path.join(__dirname, "dist"),
 		{ recursive: true, force: true },
@@ -108,5 +129,4 @@ function build() {
 	console.log("\nBuild complete! Files are saved in dist folder. 🎉\n");
 }
 
-// Run the build
-build();
+await build();

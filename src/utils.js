@@ -1,8 +1,13 @@
-const fs = require("fs");
-const matter = require("gray-matter");
-const path = require("path");
-const anchor = require("markdown-it-anchor");
-const hljs = require("highlight.js");
+import fs from "fs";
+import matter from "gray-matter";
+import path from "path";
+import anchor from "markdown-it-anchor";
+import hljs from "highlight.js";
+import MarkdownIt from "markdown-it";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const markdownitOptions = {
 	html: true,
@@ -24,7 +29,7 @@ const markdownitOptions = {
  * @param {string} dir - Path to directory where files are located
  * @returns {{path: string; title: string; files?:[]}[]} readable file tree of md files
  */
-function getFiles(dir) {
+export function getFiles(dir) {
 	let files_ = [];
 	const files = fs.readdirSync(dir);
 	// sort alphabetically
@@ -72,7 +77,7 @@ function getFiles(dir) {
  * @param {boolean} isFile - If it is a file or folder
  * @returns {string} - Unique string eg. "folder1___folder2___this__article"
  */
-function getDocURI(filePath, isFile) {
+export function getDocURI(filePath, isFile) {
 	let id = filePath
 		.split(path.join(__dirname, "..", "content"))
 		.pop()
@@ -96,7 +101,7 @@ function getDocURI(filePath, isFile) {
  * @param {string} highlight - doc to highlight if it is opened
  * @returns {string} HTML
  */
-function generateSidebarList(data, highlight = "") {
+export function generateSidebarList(data, highlight = "") {
 	let html = "<ul><div>";
 	data.forEach((item) => {
 		if (item.files) {
@@ -140,7 +145,7 @@ function generateSidebarList(data, highlight = "") {
  * @param {string} article URL string of the article, eg. "folder1___folder2___this__article"
  * @returns {{post: string, title: string, date: string, description: string, docs: string}}
  */
-function generateDocPage(article) {
+export function generateDocPage(article) {
 	article = decodeURIComponent(article);
 	let basedir = path.join(__dirname, "..", "content");
 	const subpath = article.split("___");
@@ -153,7 +158,7 @@ function generateDocPage(article) {
 	const file = matter.read(filepath);
 
 	// use markdown-it to convert content to HTML
-	const md = require("markdown-it")(markdownitOptions);
+	const md = MarkdownIt(markdownitOptions);
 	md.use(anchor, {
 		slugify: (s) =>
 			encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-")),
@@ -180,14 +185,14 @@ function generateDocPage(article) {
  *
  * @returns {{post: string, docs: string}}
  */
-function generateHomePage() {
+export function generateHomePage() {
 	const filename = "index.md";
 	const filepath = path.join(__dirname, filename);
 	// read the markdown file
 	const file = matter.read(filepath);
 
 	// use markdown-it to convert content to HTML
-	const md = require("markdown-it")(markdownitOptions);
+	const md = MarkdownIt(markdownitOptions);
 	md.use(anchor, {
 		slugify: (s) =>
 			encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-")),
@@ -205,11 +210,3 @@ function generateHomePage() {
 		docs: generateSidebarList(docs),
 	};
 }
-
-module.exports = {
-	generateSidebarList,
-	getFiles,
-	generateDocPage,
-	getDocURI,
-	generateHomePage,
-};
