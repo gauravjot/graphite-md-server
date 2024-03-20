@@ -4,10 +4,25 @@ const path = require("path");
 const anchor = require("markdown-it-anchor");
 const hljs = require("highlight.js");
 
+const markdownitOptions = {
+	html: true,
+	xhtmlOut: true,
+	breaks: true,
+	highlight: function (str, lang) {
+		if (lang && hljs.getLanguage(lang)) {
+			try {
+				return hljs.highlight(str, { language: lang }).value;
+			} catch (__) {}
+		}
+
+		return ""; // use external default escaping
+	},
+};
+
 /**
  * Get all md files from the content folder and the subfolders
  * @param {string} dir - Path to directory where files are located
- * @returns {JSON} readable file tree of md files
+ * @returns {{path: string; title: string; files?:[]}[]} readable file tree of md files
  */
 function getFiles(dir) {
 	let files_ = [];
@@ -47,24 +62,24 @@ function getFiles(dir) {
 }
 
 /**
- * This function generates a unique string for a file or folder
- * based on the path.
+ * Generates URL string of the doc or id of the folder
+ *
  * For files    : It returns a unique string that is used as
- *                URL string for anchor tag
+ *                URL string for anchor tag.
  * For folders  : It returns a unique string that is used as
- *                id string for folder div element in sidebar
- * @param {string} file_path - Path to file or folder
- * @param {string} is_file - If it is a file or folder
- * @returns {string} - Unique string
+ *                id string for folder div element in sidebar.
+ * @param {string} filePath - Path to file or folder
+ * @param {boolean} isFile - If it is a file or folder
+ * @returns {string} - Unique string eg. "folder1___folder2___this__article"
  */
-function getDocURI(file_path, is_file) {
-	let id = file_path
+function getDocURI(filePath, isFile) {
+	let id = filePath
 		.split(path.join(__dirname, "..", "content"))
 		.pop()
 		.replace(/^\/|\/$/g, "")
 		.replaceAll("/", "___")
 		.replaceAll(" ", "__");
-	if (is_file) {
+	if (isFile) {
 		// it is a file, return URL string, replace .md with empty string
 		return encodeURIComponent(id.replace(".md", ""));
 	} else {
@@ -77,25 +92,32 @@ function getDocURI(file_path, is_file) {
  * This function generates a list that is used in the sidebar
  * to show the document tree
  *
- * @param {[]} data - output of getFiles() function
+ * @param {{path: string; title: string; files?:[]}[]} data - output of getFiles() function
  * @param {string} highlight - doc to highlight if it is opened
  * @returns {string} HTML
  */
 function generateSidebarList(data, highlight = "") {
-	let html = "<ul>";
+	let html = "<ul><div>";
 	data.forEach((item) => {
 		if (item.files) {
 			const id = getDocURI(item.path, false);
 			html += '<div class="accordion" id="' + id + '">';
+			let name = id.split("___").slice(-1).join("").replaceAll("__", " ");
+			// regex [digit+]_ to remove the number prefix
+			if (/^\d+_/.test(name)) {
+				name = name.replace(/^\d+_/, "");
+			}
 			html +=
-				'<button class="accordion__button"><span>' +
-				id.split("___").slice(-1).join("").replaceAll("__", " ") +
-				"</span></button>";
-			html += "<div>";
+				'<button class="accordion__button"><span>' + name + "</span></button>";
 			html += generateSidebarList(item.files, highlight);
-			html += "</div></div>";
+			html += "</div>";
 		} else {
 			const link = getDocURI(item.path, true);
+			let name = item.title;
+			// regex [digit+]_ to remove the number prefix
+			if (/^\d+_/.test(name)) {
+				name = name.replace(/^\d+_/, "");
+			}
 			html +=
 				'<li><a id="' +
 				link +
@@ -104,15 +126,20 @@ function generateSidebarList(data, highlight = "") {
 				'" aria-current="' +
 				(highlight === link) +
 				'">' +
-				item.title +
+				name +
 				"</a></li>";
 		}
 	});
-	html += "</ul>";
+	html += "</div></ul>";
 	return html;
 }
 
-// Doc page generation
+/**
+ * Generates a doc page for express to render
+ *
+ * @param {string} article URL string of the article, eg. "folder1___folder2___this__article"
+ * @returns {{post: string, title: string, date: string, description: string, docs: string}}
+ */
 function generateDocPage(article) {
 	article = decodeURIComponent(article);
 	let basedir = path.join(__dirname, "..", "content");
@@ -126,17 +153,7 @@ function generateDocPage(article) {
 	const file = matter.read(filepath);
 
 	// use markdown-it to convert content to HTML
-	const md = require("markdown-it")({
-		highlight: function (str, lang) {
-			if (lang && hljs.getLanguage(lang)) {
-				try {
-					return hljs.highlight(str, { language: lang }).value;
-				} catch (__) {}
-			}
-
-			return ""; // use external default escaping
-		},
-	});
+	const md = require("markdown-it")(markdownitOptions);
 	md.use(anchor, {
 		slugify: (s) =>
 			encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-")),
@@ -158,7 +175,11 @@ function generateDocPage(article) {
 	};
 }
 
-// Home page generation
+/**
+ * Generates the home page for express to render
+ *
+ * @returns {{post: string, docs: string}}
+ */
 function generateHomePage() {
 	const filename = "index.md";
 	const filepath = path.join(__dirname, filename);
@@ -166,17 +187,7 @@ function generateHomePage() {
 	const file = matter.read(filepath);
 
 	// use markdown-it to convert content to HTML
-	const md = require("markdown-it")({
-		highlight: function (str, lang) {
-			if (lang && hljs.getLanguage(lang)) {
-				try {
-					return hljs.highlight(str, { language: lang }).value;
-				} catch (__) {}
-			}
-
-			return ""; // use external default escaping
-		},
-	});
+	const md = require("markdown-it")(markdownitOptions);
 	md.use(anchor, {
 		slugify: (s) =>
 			encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-")),

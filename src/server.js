@@ -1,22 +1,20 @@
 const express = require("express");
-const app = express();
+const bodyParser = require("body-parser");
+const path = require("path");
 const { generateDocPage, generateHomePage } = require("./utils.js");
 
-// if you have a public dir with static scripts and styles
-app.use(express.static("public"));
-
-var bodyParser = require("body-parser");
+const app = express();
+app.use(express.static(path.join(__dirname, "..", "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// path for the ejs folder
-const path = require("path");
-
+// Set up EJS
 app.set("views", path.join(__dirname, "./ejs"));
 app.set("view engine", "ejs");
 
-// set public folder as static folder for static files
-app.use(express.static(path.join(__dirname, "..", "public")));
+/*
+ * Routes
+ */
 
 app.get("/:article", (req, res) => {
 	res.render("doc", generateDocPage(req.params.article));
@@ -25,6 +23,10 @@ app.get("/:article", (req, res) => {
 app.get("/", (req, res) => {
 	res.render("index", generateHomePage());
 });
+
+/*
+ * Start server
+ */
 
 app.listen(3000, () => {
 	console.log("Server is running on port 3000");

@@ -1,5 +1,6 @@
 const ejs = require("ejs");
 const path = require("path");
+const fs = require("fs");
 const {
 	getFiles,
 	generateDocPage,
@@ -7,9 +8,14 @@ const {
 	generateHomePage,
 } = require("./src/utils.js");
 
-const docs = getFiles(path.join(__dirname, "content"));
+const distDir = path.join(__dirname, "dist");
 
-// find all a hrefs that are not external, and add .html to them
+/**
+ * [THIS IS THE SKETCHY BIT ABOUT THE BUILD SCRIPT]
+ * find all a hrefs that are not external, and add .html to them
+ * @param {string} html
+ * @returns
+ */
 function escapeInternalLinks(html) {
 	const regex = /<a\s+(?:[^>]*?\s+)?href="([^"]*)"/g;
 	return html.replaceAll(regex, (match, p1) => {
@@ -34,45 +40,54 @@ function generate_HomePage() {
 	return html;
 }
 
-function generate_DocPages() {
-	const templatePath = path.join(__dirname, "src", "ejs", "doc.ejs");
-	const templateStr = ejs.fileLoader(templatePath, "utf8");
-	const template = ejs.compile(templateStr, { filename: templatePath });
+/**
+ *
+ * @param {*} template
+ * @param {{path: string; title: string; files?: [];}[]} docTree
+ * @returns
+ */
+function generate_DocPages(template, docTree) {
+	for (let i = 0; i < docTree.length; i++) {
+		if (docTree[i].files) {
+			// this is a directory
+			generate_DocPages(template, docTree[i].files);
+			continue;
+		}
 
-	result = [];
-	for (let i = 0; i < docs.length; i++) {
-		const fn = getDocURI(docs[i]["category"], docs[i]["path"]);
-		const generate = generateDocPage(fn[1]);
+		const fn = getDocURI(docTree[i]["path"], true);
+		const generate = generateDocPage(fn);
 		var html = template(generate);
 		html = escapeInternalLinks(html);
-		result.push({
-			filename: fn[1] + ".html",
-			html: html,
-		});
+		fs.writeFileSync(path.join(distDir, fn + ".html"), html);
+		console.log("=> Generated " + fn + ".html");
 	}
-	return result;
 }
 
 function build() {
 	// Save in dist folder
-	const fs = require("fs");
-	const distDir = path.join(__dirname, "dist");
+	console.log("\nBuilding...\n");
 	if (!fs.existsSync(distDir)) {
 		fs.mkdirSync(distDir);
+		console.log("\nCreated dist folder");
 	}
 
 	// Save Home Page
-	console.log("Generating Home Page");
+	console.log("\nGenerating Home Page");
 	fs.writeFileSync(path.join(distDir, "index.html"), generate_HomePage());
 	console.log("=> Generated index.html\n");
 
-	// Save Doc Pages
-	console.log("\nGenerating Doc Pages");
-	const pages = generate_DocPages();
-	for (let i = 0; i < pages.length; i++) {
-		fs.writeFileSync(path.join(distDir, pages[i].filename), pages[i].html);
-		console.log("=> Generated " + pages[i].filename);
-	}
+	/*
+	 * Save Doc Pages
+	 */
+	// Since all docs pages use same template
+	const templatePath = path.join(__dirname, "src", "ejs", "doc.ejs");
+	const templateStr = ejs.fileLoader(templatePath, "utf8");
+	const template = ejs.compile(templateStr, { filename: templatePath });
+	// Get the files
+	const docs = getFiles(path.join(__dirname, "content"));
+	console.log("Generating Doc Pages");
+	// Generate the pages
+	generate_DocPages(template, docs);
 
 	// Copy public folder files to dist folder
 	fs.cp(
@@ -81,10 +96,16 @@ function build() {
 		{ recursive: true, force: true },
 		(err) => {
 			if (err) {
-				console.error("Error copying public folder to dist folder", err);
+				console.error(
+					"Error copying public folder to dist folder. Please manually move the contents of public folder to dist folder.",
+					err
+				);
 			}
 		}
 	);
+
+	// Success message
+	console.log("\nBuild complete! Files are saved in dist folder. 🎉\n");
 }
 
 // Run the build

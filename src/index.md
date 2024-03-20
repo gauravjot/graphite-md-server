@@ -1,4 +1,8 @@
+<center>
+
 # Welcome to Graphite Docs
+
+</center>
 
 To edit this file, go to `src/index.md` in your repository. But before that, here are few things you should know:
 
