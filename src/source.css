@@ -12,7 +12,23 @@ html,
 }
 
 body {
-	@apply font-sans bg-zinc-50 text-zinc-700 dark:bg-zinc-950 dark:text-white leading-[1.6];
+	@apply font-sans leading-[1.6];
+}
+@media (prefers-color-scheme: dark) {
+	body {
+		@apply bg-zinc-950 text-white;
+	}
+}
+@media (prefers-color-scheme: light) {
+	body {
+		@apply bg-zinc-50 text-zinc-700;
+	}
+}
+body {
+	@apply bg-zinc-50 text-zinc-700;
+}
+body.dark {
+	@apply bg-zinc-950 text-white;
 }
 
 h1,
@@ -246,7 +262,7 @@ blockquote {
 #sidebar-doc-list .accordion ul.active {
 	@apply h-[auto] overflow-hidden transition-all;
 } */
-#sidebar-doc-list > ul ul {
+#sidebar-doc-list .accordion ul {
 	@apply pl-2 grid border-l-4 border-zinc-300 dark:border-zinc-800;
 	grid-template-rows: 0fr;
 	transition: grid-template-rows 0.15s ease-in-out;

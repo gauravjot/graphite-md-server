@@ -3,137 +3,113 @@ const matter = require("gray-matter");
 const path = require("path");
 const anchor = require("markdown-it-anchor");
 const hljs = require("highlight.js");
-const { get } = require("http");
-const e = require("express");
 
-// Get all md files from the content folder and the subfolders.
-// We will store the subfolder name as the category of the article.
-function getFiles(dir, basedir, files_, category) {
-	files_ = files_ || [];
-	category = category || "content";
-	basedir = basedir || dir;
+/**
+ * Get all md files from the content folder and the subfolders
+ * @param {string} dir - Path to directory where files are located
+ * @returns {JSON} readable file tree of md files
+ */
+function getFiles(dir) {
+	let files_ = [];
 	const files = fs.readdirSync(dir);
+	// sort alphabetically
+	files.sort((a, b) => {
+		if (a < b) {
+			return -1;
+		}
+		return 1;
+	});
+	// iterate over files and recurse if it is a directory
 	for (var i in files) {
-		let name = dir + "/" + files[i];
-		if (fs.statSync(name).isDirectory()) {
-			getFiles(name, basedir, files_, files[i]);
+		let file_path = dir + "/" + files[i];
+		if (fs.statSync(file_path).isDirectory()) {
+			let dir_files = getFiles(file_path);
+			if (dir_files.length > 0) {
+				files_.push({
+					title: files[i],
+					path: file_path,
+					files: dir_files,
+				});
+			}
 		} else {
 			if (!files[i].endsWith(".md") || files[i].startsWith("_")) {
 				continue;
 			}
 			files_.push({
-				path: name,
+				path: file_path,
 				title:
-					matter.read(path.resolve(name)).data.title ||
+					matter.read(path.resolve(file_path)).data.title ||
 					files[i].replace(".md", ""),
-				category: name.replace(basedir, "").replace(files[i], ""),
 			});
 		}
 	}
-	// sort based on the category and then the title
-	files_.sort((a, b) => {
-		if (a.category < b.category) {
-			return -1;
-		}
-		if (a.category > b.category) {
-			return 1;
-		}
-		if (a.path.split("/").pop() < b.path.split("/").pop()) {
-			return -1;
-		}
-		if (a.path.split("/").pop() > b.path.split("/").pop()) {
-			return 1;
-		}
-		return 0;
-	});
 	return files_;
 }
 
-// Take a category from return of getFiles() fnc e.g. `category: /GoLang/Setup/`
-// Take filesystem path e.g. `fs_path: F:\\..\\content/GoLang/Setup/Get Started.md'`
-// Return a tuple of id and link
-// id format: `category___category___category`
-// link format: `category___category___category___Get_Started`
-function getDocURI(category, fs_path) {
-	let id = category
+/**
+ * This function generates a unique string for a file or folder
+ * based on the path.
+ * For files    : It returns a unique string that is used as
+ *                URL string for anchor tag
+ * For folders  : It returns a unique string that is used as
+ *                id string for folder div element in sidebar
+ * @param {string} file_path - Path to file or folder
+ * @param {string} is_file - If it is a file or folder
+ * @returns {string} - Unique string
+ */
+function getDocURI(file_path, is_file) {
+	let id = file_path
+		.split(path.join(__dirname, "..", "content"))
+		.pop()
 		.replace(/^\/|\/$/g, "")
 		.replaceAll("/", "___")
 		.replaceAll(" ", "__");
-	let link = null;
-	if (fs_path !== undefined) {
-		link =
-			id +
-			(id.length > 0 ? "___" : "") +
-			fs_path.split("/").pop().replaceAll(" ", "__").replace(".md", "");
-		// convert link to url friendly
-		link = encodeURIComponent(link);
+	if (is_file) {
+		// it is a file, return URL string, replace .md with empty string
+		return encodeURIComponent(id.replace(".md", ""));
+	} else {
+		// it is a folder, return id
+		return id;
 	}
-	return [id, link];
 }
 
-// Sidebar nested list generation
-function generateNestedListHTML(data, highlight_doc = "") {
-	// Group items by category
-	const groupedItems = {};
-	const categories = [];
+/**
+ * This function generates a list that is used in the sidebar
+ * to show the document tree
+ *
+ * @param {[]} data - output of getFiles() function
+ * @param {string} highlight - doc to highlight if it is opened
+ * @returns {string} HTML
+ */
+function generateSidebarList(data, highlight = "") {
+	let html = "<ul>";
 	data.forEach((item) => {
-		const category = item.category;
-		if (!groupedItems[category]) {
-			groupedItems[category] = [];
-			categories.push(category);
-		}
-		groupedItems[category].push(item);
-	});
-
-	// Function to recursively build the nested UL list
-	function buildNestedListHTML(category_index) {
-		const category = categories[category_index];
-		let html = "";
-		let id = getDocURI(category)[0];
-		if (category === "/") {
-			html = "<ul>";
-			id = "";
-		} else {
-			html = '<div class="accordion" id="' + id + '">';
+		if (item.files) {
+			const id = getDocURI(item.path, false);
+			html += '<div class="accordion" id="' + id + '">';
 			html +=
 				'<button class="accordion__button"><span>' +
 				id.split("___").slice(-1).join("").replaceAll("__", " ") +
 				"</span></button>";
-			html += "<ul><div>";
-		}
-		groupedItems[category].forEach((item) => {
-			// match item.title with [digit+]_[w+] pattern
-			const match = item.title.match(/^(\d+_)/);
-			const link = getDocURI(category, item.path)[1];
-			html += "<li>";
+			html += "<div>";
+			html += generateSidebarList(item.files, highlight);
+			html += "</div></div>";
+		} else {
+			const link = getDocURI(item.path, true);
 			html +=
-				'<a id="' +
+				'<li><a id="' +
 				link +
 				'" href="/' +
 				link +
 				'" aria-current="' +
-				(highlight_doc === link) +
+				(highlight === link) +
 				'">' +
-				(match ? item.title.replace(match[0], "") : item.title) +
-				"</a>";
-			html += "</li>";
-		});
-		if (
-			category_index + 1 < categories.length &&
-			categories[category_index + 1].startsWith(category)
-		) {
-			html += buildNestedListHTML(category_index + 1);
+				item.title +
+				"</a></li>";
 		}
-		if (category === "/") {
-			html += "</ul>";
-		} else {
-			html += "</div></ul>";
-			html += "</div>";
-		}
-		return html;
-	}
-	let res = buildNestedListHTML(0);
-	return res;
+	});
+	html += "</ul>";
+	return html;
 }
 
 // Doc page generation
@@ -178,7 +154,7 @@ function generateDocPage(article) {
 		title: file.data.title,
 		date: file.data.date,
 		description: file.data.description,
-		docs: generateNestedListHTML(docs, article),
+		docs: generateSidebarList(docs, article),
 	};
 }
 
@@ -215,12 +191,12 @@ function generateHomePage() {
 
 	return {
 		post: result,
-		docs: generateNestedListHTML(docs),
+		docs: generateSidebarList(docs),
 	};
 }
 
 module.exports = {
-	generateNestedListHTML,
+	generateSidebarList,
 	getFiles,
 	generateDocPage,
 	getDocURI,
