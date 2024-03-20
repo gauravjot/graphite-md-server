@@ -3,7 +3,7 @@ import path from "path";
 import { cp, writeFile, mkdir, existsSync } from "fs";
 import { getFiles, generateDocPage, getDocURI, generateHomePage } from "./src/utils.js";
 import { fileURLToPath } from "url";
-import { minify } from "minify";
+import { minify } from "html-minifier";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,7 +50,7 @@ function generate_HomePage() {
  * @param {{path: string; title: string; files?: [];}[]} docTree
  * @returns
  */
-async function generate_DocPages(template, docTree) {
+function generate_DocPages(template, docTree) {
 	for (let i = 0; i < docTree.length; i++) {
 		if (docTree[i].files) {
 			// this is a directory
@@ -62,8 +62,12 @@ async function generate_DocPages(template, docTree) {
 		const generate = generateDocPage(fn);
 		var html = template(generate);
 		html = escapeInternalLinks(html);
-		await minify.html(html).then((data) => {
-			html = data;
+		html = minify(html, {
+			keepClosingSlash: true,
+			removeOptionalTags: false,
+			removeComments: true,
+			collapseWhitespace: true,
+			minifyJS: true,
 		});
 		writeFile(path.join(distDir, fn + ".html"), html, (err) => {
 			if (err) {
@@ -74,7 +78,7 @@ async function generate_DocPages(template, docTree) {
 	}
 }
 
-async function build() {
+function build() {
 	// Save in dist folder
 	console.log("\nBuilding...\n");
 	if (!existsSync(distDir)) {
@@ -88,14 +92,19 @@ async function build() {
 
 	// Save Home Page
 	console.log("\nGenerating Home Page");
-	await minify.html(generate_HomePage()).then((data) => {
-		writeFile(path.join(distDir, "index.html"), data, (err) => {
-			if (err) {
-				console.error("Error writing file", err);
-			}
-		});
-		console.log("=> Generated index.html\n");
+	let html = minify(generate_HomePage(), {
+		keepClosingSlash: true,
+		removeOptionalTags: false,
+		removeComments: true,
+		collapseWhitespace: true,
+		minifyJS: true,
 	});
+	writeFile(path.join(distDir, "index.html"), html, (err) => {
+		if (err) {
+			console.error("Error writing file", err);
+		}
+	});
+	console.log("=> Generated index.html\n");
 
 	/*
 	 * Save Doc Pages
@@ -108,7 +117,7 @@ async function build() {
 	const docs = getFiles(path.join(__dirname, "content"));
 	console.log("Generating Doc Pages");
 	// Generate the pages
-	await generate_DocPages(template, docs);
+	generate_DocPages(template, docs);
 
 	// Copy public folder files to dist folder
 	cp(
@@ -129,4 +138,4 @@ async function build() {
 	console.log("\nBuild complete! Files are saved in dist folder. 🎉\n");
 }
 
-await build();
+build();
