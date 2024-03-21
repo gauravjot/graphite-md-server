@@ -2,7 +2,7 @@
 <div
 	id="sidebar"
 	aria-hidden="false"
-	class="fixed overflow-hidden backdrop-blur-sm bg-zinc-50/90 dark:bg-zinc-950/90 top-16 mt-px bottom-0"
+	class="fixed z-50 overflow-hidden backdrop-blur-sm bg-zinc-50/90 dark:bg-zinc-950/90 top-16 mt-px bottom-0"
 >
 	<div
 		class="pr-4 lg:pr-8 xl:pr-12 2xl:pr-16 py-8 relative h-[calc(100%-2.27rem)] overflow-y-auto"
@@ -24,6 +24,7 @@
 		</ul>
 
 		<div class="font-medium text-sm text-zinc-500">DOCS</div>
+		<!-- Doc list for navigation -->
 		<ul id="sidebar-doc-list" class="pb-16 my-4">
 			<%- docs %>
 		</ul>
@@ -57,7 +58,7 @@
 		</div>
 	</div>
 	<!-- Sidebar footer ends -->
-	<!-- Toggle button -->
+	<!-- Sidebar toggle button -->
 	<div id="sidebar-toggle">
 		<button
 			onClick="toggleSidebar()"
@@ -67,6 +68,6 @@
 			<span class="ic-sidebar"></span>
 		</button>
 	</div>
-	<!-- Toggle button ends -->
+	<!-- Siedbar toggle button ends -->
 </div>
 <!-- Sidebar ends -->

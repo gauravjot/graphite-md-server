@@ -12,7 +12,7 @@
 				class="h-[calc(100%-4rem)] sidebar-open mt-16 flex flex-col lg:flex-row md:gap-6 lg:gap-8 xl:gap-12 2xl:gap-16"
 				id="content"
 			>
-				<div class="pt-px mb-8 flex-1 order-2" id="md-content">
+				<div class="pt-px mb-8 flex-1 order-2 @container/doc" id="md-content">
 					<!-- Content starts -->
 					<div class="text-zinc-500 dark:text-zinc-400 mt-8">
 						Last updated - <%= new Date(date).toDateString() %>, <%= new
@@ -23,6 +23,38 @@
 						<%= description %>
 					</p>
 					<div><%- post %></div>
+					<div class="grid @xl/doc:grid-cols-2 gap-8 mb-4 mt-20">
+						<div class="col-span-1">
+							<% if(prev){ %>
+							<a
+								href="<%= prev %>"
+								class="block border hover:bg-primary-100 hover:dark:bg-primary-600/10 border-primary-600 dark:border-primary-700/60 rounded-md shadow px-4 py-3 hover:no-underline"
+							>
+								<div
+									class="font-medium text-zinc-700 dark:text-zinc-300 text-sm mb-2"
+								>
+									Previous
+								</div>
+								<div class="font-medium"><%= prevTitle %></div></a
+							>
+							<% } %>
+						</div>
+						<div class="col-span-1">
+							<% if(next){ %>
+							<a
+								href="<%= next %>"
+								class="block border hover:bg-primary-100 hover:dark:bg-primary-600/10 text-right border-primary-600 dark:border-primary-700/60 rounded-md shadow px-4 py-3 hover:no-underline"
+							>
+								<div
+									class="font-medium text-zinc-700 dark:text-zinc-300 text-sm mb-2"
+								>
+									Next
+								</div>
+								<div class="font-medium"><%= nextTitle %></div>
+							</a>
+							<% } %>
+						</div>
+					</div>
 					<!-- Content ends -->
 				</div>
 				<!-- Table of Contents starts -->

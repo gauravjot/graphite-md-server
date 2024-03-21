@@ -14,9 +14,17 @@ const markdownitOptions = {
 	xhtmlOut: true,
 	breaks: true,
 	highlight: function (str, lang) {
-		if (lang && hljs.getLanguage(lang)) {
+		// lang may be e.g. "javacript_good" or "javascript_bad"
+		// where good and bad are visual cues through css for codeblock
+		if (lang && hljs.getLanguage(lang.split("_")[0])) {
 			try {
-				return hljs.highlight(str, { language: lang }).value;
+				let block = `<pre ${
+					lang.split("_")[1] ? `class="${lang.split("_")[1]}"` : ""
+				}>`;
+				block += `<code class="language-${lang.split("_")[0]}">`;
+				block += hljs.highlight(str, { language: lang.split("_")[0] }).value;
+				block += "</code></pre>";
+				return block;
 			} catch (__) {}
 		}
 
@@ -91,6 +99,29 @@ export function getDocURI(filePath, isFile) {
 		// it is a folder, return id
 		return id;
 	}
+}
+
+/**
+ * Takes string like folder1___folder2___this__article and returns title
+ *
+ * @param {string} name
+ * @returns {string} title of the document
+ */
+export function parseDocTitleFromURI(name) {
+	if (!name) {
+		return "";
+	}
+	let baseDir = path.join(__dirname, "..", "content");
+	let filePath = path.join(
+		baseDir,
+		name.replaceAll("___", "/").replaceAll("__", " ") + ".md"
+	);
+	// read file
+	const file = matter.read(filePath);
+	return (
+		file.data.title ||
+		name.split("___").pop().replaceAll("__", " ").replace(/^\d+_/, "")
+	);
 }
 
 /**
@@ -176,6 +207,10 @@ export function generateDocPage(article) {
 		title: file.data.title,
 		date: file.data.date,
 		description: file.data.description,
+		next: file.data.next || "",
+		nextTitle: parseDocTitleFromURI(file.data.next || ""),
+		prev: file.data.prev || "",
+		prevTitle: parseDocTitleFromURI(file.data.prev || ""),
 		docs: generateSidebarList(docs, article),
 	};
 }
