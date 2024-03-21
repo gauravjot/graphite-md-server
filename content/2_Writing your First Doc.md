@@ -32,38 +32,24 @@ Your content goes here.
 
 ## Content Formatting
 
-The content of the doc is written in markdown format. If you are not familiar with markdown, you can check the [Markdown Guide](https://www.markdownguide.org/).
+The content is written in markdown format. If you are not familiar with markdown, you can check the [Markdown Guide](https://www.markdownguide.org/).
 
 ### Linking other Docs
 
 The format for linking other docs looks like this:
 
 ```text
-Folder__1___Folder__2___1_Doc.md
+[link title](/Folder__1___Folder__2___1_Doc)
 ```
 
-This links to a doc located at `content/Folder 1/Folder 2/1_Doc.md` in file tree.
+This creates a link to a doc located at `content/Folder 1/Folder 2/1_Doc.md` in file tree.
 
 ##### Key Points
 
 -   The file path is relative to the `content` directory.
 
 -   Folders and file names have _spaces_ replaced with `__` (double underscore). The file extension `.md` is omitted.
--   To distinguish between folders and file, `___` (triple underscore) is used.
-
-##### Example
-
-For a doc directory `content/Ocean Animals/Whale Watching.md`:
-
-```text
-Ocean__Animals___Whale__Watching
-```
-
-In markdown, it will look like this
-
-```markdown
-[Whale Watching](/Ocean__Animals___Whale__Watching)
-```
+-   To distinguish within folders and file, `___` (triple underscore) is used.
 
 <br/>
 

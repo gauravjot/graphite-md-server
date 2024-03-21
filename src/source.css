@@ -47,7 +47,7 @@ ul {
 }
 
 a {
-	@apply text-primary-700 dark:text-primary-300 no-underline hover:underline focus:outline-none focus-visible:outline-none;
+	@apply text-primary-700 dark:text-primary-400 no-underline hover:underline focus:outline-none focus-visible:outline-none;
 }
 
 #md-content h1 {
@@ -63,15 +63,15 @@ a {
 }
 
 #md-content h4 {
-	@apply text-xl md:text-2xl mb-6 mt-9;
+	@apply text-xl md:text-2xl mb-6 mt-9 opacity-90;
 }
 
 #md-content h5 {
-	@apply text-lg md:text-xl mb-6 mt-8;
+	@apply text-lg md:text-xl mb-6 mt-8 opacity-90;
 }
 
 #md-content h6 {
-	@apply text-base md:text-lg mb-6 mt-8;
+	@apply text-base md:text-lg mb-6 mt-8 opacity-90;
 }
 
 #md-content p {
@@ -347,11 +347,11 @@ blockquote {
 }
 .hljs-punctuation,
 .hljs-tag {
-	color: #444a;
+	@apply text-[#165181] dark:text-[#a5d6ff];
 }
 .hljs-tag .hljs-attr,
 .hljs-tag .hljs-name {
-	color: #444;
+	@apply text-[#0d7717] dark:text-[#7ee787];
 }
 .hljs-attribute,
 .hljs-doctag,
@@ -359,7 +359,7 @@ blockquote {
 .hljs-meta .hljs-keyword,
 .hljs-name,
 .hljs-selector-tag {
-	@apply text-[#ce5249] dark:text-[#ff7b72];
+	@apply text-[#ad3229] dark:text-[#ff7b72];
 }
 .hljs-deletion,
 .hljs-number,
@@ -369,11 +369,11 @@ blockquote {
 .hljs-string,
 .hljs-template-tag,
 .hljs-type {
-	@apply text-[#2e7bb9] dark:text-[#a5d6ff];
+	@apply text-[#165181] dark:text-[#a5d6ff];
 }
 .hljs-section,
 .hljs-title {
-	@apply text-[#8c53c8] dark:text-[#d2a8ff];
+	@apply text-[#5712a0] dark:text-[#d2a8ff];
 }
 .hljs-link,
 .hljs-operator,
@@ -386,13 +386,13 @@ blockquote {
 	@apply text-slate-800 dark:text-slate-300;
 }
 .hljs-literal {
-	@apply text-[#3d78ac] dark:text-[#79c0ff];
+	@apply text-[#225d92] dark:text-[#79c0ff];
 }
 .hljs-addition,
 .hljs-built_in,
 .hljs-bullet,
 .hljs-code {
-	@apply text-[hsl(283,29%,49%)] dark:text-[hsl(283,63%,75%)];
+	@apply text-[hsl(283,65%,29%)] dark:text-[hsl(283,63%,75%)];
 }
 .hljs-meta {
 	color: #1f7199;
