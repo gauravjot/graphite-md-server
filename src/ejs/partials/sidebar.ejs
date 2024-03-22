@@ -2,13 +2,13 @@
 <div
 	id="sidebar"
 	aria-hidden="false"
-	class="fixed overflow-hidden backdrop-blur-sm bg-zinc-50/90 dark:bg-zinc-950/90 top-16 mt-px bottom-0"
+	class="fixed z-50 overflow-hidden backdrop-blur-sm bg-zinc-50/90 dark:bg-zinc-950/90 top-16 mt-px bottom-0"
 >
 	<div
 		class="pr-4 lg:pr-8 xl:pr-12 2xl:pr-16 py-8 relative h-[calc(100%-2.27rem)] overflow-y-auto"
 	>
 		<!-- Sidebar menu starts -->
-		<div class="font-medium text-sm text-zinc-700 dark:text-zinc-400">LINKS</div>
+		<div class="font-medium text-sm text-zinc-500">LINKS</div>
 		<ul id="sidebar-nav-list" class="pb-4 my-4">
 			<li>
 				<a href="/">Home</a>
@@ -18,12 +18,13 @@
 					href="https://github.com/gauravjot/graphite-md-server"
 					target="_blank"
 					rel="noopener noreferrer"
-					>Your Website</a
+					>GitHub Repository</a
 				>
 			</li>
 		</ul>
 
-		<div class="font-medium text-sm text-zinc-700 dark:text-zinc-400">DOCS</div>
+		<div class="font-medium text-sm text-zinc-500">DOCS</div>
+		<!-- Doc list for navigation -->
 		<ul id="sidebar-doc-list" class="pb-16 my-4">
 			<%- docs %>
 		</ul>
@@ -35,20 +36,29 @@
 		class="fixed bottom-0 left-0 right-0 pr-4 lg:pr-8 xl:pr-12 2xl:pr-16 text-xs text-zinc-500 dark:text-zinc-400"
 	>
 		<div class="flex place-items-center h-14 gap-3 border-t dark:border-zinc-800">
-			<span>v1.2.0</span>
-			<span class="flex-1">
+			<span>v1.3.0</span>
+			<div class="flex-1 flex gap-3.5">
 				<a
 					class="text-zinc-800 dark:text-zinc-200"
 					href="https://github.com/gauravjot/graphite-md-server/releases"
 					target="_blank"
 					rel="noopener noreferrer"
-					>GitHub</a
-				></span
-			>
+				>
+					Releases
+				</a>
+				<a
+					class="text-zinc-800 dark:text-zinc-200"
+					href="https://graphite-docs.vercel.app"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Docs
+				</a>
+			</div>
 		</div>
 	</div>
 	<!-- Sidebar footer ends -->
-	<!-- Toggle button -->
+	<!-- Sidebar toggle button -->
 	<div id="sidebar-toggle">
 		<button
 			onClick="toggleSidebar()"
@@ -58,6 +68,6 @@
 			<span class="ic-sidebar"></span>
 		</button>
 	</div>
-	<!-- Toggle button ends -->
+	<!-- Siedbar toggle button ends -->
 </div>
 <!-- Sidebar ends -->

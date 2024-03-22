@@ -1,17 +1,21 @@
 <!-- Navigation starts -->
 <nav
-	class="fixed top-0 left-0 right-0 backdrop-blur-sm bg-white/90 dark:bg-black/90 border-b border-zinc-200 dark:border-zinc-800"
+	class="fixed z-50 top-0 left-0 right-0 backdrop-blur-sm bg-white/90 dark:bg-black/90 border-b border-zinc-200 dark:border-zinc-800"
 >
 	<div class="container flex gap-2 sm:gap-4 place-items-center h-16">
-		<div class="flex-1 leading-4">
+		<div class="flex-1 flex place-items-center leading-4">
 			<a
 				href="/"
-				class="text-lg sm:text-2xl hover:no-underline text-black dark:text-white font-bold inline-block truncate text-ellipsis"
+				class="text-lg sm:text-2xl hover:no-underline text-black dark:text-white font-bold flex gap-2 place-items-center truncate text-ellipsis"
 			>
-				Graphite Docs
+				<!-- Logo icon here -->
+				<img src="/favicon.svg" alt="Graphite Docs" class="size-7" />
+				<!-- Logo text here -->
+				<span>Graphite Docs</span>
 			</a>
 		</div>
 		<div class="flex gap-2 sm:gap-6 place-items-center">
+			<!-- theme toggler -->
 			<div class="darkmode-toggle scale-75 md:scale-90" onClick="toggleTheme()">
 				<button></button>
 			</div>
