@@ -12,11 +12,17 @@ Deploy Markdown Docs as a Website
 
 </center>
 
-Graphite Docs is a simple markdown documentation builder that you can deploy as a website. It is built with ExpressJS and uses EJS as the view engine.
+## Features
 
-To get started, check the following pages:
+-   **Markdown Support**: Write your docs in markdown.
+-   **Navigation Tree**: Automatically generates a navigation tree based on the file structure.
+-   **Customizable**: Change the theme, add custom CSS, and more.
+-   **SEO Friendly**: Generates static HTML files for SEO optimization.
+-   **Math Support**: KaTeX support for mathematical equations.
 
--   [Getting Started with Graphite Docs](/1_Getting__Started)
+<br/>
+
+**To get started, check [Installation Guide](/0_Installation)**
 
 <br/>
 

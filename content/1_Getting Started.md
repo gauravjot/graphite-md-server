@@ -3,6 +3,7 @@ title: Getting started
 date: 2024-03-18T10:45:00Z
 description:
 next: 2_Writing__your__First__Doc
+prev: 0_Installation
 ---
 
 Congratulations on setting up Graphite Docs! This page will help you get started with the project.
