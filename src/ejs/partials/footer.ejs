@@ -1,0 +1,14 @@
+<script src="/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script>
+	var btns = document.querySelectorAll("button.markdown-it-code-copy");
+	var clipboard = new ClipboardJS(btns);
+
+	clipboard.on("success", function (e) {
+		let innerHTML = e.trigger.innerHTML;
+		e.trigger.innerHTML = "Copied!";
+		setTimeout(() => {
+			e.trigger.innerHTML = innerHTML;
+		}, 3000);
+	});
+</script>

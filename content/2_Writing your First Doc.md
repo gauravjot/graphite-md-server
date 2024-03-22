@@ -2,7 +2,7 @@
 title: Writing your First Doc
 date: 2024-03-20T02:31:00Z
 description:
-next: 3_Deploying___1_Deploying__Static
+next: 3_Deploying__Graphite___1_Deploying__Static
 prev: 1_Getting__Started
 ---
 
@@ -25,7 +25,7 @@ Your content goes here.
 ```
 
 -   **title**: The title of the doc. If not present, the file name is used as the title.
--   **date**: The date of the doc. This shows up on top of the page. You may wish to update it when you make changes to the doc. The date is in **UTC** time and gets converted to local time when rendering.
+-   **date**: The date of the doc. This shows up on top of the page. You may wish to update it when you make changes to the doc. The date in above sample markdown is in **UTC** time (_Z_ represents UTC) and gets converted to your local time when rendering.
 -   **description**: A short description of the doc. This shows up under the title on the doc page.
 -   **next**: (_optional_) The link to the next doc. This is used to create a "Next" button on buttom of the doc page.
 -   **prev**: (_optional_) The link to the previous doc. This creates a "Previous" button.
@@ -158,6 +158,13 @@ int foo() {
 </tr>
 </table>
 ````
+
+### Complete Markdown Reference
+
+Please check following resources to learn more about markdown that works with Graphite Docs:
+
+-   [Using Math in Graphite](/4_Markdown___4_Using__Math__in__Graphite)
+-   [Markdown Cheatsheet](/4_Markdown___5_Markdown__Cheatsheet)
 
 ### Using HTML
 

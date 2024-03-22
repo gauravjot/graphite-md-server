@@ -5,11 +5,17 @@ import anchor from "markdown-it-anchor";
 import hljs from "highlight.js";
 import MarkdownIt from "markdown-it";
 import { fileURLToPath } from "url";
+import katex from "katex";
+import tm from "markdown-it-texmath";
+import footnote_plugin from "markdown-it-footnote";
+import markdownItCodeCopy from "markdown-it-code-copy";
 
+// get the directory name of the current module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const markdownitOptions = {
+// markdown-it options
+const md = MarkdownIt({
 	html: true,
 	xhtmlOut: true,
 	breaks: true,
@@ -30,7 +36,28 @@ const markdownitOptions = {
 
 		return ""; // use external default escaping
 	},
-};
+});
+md.use(anchor, {
+	slugify: (s) =>
+		encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-")),
+	permalink: anchor.permalink.headerLink({
+		safariReaderFix: true,
+	}),
+});
+md.use(tm, {
+	engine: katex,
+	delimiters: "dollars",
+	katexOptions: { macros: { "\\RR": "\\mathbb{R}" }, output: "mathml" },
+});
+md.use(markdownItCodeCopy, {
+	iconClass: "copy-icon",
+	iconStyle: "",
+});
+md.use(footnote_plugin);
+
+/************************************************************/
+/* Functions                                                */
+/************************************************************/
 
 /**
  * Get all md files from the content folder and the subfolders
@@ -189,14 +216,6 @@ export function generateDocPage(article) {
 	const file = matter.read(filepath);
 
 	// use markdown-it to convert content to HTML
-	const md = MarkdownIt(markdownitOptions);
-	md.use(anchor, {
-		slugify: (s) =>
-			encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-")),
-		permalink: anchor.permalink.headerLink({
-			safariReaderFix: true,
-		}),
-	});
 	const content = file.content;
 	const result = md.render(content);
 
@@ -227,14 +246,6 @@ export function generateHomePage() {
 	const file = matter.read(filepath);
 
 	// use markdown-it to convert content to HTML
-	const md = MarkdownIt(markdownitOptions);
-	md.use(anchor, {
-		slugify: (s) =>
-			encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-")),
-		permalink: anchor.permalink.headerLink({
-			safariReaderFix: true,
-		}),
-	});
 	const content = file.content;
 	const result = md.render(content);
 
