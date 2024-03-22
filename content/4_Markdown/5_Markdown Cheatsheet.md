@@ -102,7 +102,7 @@ print("Hello, World!")
 ```
 ````
 
-If you are using Graphite Docs, you can also colorize codeblocks. Check the [Colorize Codeblocks](/2_Writing__your__First__Doc#colorize-codeblocks) section for more information.
+If you are using Graphite Docs, you can also colorize codeblocks. Check the [Colorize Codeblocks](/2_Writing__your__First__Doc.html#colorize-codeblocks) section for more information.
 
 ## Tables
 
@@ -141,4 +141,4 @@ Example: Here is a footnote reference[^1].
 
 ## Math
 
-Graphite Docs have built-in support for math equations. See the [Using Math in Graphite Docs](/4_Using__Math__in__Graphite) page for more information.
+Graphite Docs have built-in support for math equations. See the [Using Math in Graphite Docs](/4_Markdown___4_Using__Math__in__Graphite) page for more information.
