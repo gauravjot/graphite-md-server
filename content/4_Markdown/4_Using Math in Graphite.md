@@ -18,7 +18,7 @@ $$P(A | B) = (P(B | A)P(A)) / P(B)$$
 
 This will render the math equation like this
 
-> Pythagoran theorem is $a^2 + b^2 = c^2$ yippe.
+> Pythagoran theorem is $a^2 + b^2 = c^2$.
 >
 > Bayes theorem:
 >

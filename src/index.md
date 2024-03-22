@@ -6,13 +6,13 @@
 
 # Welcome to Graphite Docs
 
-Markdown Docs to Deploy as a Website
+Deploy Markdown Docs as a Website
 
 <a href="https://github.com/gauravjot/graphite-md-server"><img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" style="width:100px; display:inline"></a>
 
 </center>
 
-Graphite Docs is a simple markdown documentation generator that you can deploy as a website. It is built with ExpressJS and uses EJS as view engine.
+Graphite Docs is a simple markdown documentation builder that you can deploy as a website. It is built with ExpressJS and uses EJS as the view engine.
 
 To get started, check the following pages:
 
@@ -20,4 +20,4 @@ To get started, check the following pages:
 
 <br/>
 
-To edit this file, go to `src/index.md` in your repository.
+To edit this file, go to `src/index.md` in repository.

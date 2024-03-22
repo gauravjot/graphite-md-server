@@ -51,8 +51,6 @@ This creates a link to a doc located at `content/Folder 1/Folder 2/1_Doc.md` in 
 -   Folders and file names have _spaces_ replaced with `__` (double underscore). The file extension `.md` is omitted.
 -   To distinguish within folders and file, `___` (triple underscore) is used.
 
-<br/>
-
 ### Colorize Codeblocks
 
 There are two ways to colorize codeblocks:
@@ -93,9 +91,7 @@ There are two ways to colorize codeblocks:
         print(book)
     ```
 
-<br>
-
-##### Compare Codeblocks
+#### Compare Codeblocks
 
 You can also compare codeblocks side by side using tables.
 
