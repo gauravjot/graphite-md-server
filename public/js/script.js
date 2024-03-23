@@ -1,10 +1,10 @@
 // Sidebar toggle: breakpoint `md`
-let isMobile = window.matchMedia("only screen and (max-width: 1024px)").matches;
+let isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
 if (isMobile) {
 	hideSidebar();
 }
 window.addEventListener("resize", () => {
-	isMobile = window.matchMedia("only screen and (max-width: 1024px)").matches;
+	isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
 	if (isMobile) {
 		hideSidebar();
 	} else {
@@ -22,7 +22,6 @@ function showSidebar() {
 	if (isMobile) {
 		document.getElementById("sidebar").setAttribute("aria-hidden", "false");
 		document.getElementById("content").classList.remove("sidebar-open");
-		document.getElementById("content").classList.add("ml-12");
 	} else {
 		document.getElementById("sidebar").setAttribute("aria-hidden", "false");
 		document.getElementById("content").classList.add("sidebar-open");
@@ -33,13 +32,25 @@ function hideSidebar() {
 	if (isMobile) {
 		document.getElementById("sidebar").setAttribute("aria-hidden", "true");
 		document.getElementById("content").classList.remove("sidebar-open");
-		document.getElementById("content").classList.add("ml-12");
 	} else {
 		document.getElementById("sidebar").setAttribute("aria-hidden", "true");
 		document.getElementById("content").classList.remove("sidebar-open");
 		document.getElementById("content").classList.add("ml-16");
 	}
 }
+let prevScrollpos = window.scrollY;
+window.onscroll = function () {
+	if (window.matchMedia("only screen and (max-width: 1023px)").matches) {
+		let currentScrollPos = window.scrollY;
+		console.log(currentScrollPos);
+		if (currentScrollPos < 200 || prevScrollpos > currentScrollPos) {
+			document.getElementById("sidebar-toggle-closed").style.bottom = "0";
+		} else {
+			document.getElementById("sidebar-toggle-closed").style.bottom = "-6rem";
+		}
+		prevScrollpos = currentScrollPos;
+	}
+};
 
 // Expand accordion for open page
 const sidebarDocList = document

@@ -7,8 +7,7 @@
 html,
 :root {
 	font-size: 16px;
-	@apply h-full;
-	@apply bg-zinc-50 text-zinc-700 dark:bg-zinc-950 dark:text-white;
+	@apply bg-zinc-50 bg-opacity-100 text-zinc-700 dark:bg-zinc-950 dark:text-white;
 }
 
 body {
@@ -303,16 +302,17 @@ hr {
 	@apply pl-1;
 }
 #content.sidebar-open {
-	@apply lg:ml-64 xl:ml-72 2xl:ml-80;
+	@apply lg:ml-64 xl:ml-72 2xl:ml-[22rem];
+}
+#sidebar #sidebar-toggle,
+#sidebar-toggle-closed {
+	@apply size-10 my-2 transition-all;
 }
 #sidebar[aria-hidden="true"] {
-	@apply w-10 hover:bg-zinc-100 dark:hover:bg-zinc-900 bg-transparent;
+	@apply w-0 lg:w-10 hover:bg-zinc-100 dark:hover:bg-zinc-900 bg-transparent;
 }
 #sidebar[aria-hidden="false"] {
-	@apply w-64 xl:w-72 2xl:w-80 max-w-full;
-}
-#sidebar > div {
-	@apply w-64 xl:w-72 2xl:w-80;
+	@apply w-64 lg:w-56 xl:w-60 2xl:w-72 max-w-full;
 }
 #sidebar[aria-hidden="true"] > div {
 	animation: fadeOut 0.15s linear forwards;
@@ -320,20 +320,29 @@ hr {
 #sidebar[aria-hidden="false"] > div {
 	animation: fadeIn 0.15s linear forwards;
 }
-#sidebar > #sidebar-toggle {
-	@apply size-10 right-4 lg:right-8 xl:right-12 2xl:right-16 fixed bottom-0 my-2 transition-all;
+#sidebar[aria-hidden="false"] #sidebar-toggle-closed {
+	@apply hidden;
 }
-#sidebar[aria-hidden="true"] > #sidebar-toggle {
+#sidebar[aria-hidden="true"] #sidebar-toggle-closed {
 	animation: none;
-	@apply right-0 duration-300 ease-in-out;
+	@apply block absolute right-0 bottom-0;
 }
-#sidebar[aria-hidden="false"] > #sidebar-toggle .ic-sidebar {
+#sidebar #sidebar-toggle .ic-sidebar {
 	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="24px" stroke-width="1.6" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.25 10L5.5 12L7.25 14" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 21V3" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
 	@apply size-6 dark:invert-[0.7] scale-90;
 }
-#sidebar[aria-hidden="true"] > #sidebar-toggle .ic-sidebar {
+#sidebar #sidebar-toggle-closed .ic-sidebar {
 	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="24px" stroke-width="1.6" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 21V3" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.5 10L7.25 12L5.5 14" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
 	@apply size-6 dark:invert-[0.7] scale-90;
+}
+/* below lg, toggle is fixed to bottom left */
+@media (max-width: 1023px) {
+	#sidebar[aria-hidden="true"] #sidebar-toggle-closed {
+		@apply size-12 bg-zinc-100 dark:bg-zinc-900 rounded m-2 shadow fixed left-0 bottom-0;
+	}
+	#sidebar[aria-hidden="true"] #sidebar-toggle-closed button {
+		@apply size-12;
+	}
 }
 #sidebar-nav-list a,
 #sidebar-doc-list .accordion__button,
