@@ -2,12 +2,12 @@
 <div
 	id="sidebar"
 	aria-hidden="false"
-	class="fixed flex flex-col max-h-[calc(100svh-4rem)] z-50 overflow-hidden bg-zinc-50 dark:bg-zinc-950 bg-opacity-90 top-16 mt-px bottom-0"
+	class="fixed flex flex-col max-h-[calc(100svh-4rem)] z-50 overflow-hidden bg-zinc-50 dark:bg-zinc-950 top-16 mt-px bottom-0"
 >
-	<div class="flex-1 py-8 relative h-[calc(100%-2.27rem)] overflow-y-auto">
+	<div class="flex-1 relative h-[calc(100%-2.27rem)] overflow-y-auto">
 		<!-- Sidebar menu starts -->
-		<div class="font-medium text-sm text-zinc-500">LINKS</div>
-		<ul id="sidebar-nav-list" class="pb-4 my-4">
+		<div class="font-medium text-sm text-zinc-500 mt-8">LINKS</div>
+		<ul id="sidebar-nav-list" class="my-4">
 			<li>
 				<a href="/">Home</a>
 			</li>
@@ -21,9 +21,9 @@
 			</li>
 		</ul>
 
-		<div class="font-medium text-sm text-zinc-500">DOCS</div>
+		<div class="font-medium text-sm text-zinc-500 mt-8">DOCS</div>
 		<!-- Doc list for navigation -->
-		<ul id="sidebar-doc-list" class="pb-16 my-4">
+		<ul id="sidebar-doc-list" class="my-4">
 			<%- docs %>
 		</ul>
 

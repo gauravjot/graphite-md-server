@@ -43,10 +43,10 @@ window.onscroll = function () {
 	if (window.matchMedia("only screen and (max-width: 1023px)").matches) {
 		let currentScrollPos = window.scrollY;
 		console.log(currentScrollPos);
-		if (currentScrollPos < 200 || prevScrollpos > currentScrollPos) {
+		if (currentScrollPos < 350 || prevScrollpos > currentScrollPos) {
 			document.getElementById("sidebar-toggle-closed").style.bottom = "0";
 		} else {
-			document.getElementById("sidebar-toggle-closed").style.bottom = "-6rem";
+			document.getElementById("sidebar-toggle-closed").style.bottom = "-5rem";
 		}
 		prevScrollpos = currentScrollPos;
 	}

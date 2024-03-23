@@ -4,6 +4,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@media print {
+	body,
+	html {
+		background: white !important;
+	}
+	* {
+		color: black !important;
+	}
+	nav,
+	#sidebar,
+	#doc-pn,
+	button {
+		display: none !important;
+	}
+	#content {
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+	}
+	#md-content {
+		font-size: 14px !important;
+	}
+}
+
 html,
 :root {
 	font-size: 16px;
@@ -21,7 +44,7 @@ h3,
 h4,
 h5,
 h6 {
-	@apply font-semibold leading-[1.6] !text-black dark:!text-white focus:outline-none focus-visible:outline-none;
+	@apply font-semibold leading-[1.6] text-black dark:text-white focus:outline-none focus-visible:outline-none;
 }
 
 body,
@@ -29,16 +52,6 @@ button,
 p,
 ul {
 	@apply m-0 p-0;
-}
-
-@media print {
-	nav,
-	#sidebar {
-		display: none !important;
-	}
-	#content {
-		margin-left: 0 !important;
-	}
 }
 
 .container {
@@ -66,7 +79,7 @@ hr {
 #md-content h4,
 #md-content h5,
 #md-content h6 {
-	@apply font-semibold !text-black dark:!text-white;
+	@apply font-semibold text-black dark:text-white;
 	@apply mb-3 mt-9 tracking-[-0.012em];
 }
 #md-content h1 {
@@ -312,10 +325,12 @@ hr {
 	@apply w-0 lg:w-10 hover:bg-zinc-100 dark:hover:bg-zinc-900 bg-transparent;
 }
 #sidebar[aria-hidden="false"] {
-	@apply w-64 lg:w-56 xl:w-60 2xl:w-72 max-w-full;
+	@apply pr-4 sm:pr-5 md:pr-6 lg:pr-0 w-64 lg:w-56 xl:w-60 2xl:w-72 max-w-full;
+	@apply border-r dark:border-zinc-700 lg:border-r-0;
 }
 #sidebar[aria-hidden="true"] > div {
 	animation: fadeOut 0.15s linear forwards;
+	@apply pointer-events-none;
 }
 #sidebar[aria-hidden="false"] > div {
 	animation: fadeIn 0.15s linear forwards;
@@ -325,7 +340,7 @@ hr {
 }
 #sidebar[aria-hidden="true"] #sidebar-toggle-closed {
 	animation: none;
-	@apply block absolute right-0 bottom-0;
+	@apply block absolute right-0 bottom-0 pointer-events-auto;
 }
 #sidebar #sidebar-toggle .ic-sidebar {
 	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="24px" stroke-width="1.6" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.25 10L5.5 12L7.25 14" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 21V3" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
@@ -333,12 +348,12 @@ hr {
 }
 #sidebar #sidebar-toggle-closed .ic-sidebar {
 	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="24px" stroke-width="1.6" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 21V3" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.5 10L7.25 12L5.5 14" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
-	@apply size-6 dark:invert-[0.7] scale-90;
+	@apply size-6 dark:invert-[0.9] scale-90;
 }
 /* below lg, toggle is fixed to bottom left */
 @media (max-width: 1023px) {
 	#sidebar[aria-hidden="true"] #sidebar-toggle-closed {
-		@apply size-12 bg-zinc-100 dark:bg-zinc-900 rounded m-2 shadow fixed left-0 bottom-0;
+		@apply size-12 bg-zinc-200 dark:bg-zinc-800 rounded-r-md my-2 shadow fixed left-0 bottom-0;
 	}
 	#sidebar[aria-hidden="true"] #sidebar-toggle-closed button {
 		@apply size-12;
@@ -374,7 +389,7 @@ hr {
 }
 #sidebar-doc-list .accordion > .accordion__button:after {
 	content: "";
-	@apply w-5 h-5 absolute right-4 rotate-[270deg] dark:invert-[0.7];
+	@apply w-5 h-5 absolute right-2 rotate-[270deg] dark:invert-[0.7];
 	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="20px" height="20px" stroke-width="1.6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M6 9L12 15L18 9" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
 	background-repeat: no-repeat;
 	transition: all 0.15s ease-in-out;
