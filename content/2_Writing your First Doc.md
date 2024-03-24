@@ -6,7 +6,9 @@ next: 3_Deploying__Graphite___1_Deploying__Static
 prev: 1_Getting__Started
 ---
 
-Now, let's help you write your first doc. If you are not sure where to make your doc files, check the [Getting Started](/1_Getting__Started) page first.
+Now, let's get you started for writing your first doc!
+
+If you are unsure about where to make your file or how to name one, **check the [Getting Started](/1_Getting__Started.html#creating-docs-and-folders) page** first.
 
 ## Layout
 
