@@ -4,7 +4,7 @@ import path from "path";
 import anchor from "markdown-it-anchor";
 import hljs from "highlight.js";
 import MarkdownIt from "markdown-it";
-import { fileURLToPath } from "url";
+import {fileURLToPath} from "url";
 import katex from "katex";
 import tm from "markdown-it-texmath";
 import footnote_plugin from "markdown-it-footnote";
@@ -24,11 +24,9 @@ const md = MarkdownIt({
 		// where good and bad are visual cues through css for codeblock
 		if (lang && hljs.getLanguage(lang.split("_")[0])) {
 			try {
-				let block = `<pre ${
-					lang.split("_")[1] ? `class="${lang.split("_")[1]}"` : ""
-				}>`;
+				let block = `<pre ${lang.split("_")[1] ? `class="${lang.split("_")[1]}"` : ""}>`;
 				block += `<code class="language-${lang.split("_")[0]}">`;
-				block += hljs.highlight(str, { language: lang.split("_")[0] }).value;
+				block += hljs.highlight(str, {language: lang.split("_")[0]}).value;
 				block += "</code></pre>";
 				return block;
 			} catch (__) {}
@@ -38,8 +36,7 @@ const md = MarkdownIt({
 	},
 });
 md.use(anchor, {
-	slugify: (s) =>
-		encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-")),
+	slugify: (s) => encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-")),
 	permalink: anchor.permalink.headerLink({
 		safariReaderFix: true,
 	}),
@@ -47,7 +44,7 @@ md.use(anchor, {
 md.use(tm, {
 	engine: katex,
 	delimiters: "dollars",
-	katexOptions: { macros: { "\\RR": "\\mathbb{R}" }, output: "mathml" },
+	katexOptions: {output: "mathml", trust: true},
 });
 md.use(markdownItCodeCopy, {
 	iconClass: "copy-icon",
@@ -92,9 +89,7 @@ export function getFiles(dir) {
 			}
 			files_.push({
 				path: file_path,
-				title:
-					matter.read(path.resolve(file_path)).data.title ||
-					files[i].replace(".md", ""),
+				title: matter.read(path.resolve(file_path)).data.title || files[i].replace(".md", ""),
 			});
 		}
 	}
@@ -139,16 +134,10 @@ export function parseDocTitleFromURI(name) {
 		return "";
 	}
 	let baseDir = path.join(__dirname, "..", "content");
-	let filePath = path.join(
-		baseDir,
-		name.replaceAll("___", "/").replaceAll("__", " ") + ".md"
-	);
+	let filePath = path.join(baseDir, name.replaceAll("___", "/").replaceAll("__", " ") + ".md");
 	// read file
 	const file = matter.read(filePath);
-	return (
-		file.data.title ||
-		name.split("___").pop().replaceAll("__", " ").replace(/^\d+_/, "")
-	);
+	return file.data.title || name.split("___").pop().replaceAll("__", " ").replace(/^\d+_/, "");
 }
 
 /**
@@ -170,8 +159,7 @@ export function generateSidebarList(data, highlight = "") {
 			if (/^\d+_/.test(name)) {
 				name = name.replace(/^\d+_/, "");
 			}
-			html +=
-				'<button class="accordion__button"><span>' + name + "</span></button>";
+			html += '<button class="accordion__button"><span>' + name + "</span></button>";
 			html += generateSidebarList(item.files, highlight);
 			html += "</div>";
 		} else {

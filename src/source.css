@@ -125,7 +125,6 @@ hr {
 }
 #md-content p eq:before {
 	content: " ";
-	display: inline-block;
 }
 
 #md-content li > p:first-of-type {
