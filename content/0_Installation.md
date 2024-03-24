@@ -9,7 +9,7 @@ To get started with Graphite Docs, you need to set up a new instance. This page 
 
 ## Prerequisites
 
-First step, ensure you have the following installed:
+Ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/en/download/)
 
@@ -28,17 +28,15 @@ git clone https://github.com/gauravjot/graphite-docs
 cd graphite-docs
 ```
 
-## Installing Dependencies
+## Starting the Development Server
 
-Navigate to the project directory in your terminal and run
+Install the dependencies:
 
 ```bash
 npm install
 ```
 
-## Starting the Development Server
-
-To start the development server, run
+Then start the development server:
 
 ```bash
 npm run dev
