@@ -1,20 +1,31 @@
 <!-- Navigation starts -->
 <nav
-	class="fixed z-50 top-0 left-0 right-0 backdrop-blur-sm bg-white/90 dark:bg-black/90 border-b border-zinc-200 dark:border-zinc-800"
+	class="fixed left-0 right-0 top-0 z-50 border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-black"
 >
-	<div class="container flex gap-2 sm:gap-4 place-items-center h-16">
-		<div class="flex-1 flex place-items-center leading-4">
+	<div class="container flex h-16 place-items-center gap-2 sm:gap-4">
+		<div class="flex flex-1 place-items-center leading-4">
+			<!-- Sidebar toggle button (appears when sidebar closed) -->
+			<div id="nav-sidebar-toggle">
+				<button
+					onClick="toggleSidebar()"
+					title="Toggle Sidebar"
+					class="flex size-10 place-items-center justify-center rounded-md hover:bg-black/10 dark:hover:bg-zinc-800"
+				>
+					<span class="ic-hamburger"></span>
+				</button>
+			</div>
+			<!-- Siedbar toggle button ends -->
 			<a
 				href="/"
-				class="text-lg sm:text-2xl hover:no-underline text-black dark:text-white font-bold flex gap-2 place-items-center truncate text-ellipsis"
+				class="flex place-items-center gap-2 truncate text-ellipsis text-lg font-bold text-black hover:no-underline sm:text-2xl dark:text-white"
 			>
 				<!-- Logo icon here -->
-				<img src="/favicon.svg" alt="Graphite Docs" class="size-7" />
+				<img src="/favicon.svg" alt="Graphite Docs" class="size-6 lg:size-7" />
 				<!-- Logo text here -->
 				<span>Graphite Docs</span>
 			</a>
 		</div>
-		<div class="flex gap-2 sm:gap-6 place-items-center">
+		<div class="flex place-items-center gap-2 sm:gap-6">
 			<!-- theme toggler -->
 			<div class="darkmode-toggle scale-75 md:scale-90" onClick="toggleTheme()">
 				<button></button>

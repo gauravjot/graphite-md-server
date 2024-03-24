@@ -46,9 +46,7 @@ _italic_
 
 ## Lists
 
-To create nested lists (e.g. Subitem 2.1), indent the items by four spaces.
-
-### Unordered
+#### Unordered
 
 ```markdown
 -   Item 1
@@ -57,7 +55,7 @@ To create nested lists (e.g. Subitem 2.1), indent the items by four spaces.
     -   Subitem 2.2
 ```
 
-### Ordered
+#### Ordered
 
 ```markdown
 1. Item 1
@@ -66,11 +64,15 @@ To create nested lists (e.g. Subitem 2.1), indent the items by four spaces.
     2. Subitem 2.2
 ```
 
+> To create nested lists, indent the items by four spaces.
+
 ## Links
 
 ```markdown
 [Link title](https://example.com)
 ```
+
+> Note: For linking to internal doc pages, see [Linking other Docs](2_Writing__your__First__Doc.html#linking-other-docs) section.
 
 ## Images
 
@@ -86,7 +88,7 @@ To create nested lists (e.g. Subitem 2.1), indent the items by four spaces.
 
 ## Code
 
-### Inline
+#### Inline
 
 ```markdown
 `code`
@@ -94,7 +96,7 @@ To create nested lists (e.g. Subitem 2.1), indent the items by four spaces.
 
 Example: Here is an `inline code` in a sentence.
 
-### Blocks
+#### Blocks
 
 ````markdown
 ```python
@@ -102,7 +104,7 @@ print("Hello, World!")
 ```
 ````
 
-If you are using Graphite Docs, you can also colorize codeblocks. Check the [Colorize Codeblocks](/2_Writing__your__First__Doc.html#colorize-codeblocks) section for more information.
+> Note: If you are using Graphite Docs, you can also colorize codeblocks. Check the [Colorize Codeblocks](/2_Writing__your__First__Doc.html#colorize-codeblocks) section for more information.
 
 ## Tables
 

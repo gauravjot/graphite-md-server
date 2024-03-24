@@ -2,14 +2,12 @@
 <div
 	id="sidebar"
 	aria-hidden="false"
-	class="fixed z-50 overflow-hidden backdrop-blur-sm bg-zinc-50/90 dark:bg-zinc-950/90 top-16 mt-px bottom-0"
+	class="fixed bottom-0 top-16 z-50 mt-px flex max-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-zinc-50 dark:bg-zinc-950"
 >
-	<div
-		class="pr-4 lg:pr-8 xl:pr-12 2xl:pr-16 py-8 relative h-[calc(100%-2.27rem)] overflow-y-auto"
-	>
+	<div class="relative h-[calc(100%-2.27rem)] flex-1 overflow-y-auto">
 		<!-- Sidebar menu starts -->
-		<div class="font-medium text-sm text-zinc-500">LINKS</div>
-		<ul id="sidebar-nav-list" class="pb-4 my-4">
+		<div class="mt-8 text-sm font-medium text-zinc-500">LINKS</div>
+		<ul id="sidebar-nav-list" class="my-4">
 			<li>
 				<a href="/">Home</a>
 			</li>
@@ -23,21 +21,19 @@
 			</li>
 		</ul>
 
-		<div class="font-medium text-sm text-zinc-500">DOCS</div>
+		<div class="mt-8 text-sm font-medium text-zinc-500">DOCS</div>
 		<!-- Doc list for navigation -->
-		<ul id="sidebar-doc-list" class="pb-16 my-4">
+		<ul id="sidebar-doc-list" class="my-4">
 			<%- docs %>
 		</ul>
 
 		<!-- Sidebar menu ends -->
 	</div>
 	<!-- Sidebar footer starts -->
-	<div
-		class="fixed bottom-0 left-0 right-0 pr-4 lg:pr-8 xl:pr-12 2xl:pr-16 text-xs text-zinc-500 dark:text-zinc-400"
-	>
-		<div class="flex place-items-center h-14 gap-3 border-t dark:border-zinc-800">
-			<span>v1.3.0</span>
-			<div class="flex-1 flex gap-3.5">
+	<div class="flex border-t text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+		<div class="flex h-14 flex-1 place-items-center gap-3">
+			<span>v1.3.1</span>
+			<div class="flex flex-1 gap-3.5">
 				<a
 					class="text-zinc-800 dark:text-zinc-200"
 					href="https://github.com/gauravjot/graphite-md-server/releases"
@@ -56,18 +52,29 @@
 				</a>
 			</div>
 		</div>
+		<!-- Sidebar toggle button (appears when sidebar open) -->
+		<div id="sidebar-toggle">
+			<button
+				onClick="toggleSidebar()"
+				title="Toggle Sidebar"
+				class="flex size-10 place-items-center justify-center rounded-md hover:bg-black/10 dark:hover:bg-zinc-800"
+			>
+				<span class="ic-sidebar"></span>
+			</button>
+		</div>
+		<!-- Siedbar toggle button ends -->
 	</div>
-	<!-- Sidebar footer ends -->
-	<!-- Sidebar toggle button -->
-	<div id="sidebar-toggle">
+	<!-- Sidebar toggle button (appears when sidebar closed) -->
+	<div id="sidebar-toggle-closed">
 		<button
 			onClick="toggleSidebar()"
 			title="Toggle Sidebar"
-			class="hover:bg-black/10 dark:hover:bg-zinc-800 size-10 flex place-items-center justify-center rounded-md"
+			class="flex size-10 place-items-center justify-center rounded-md hover:bg-black/10 dark:hover:bg-zinc-800"
 		>
 			<span class="ic-sidebar"></span>
 		</button>
 	</div>
 	<!-- Siedbar toggle button ends -->
+	<!-- Sidebar footer ends -->
 </div>
 <!-- Sidebar ends -->

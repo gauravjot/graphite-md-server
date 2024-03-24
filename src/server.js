@@ -1,9 +1,9 @@
-import express, { static as estatic } from "express";
+import express, {static as estatic} from "express";
 // import { urlencoded, json } from "body-parser";
-import { join } from "path";
-import { generateDocPage, generateHomePage } from "./utils.js";
+import {join} from "path";
+import {generateDocPage, generateHomePage} from "./utils.js";
 import path from "path";
-import { fileURLToPath } from "url";
+import {fileURLToPath} from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,8 +21,10 @@ app.set("view engine", "ejs");
  * Routes
  */
 
-app.get("/:article", (req, res) => {
-	res.render("doc", generateDocPage(req.params.article));
+app.get("/:doc", (req, res) => {
+	// replace trailing .html from doc string
+	const doc = req.params.doc.replace(/\.html$/, "");
+	res.render("doc", generateDocPage(doc));
 });
 
 app.get("/", (req, res) => {
