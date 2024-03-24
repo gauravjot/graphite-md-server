@@ -38,24 +38,9 @@ function hideSidebar() {
 		document.getElementById("content").classList.add("ml-16");
 	}
 }
-let prevScrollpos = window.scrollY;
-window.onscroll = function () {
-	if (window.matchMedia("only screen and (max-width: 1023px)").matches) {
-		let currentScrollPos = window.scrollY;
-		console.log(currentScrollPos);
-		if (currentScrollPos < 350 || prevScrollpos > currentScrollPos) {
-			document.getElementById("sidebar-toggle-closed").style.bottom = "0";
-		} else {
-			document.getElementById("sidebar-toggle-closed").style.bottom = "-5rem";
-		}
-		prevScrollpos = currentScrollPos;
-	}
-};
 
 // Expand accordion for open page
-const sidebarDocList = document
-	.getElementById("sidebar-doc-list")
-	.getElementsByTagName("a");
+const sidebarDocList = document.getElementById("sidebar-doc-list").getElementsByTagName("a");
 for (let i = 0; i < sidebarDocList.length; i++) {
 	if (sidebarDocList[i].id === getLastURLPart()) {
 		let parent = sidebarDocList[i].parentElement;
@@ -88,9 +73,7 @@ for (let i = 0; i < sidebarAccordions.length; i++) {
 		e.preventDefault();
 		button.parentElement.setAttribute(
 			"aria-expanded",
-			button.parentElement.getAttribute("aria-expanded") === "true"
-				? "false"
-				: "true"
+			button.parentElement.getAttribute("aria-expanded") === "true" ? "false" : "true",
 		);
 	});
 }
