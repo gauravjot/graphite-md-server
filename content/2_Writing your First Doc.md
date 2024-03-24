@@ -24,11 +24,11 @@ prev          :
 Your content goes here.
 ```
 
--   **title**: The title of the doc. If not present, the file name is used as the title.
--   **date**: The date of the doc. This shows up on top of the page. You may wish to update it when you make changes to the doc. The date in above sample markdown is in **UTC** time (_Z_ represents UTC) and gets converted to server's local time when rendering.
--   **description**: A short description of the doc. This shows up under the title on the doc page.
--   **next**: (_optional_) The link to the next doc. This is used to create a "Next" button on buttom of the doc page.
--   **prev**: (_optional_) The link to the previous doc. This creates a "Previous" button.
+- **title**: The title of the doc. If not present, the file name is used as the title.
+- **date**: The date of the doc. This shows up on top of the page. You may wish to update it when you make changes to the doc. The date in above sample markdown is in **UTC** time (_Z_ represents UTC) and gets converted to server's local time when rendering.
+- **description**: A short description of the doc. This shows up under the title on the doc page.
+- **next**: (_optional_) The link to the next doc. This is used to create a "Next" button on buttom of the doc page.
+- **prev**: (_optional_) The link to the previous doc. This creates a "Previous" button.
 
 ## Content Formatting
 
@@ -44,10 +44,10 @@ This creates a link to a doc located at `content/Folder 1/Folder 2/1_Doc.md` in 
 
 ###### Key Points
 
--   The file path is relative to the `content` directory.
+- The file path is relative to the `content` directory.
 
--   Folders and file names have _spaces_ replaced with `__` (double underscore). The file extension `.md` is omitted.
--   To distinguish within folders and file, `___` (triple underscore) is used.
+- Folders and file names have _spaces_ replaced with `__` (double underscore). The file extension `.md` is omitted.
+- To distinguish within folders and file, `___` (triple underscore) is used.
 
 ### Colorize Codeblocks
 
@@ -55,110 +55,46 @@ There are two ways to colorize codeblocks:
 
 1. Green: Using language `[langauge]_good`
 
-    ````markdown
-    ```python_good
-    i = 0
-    while i < len(books):
-        print(books[i])
-        i += 1
-    ```
-    ````
+   ````markdown
+   ```python_good
+   i = 0
+   while i < len(books):
+       print(books[i])
+       i += 1
+   ```
+   ````
 
-    This will render like this
+   This will render like this
 
-    ```python_good
-    i = 0
-    while i < len(books):
-        print(books[i])
-        i += 1
-    ```
+   ```python_good
+   i = 0
+   while i < len(books):
+       print(books[i])
+       i += 1
+   ```
 
 2. Red: Using language `[langauge]_bad`
 
-    ````markdown
-    ```python_bad
-    for book in books:
-        print(book)
-    ```
-    ````
+   ````markdown
+   ```python_bad
+   for book in books:
+       print(book)
+   ```
+   ````
 
-    Rendering
+   Rendering
 
-    ```python_bad
-    for book in books:
-        print(book)
-    ```
-
-#### Compare Codeblocks
-
-You can also compare codeblocks side by side using tables.
-
-<table>
-<tr>
-<th> Good </th>
-<th> Bad </th>
-</tr>
-<tr>
-<td>
-
-```c++_good
-int foo() {
-    int result = 4;
-    return result;
-}
-```
-
-</td>
-<td>
-
-```c++_bad
-int foo() {
-    int x = 4;
-    return x;
-}
-```
-
-</td>
-</tr>
-</table>
-
-````markdown
-<table>
-<tr>
-<th> Good </th>
-<th> Bad </th>
-</tr>
-<tr>
-<td>
-
-```c++_good
-int foo() {
-    int result = 4;
-    return result;
-}
-```
-
-</td>
-<td>
-
-```c++_bad
-int foo() {
-    int x = 4;
-    return x;
-}
-```
-
-</td>
-</tr>
-</table>
-````
+   ```python_bad
+   for book in books:
+       print(book)
+   ```
 
 ### Complete Markdown Reference
 
 Please check following resources to learn more about markdown that works with Graphite Docs:
 
--   [Using Math in Graphite](/4_Markdown___4_Using__Math__in__Graphite)
--   [Markdown Cheatsheet](/4_Markdown___5_Markdown__Cheatsheet)
+- [Using Math in Graphite](/4_Markdown___4_Using__Math__in__Graphite)
+- [Markdown Cheatsheet](/4_Markdown___5_Markdown__Cheatsheet)
 
 ### Using HTML
 

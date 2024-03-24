@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<head>
 		<title><%=title %> | Graphite Docs</title>
@@ -9,51 +9,42 @@
 		<div class="container">
 			<%- include ('./partials/sidebar.ejs') %>
 			<div
-				class="h-[calc(100%-4rem)] sidebar-open mt-16 flex flex-col lg:flex-row md:gap-6 lg:gap-8 xl:gap-12 2xl:gap-16"
+				class="sidebar-open mt-16 flex h-[calc(100%-4rem)] flex-col md:gap-6 lg:flex-row lg:gap-8 xl:gap-12 2xl:gap-16"
 				id="content"
 			>
-				<div class="pt-px mb-8 flex-1 order-2 @container/doc" id="md-content">
+				<div class="order-2 mb-8 flex-1 pt-px @container/doc" id="md-content">
 					<!-- Content starts -->
-					<div class="text-zinc-500 dark:text-zinc-400 mt-8">
+					<div class="mt-8 text-zinc-500 dark:text-zinc-400">
 						Last updated - <%= new Date(date).toDateString() %>, <%= new
 						Date(date).toLocaleTimeString() %>
 					</div>
 					<h1><%= title %></h1>
-					<p class="text-base font-medium dark:!text-zinc-200 leading-8">
-						<%= description %>
-					</p>
+					<p class="text-base font-medium leading-8 dark:!text-zinc-200"><%= description %></p>
 					<div><%- post %></div>
-					<div
-						id="doc-pn"
-						class="grid @lg/doc:grid-cols-2 gap-5 @lg/doc:gap-8 mt-12"
-					>
+					<div id="doc-pn" class="mt-12 grid gap-5 @lg/doc:grid-cols-2 @lg/doc:gap-8">
 						<div class="col-span-1">
 							<% if(prev){ %>
 							<a
 								href="<%= prev %>"
-								class="block border hover:bg-primary-100 hover:dark:bg-primary-600/10 border-primary-600 dark:border-primary-600/80 rounded-md shadow px-4 py-3 hover:no-underline"
+								class="block rounded-md border border-zinc-300 px-4 py-3.5 shadow hover:bg-zinc-100 hover:no-underline dark:border-zinc-700 hover:dark:bg-zinc-900/50"
 							>
-								<div
-									class="font-medium text-zinc-700 dark:text-zinc-300 text-sm mb-2"
-								>
-									Previous
+								<div class="font-medium text-zinc-700 dark:text-zinc-300">
+									<div class="text-sm">Previous</div>
+									<div class="mt-2 w-[calc(100%)] truncate font-medium"><%= prevTitle %></div>
 								</div>
-								<div class="font-medium"><%= prevTitle %></div></a
-							>
+							</a>
 							<% } %>
 						</div>
 						<div class="col-span-1">
 							<% if(next){ %>
 							<a
 								href="<%= next %>"
-								class="block border hover:bg-primary-100 hover:dark:bg-primary-600/10 text-right border-primary-600 dark:border-primary-600/80 rounded-md shadow px-4 py-3 hover:no-underline"
+								class="block rounded-md border border-zinc-300 px-4 py-3.5 text-right shadow hover:bg-zinc-100 hover:no-underline dark:border-zinc-700 hover:dark:bg-zinc-900/50"
 							>
-								<div
-									class="font-medium text-zinc-700 dark:text-zinc-300 text-sm mb-2"
-								>
-									Next
+								<div class="font-medium text-zinc-700 dark:text-zinc-300">
+									<div class="text-sm">Next</div>
+									<div class="mt-2 w-[calc(100%)] truncate font-medium"><%= nextTitle %></div>
 								</div>
-								<div class="font-medium"><%= nextTitle %></div>
 							</a>
 							<% } %>
 						</div>
@@ -62,14 +53,10 @@
 				</div>
 				<!-- Table of Contents starts -->
 				<div
-					class="flex-1 md:flex-initial order-1 lg:order-3 lg:sticky lg:max-h-[calc(100vh-4rem)] lg:overflow-auto lg:top-16 lg:w-56"
+					class="order-1 flex-1 md:flex-initial lg:sticky lg:top-16 lg:order-3 lg:max-h-[calc(100vh-4rem)] lg:w-56 lg:overflow-auto"
 				>
-					<div
-						class="border dark:border-zinc-900 rounded-md p-3 pt-4 lg:p-0 lg:border-none mt-8"
-					>
-						<div
-							class="font-medium text-sm text-zinc-700 dark:text-zinc-300 mb-4"
-						>
+					<div class="mt-8 rounded-md border p-3 pt-4 lg:border-none lg:p-0 dark:border-zinc-900">
+						<div class="mb-4 text-sm font-medium text-zinc-700 dark:text-zinc-300">
 							TABLE OF CONTENTS
 						</div>
 
