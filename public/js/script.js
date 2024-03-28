@@ -117,8 +117,8 @@ if (typeof tocLinks !== "undefined" && tocLinks !== null) {
 			let section = document.getElementById(mdHeadingList[i].href.split("#")[1]);
 			// When heading is halfway from top, highlight the toc link
 			if (
-				section.offsetTop <= fromTop + screen.height / 2 &&
-				section.offsetTop + section.offsetHeight > fromTop + screen.height / 2
+				section.offsetTop <= fromTop + screen.height / 10 &&
+				section.offsetTop + section.offsetHeight > fromTop + screen.height / 10
 			) {
 				// Remove if new heading is selected
 				latest = tocLinks[i];
@@ -132,3 +132,104 @@ if (typeof tocLinks !== "undefined" && tocLinks !== null) {
 		}
 	});
 }
+
+// Auto-hide Nav bar
+let prevScrollpos = window.scrollY;
+window.onscroll = function () {
+	let currentScrollPos = window.scrollY;
+	if (currentScrollPos < 300 || prevScrollpos > currentScrollPos) {
+		document.getElementById("navbar").style.top = "0";
+		document.getElementById("sidebar").classList.remove("shift-up");
+		document.getElementById("toc-sidebar").classList.remove("shift-up");
+	} else {
+		// Check if user is not on mobile and sidebar is not expanded
+		// In that case, we dont take away the navbar
+		if (
+			window.matchMedia("only screen and (max-width: 1023px)").matches &&
+			document.getElementById("sidebar").getAttribute("aria-hidden") === "false"
+		) {
+			return;
+		}
+		document.getElementById("navbar").style.top = "-6rem";
+		document.getElementById("sidebar").classList.add("shift-up");
+		document.getElementById("toc-sidebar").classList.add("shift-up");
+	}
+	prevScrollpos = currentScrollPos;
+};
+
+// When anchor links are clicked, have some offset from top
+// see: https://jsfiddle.net/ianclark001/eqtosjtv/
+(function (document, history, location) {
+	var HISTORY_SUPPORT = !!(history && history.pushState);
+
+	var anchorScrolls = {
+		ANCHOR_REGEX: /^#[^ ]+$/,
+		OFFSET_HEIGHT_PX: 96,
+
+		/**
+		 * Establish events, and fix initial scroll position if a hash is provided.
+		 */
+		init: function () {
+			this.scrollToCurrent();
+			window.addEventListener("hashchange", this.scrollToCurrent.bind(this));
+			document.body.addEventListener("click", this.delegateAnchors.bind(this));
+		},
+
+		/**
+		 * Return the offset amount to deduct from the normal scroll position.
+		 * Modify as appropriate to allow for dynamic calculations
+		 */
+		getFixedOffset: function () {
+			return this.OFFSET_HEIGHT_PX;
+		},
+
+		/**
+		 * If the provided href is an anchor which resolves to an element on the
+		 * page, scroll to it.
+		 * @param  {String} href
+		 * @return {Boolean} - Was the href an anchor.
+		 */
+		scrollIfAnchor: function (href, pushToHistory) {
+			let match, rect, anchorOffset;
+
+			if (!this.ANCHOR_REGEX.test(href)) {
+				return false;
+			}
+
+			match = document.getElementById(href.slice(1));
+
+			if (match) {
+				rect = match.getBoundingClientRect();
+				anchorOffset = window.scrollY + rect.top - this.getFixedOffset();
+				window.scrollTo(window.scrollY, anchorOffset);
+
+				// Add the state to history as-per normal anchor links
+				if (HISTORY_SUPPORT && pushToHistory) {
+					history.pushState({}, document.title, location.pathname + href);
+				}
+			}
+
+			return !!match;
+		},
+
+		/**
+		 * Attempt to scroll to the current location's hash.
+		 */
+		scrollToCurrent: function () {
+			this.scrollIfAnchor(window.location.hash);
+		},
+
+		/**
+		 * If the click event's target was an anchor, fix the scroll position.
+		 */
+		delegateAnchors: function (e) {
+			let elem = e.target;
+
+			if (elem.nodeName === "A" && this.scrollIfAnchor(elem.getAttribute("href"), true)) {
+				e.preventDefault();
+			}
+		},
+	};
+
+	window.addEventListener("DOMContentLoaded", anchorScrolls.init.bind(anchorScrolls));
+})(window.document, window.history, window.location);
