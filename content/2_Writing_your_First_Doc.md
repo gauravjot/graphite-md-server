@@ -1,6 +1,6 @@
 ---
 title: Writing your First Doc
-date: 2024-03-22T08:32:27Z
+date: 2024-03-28T22:51:27Z
 description:
 next: 3_Deploying_Graphite/1_Deploying_Static.html
 prev: 1_Getting_Started.html
@@ -56,12 +56,14 @@ For best performance, it is recommended to convert images to WebP format. You ca
 
 > Notice that when linking, the extension `.html` is used.
 
-This creates a link to a doc located at `content/Folder_1/Folder_2/1_Doc.md` in file tree.
+This creates a link to a doc located at `content/Folder_1/Folder_2/1_Doc.md` in file tree. Notice that `content` is not included when linking.
 
-##### Key Points
+#### Key Points
 
 - The file path is relative to the `content` directory.
-- Do not use _space_ in file names or folders. The file extension `.md` is replaced with `.html`.
+- The file extension `.md` is replaced with `.html`.
+
+> Related: See how to name your files and folders under [Schema - Getting Started](/1_Getting_Started.html#schema).
 
 ### Colorize Codeblocks
 

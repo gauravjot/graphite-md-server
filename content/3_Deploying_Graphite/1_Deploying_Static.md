@@ -27,7 +27,7 @@ npm run build -- --sitemap --baseurl https://example.com
 | `--sitemap` | optional | Generate a sitemap.xml file                                 |
 | `--baseurl` | optional | The base URL of your website that is used for sitemap urls. |
 
-> This script is not tested thoroughly for stability. So, if you find any issues, please [report them](https://github.com/gauravjot/graphite-docs/issues).
+If you find any issues while building, please [report them](https://github.com/gauravjot/graphite-docs/issues).
 
 ## Deploying to Vercel
 

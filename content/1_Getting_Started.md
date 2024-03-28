@@ -1,6 +1,6 @@
 ---
 title: Getting started
-date: 2024-03-18T10:45:00Z
+date: 2024-03-28T22:43:22Z
 description:
 next: 2_Writing_your_First_Doc.md
 prev: 0_Installation.md
@@ -10,13 +10,13 @@ Congratulations on setting up Graphite Docs! This page will help you get started
 
 ## Creating Docs and Folders
 
-#### Location
+### Location
 
 The docs are to be stored in the `content` directory. You may make directories inside as well.
 
-#### Schema
+### Schema
 
-The docs and folders are sorted alphabetically in sidebar. Use this format to name your files:
+Use this format to name your files:
 
 ```text
 1_Doc_A.md        # doc
@@ -30,6 +30,27 @@ _Doc_D.md         # draft, is hidden
 
 The navigation tree inside sidebar will be rendered in this exact manner. Here are all the rules that apply:
 
-1. Use format _[number]\_[name.md]_ to sort your files and directories, the prefix `[number]_` part is omitted during build.
+1. Use format `[number]_[name].md` to sort your files and directories, the prefix `[number]_` part is omitted during build.
 2. Files starting with `_` (_underscore_) are treated as a draft and are hidden inside the navigation tree.
-3. **IMPORTANT:** Do not use spaces when naming a file or folder. You should instead use URL safe symbols such as `$-_.+!*'(),`. See [Content Formatting - Linking other Docs](/2_Writing_your_First_Doc.html#linking-other-docs) for more related info.
+3. Try not to use _spaces_ when naming a file or folder. You should also restrict to using only URL safe symbols such as `$-_.+!*'(),`, however it is not a requirement.
+
+   | Do this:              | Don't do this:        |
+   | --------------------- | --------------------- |
+   | `1_Doc_A.md`          | `1 Doc A.md`          |
+   | `Some_Directory_Name` | `Some Directory Name` |
+
+   **Reason**: This is because markdown links do not render that contain spaces.
+
+   ```markdown_good
+   [Link to Doc A](1_Doc_A.md)  # works
+   ```
+
+   ```markdown_bad
+   [Link to Doc A](1 Doc A.md)  # doesn't work
+   ```
+
+   To make it work, you would have to replace the spaces with `%20`:
+
+   ```markdown_good
+   [Link to Doc A](1%20Doc%20A.md) # works although not very readable
+   ```
