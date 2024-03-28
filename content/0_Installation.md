@@ -1,8 +1,8 @@
 ---
 title: Installation Guide
-date: 2024-03-18T10:45:00Z
+date: 2024-03-28T10:54:19Z
 description:
-next: 1_Getting__Started
+next: 1_Getting_Started.md
 ---
 
 To get started with Graphite Docs, you need to set up a new instance. This page will guide you through the process.
@@ -46,7 +46,7 @@ Then start the development server:
 npm run dev
 ```
 
-The server will start at `http://localhost:3000`.
+The server will start at <http://localhost:3000>.
 
 ## Cleaning Up
 
@@ -54,12 +54,12 @@ The only directories you need to get started are `content` and `assets`. You can
 
 ## Customizing Graphite
 
-For customizations such as changing logo and website name in navigation, check [Modify Website Pages](5_Customization___1_Modify__Pages).
+For customizations such as changing logo and website name in navigation, check [Modify Website Pages](5_Customization/1_Modify_Pages.html).
 
 ## Building for Production
 
 There are two ways to use Graphite Docs in production:
 
-- Static HTML: See [Deploying Static Website (and Vercel)](3_Deploying__Graphite___1_Deploying__Static).
+- Static HTML (Preffered): See [Deploying Static Website (and Vercel)](3_Deploying_Graphite/1_Deploying_Static.html).
 
-- Express Server: See [Deploying ExpressJS Server](3_Deploying__Graphite___2_Deploying__ExpressJS).
+- Express Server: See [Deploying ExpressJS Server](3_Deploying_Graphite/2_Deploying_ExpressJS.html).

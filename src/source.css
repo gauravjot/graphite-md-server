@@ -30,7 +30,7 @@
 html,
 :root {
 	font-size: 16px;
-	@apply bg-zinc-50 bg-opacity-100 text-zinc-700 dark:bg-zinc-950 dark:text-white;
+	@apply scroll-smooth bg-zinc-50 bg-opacity-100 text-zinc-700 dark:bg-zinc-950 dark:text-white;
 }
 
 body {
@@ -88,7 +88,7 @@ hr {
 
 #md-content h2 {
 	@apply text-3xl;
-	@apply border-b border-zinc-300 pb-1 pt-2 dark:border-zinc-800;
+	@apply border-b border-zinc-300 pb-1 dark:border-zinc-800;
 }
 
 #md-content h3 {
@@ -107,7 +107,7 @@ hr {
 	@apply mt-7 text-base;
 }
 #md-content .header-anchor {
-	@apply text-zinc-950 no-underline dark:text-zinc-50;
+	@apply block text-zinc-950 no-underline dark:text-zinc-50;
 }
 #md-content .header-anchor:hover span {
 	@apply underline;
@@ -255,6 +255,31 @@ hr {
 	font-style: italic;
 }
 
+/* Math */
+.katex {
+	font-size: 1em !important;
+}
+eq {
+	display: inline-block;
+}
+eqn {
+	display: block;
+}
+section.eqno {
+	display: flex;
+	flex-direction: row;
+	align-content: space-between;
+	align-items: center;
+}
+section.eqno > eqn {
+	width: 100%;
+	margin-left: 3em;
+}
+section.eqno > span {
+	width: 3em;
+	text-align: right;
+}
+
 /* Toggle */
 
 .darkmode-toggle {
@@ -298,9 +323,17 @@ hr {
 }
 
 /* Sidebar */
-#sidebar {
-	transition-property: margin-left, width;
-	@apply duration-300 ease-in-out;
+#sidebar,
+#toc-sidebar,
+#navbar {
+	transition:
+		all 300ms ease-in-out,
+		background-color 1ms,
+		border-color 1ms;
+}
+#sidebar.shift-up,
+#toc-sidebar.shift-up {
+	@apply top-4 max-h-[calc(100svh-1rem)];
 }
 #content {
 	transition-property: margin-left, width;
@@ -311,7 +344,7 @@ hr {
 	@apply pl-1;
 }
 #content.sidebar-open {
-	@apply lg:ml-64 xl:ml-72 2xl:ml-[22rem];
+	@apply lg:ml-64 xl:ml-72 2xl:ml-[21rem];
 }
 #sidebar #sidebar-toggle,
 #sidebar-toggle-closed {
@@ -321,7 +354,7 @@ hr {
 	@apply w-0 bg-transparent hover:bg-zinc-100 lg:w-10 dark:hover:bg-zinc-900;
 }
 #sidebar[aria-hidden="false"] {
-	@apply w-64 max-w-full pr-4 sm:pr-5 md:pr-6 lg:w-56 lg:pr-0 xl:w-60 2xl:w-72;
+	@apply w-64 max-w-full pr-4 sm:pr-5 md:pr-6 lg:w-56 lg:pr-0 xl:w-60 2xl:w-[17rem];
 	@apply border-r lg:border-r-0 dark:border-zinc-700;
 }
 #sidebar[aria-hidden="true"] > div {
@@ -349,8 +382,8 @@ hr {
 #sidebar-nav-list a,
 #sidebar-doc-list .accordion__button,
 #sidebar-doc-list a {
-	@apply block text-[15px] font-medium hover:no-underline 2xl:text-base;
-	@apply my-1.5 rounded px-2 py-1.5 text-zinc-800 hover:bg-zinc-200 dark:text-zinc-100 dark:hover:bg-zinc-800;
+	@apply block text-[14.5px] font-medium leading-[1.3] hover:no-underline 2xl:text-[15px];
+	@apply my-1.5 rounded px-2 py-2 text-zinc-700 hover:bg-zinc-200 dark:text-zinc-300 dark:hover:bg-zinc-800;
 }
 #sidebar-doc-list .accordion__button {
 	@apply my-0;
@@ -360,7 +393,7 @@ hr {
 	@apply rounded border-none bg-primary-300/30 px-2 font-medium text-primary-700 hover:no-underline dark:bg-primary-500/10 dark:text-primary-200;
 }
 #sidebar-doc-list .accordion ul {
-	@apply grid border-l-4 border-zinc-300 pl-2 dark:border-zinc-700;
+	@apply grid border-l-2 border-zinc-200 pl-1 dark:border-zinc-800;
 	grid-template-rows: 0fr;
 	transition: grid-template-rows 0.15s ease-in-out;
 }
@@ -369,7 +402,7 @@ hr {
 }
 #sidebar-doc-list .accordion[aria-expanded="true"] > ul {
 	grid-template-rows: 1fr;
-	@apply mb-2;
+	@apply mb-1;
 }
 #sidebar-doc-list .accordion + .accordion {
 	@apply mt-1.5;
@@ -391,7 +424,7 @@ hr {
 	@apply inline-block overflow-hidden truncate text-ellipsis;
 }
 #sidebar-doc-list .accordion[aria-expanded="true"] > .accordion__button {
-	@apply mb-0;
+	@apply mb-1 bg-zinc-200 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100;
 }
 #sidebar-doc-list .accordion[aria-expanded="true"] > .accordion__button > span {
 	@apply inline-block overflow-auto whitespace-normal text-left;

@@ -2,7 +2,7 @@
 title: Modify Website Pages
 date: 2024-03-21T23:46:03Z
 description:
-next: 5_Customization___2_Switch__Accent__Color
+next: 5_Customization/2_Switch_Accent_Color.md
 ---
 
 ## Favicon, Logo, Manifest
@@ -65,4 +65,4 @@ This also watches for changes in the CSS file and rebuilds the CSS automatically
 
 ### Switching Accent Color
 
-Check [Switch Accent Color](5_Customization___2_Switch__Accent__Color) page to learn how to switch the accent color of the website.
+Check [Switch Accent Color](5_Customization/2_Switch_Accent_Color.html) page to learn how to switch the accent color of the website.

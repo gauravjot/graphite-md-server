@@ -49,10 +49,10 @@ _italic_
 #### Unordered
 
 ```markdown
--   Item 1
--   Item 2
-    -   Subitem 2.1
-    -   Subitem 2.2
+- Item 1
+- Item 2
+  - Subitem 2.1
+  - Subitem 2.2
 ```
 
 #### Ordered
@@ -60,8 +60,8 @@ _italic_
 ```markdown
 1. Item 1
 2. Item 2
-    1. Subitem 2.1
-    2. Subitem 2.2
+   1. Subitem 2.1
+   2. Subitem 2.2
 ```
 
 > To create nested lists, indent the items by four spaces.
@@ -104,7 +104,7 @@ print("Hello, World!")
 ```
 ````
 
-> Note: If you are using Graphite Docs, you can also colorize codeblocks. Check the [Colorize Codeblocks](/2_Writing__your__First__Doc.html#colorize-codeblocks) section for more information.
+> Note: If you are using Graphite Docs, you can also colorize codeblocks. Check the [Colorize Codeblocks](/2_Writing_your_First_Doc.html#colorize-codeblocks) section for more information.
 
 ## Tables
 
@@ -143,4 +143,4 @@ Example: Here is a footnote reference[^1].
 
 ## Math
 
-Graphite Docs have built-in support for math equations. See the [Using Math in Graphite Docs](/4_Markdown___4_Using__Math__in__Graphite) page for more information.
+Graphite Docs have built-in support for math equations. See the [Using Math in Graphite Docs](/4_Markdown/4_Using_Math_in_Graphite) page for more information.

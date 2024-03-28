@@ -22,14 +22,12 @@ app.set("view engine", "ejs");
  * Routes
  */
 
-app.get("/:doc", (req, res) => {
-	// replace trailing .html from doc string
-	const doc = req.params.doc.replace(/\.html$/, "");
-	res.render("doc", generateDocPage(doc));
-});
-
 app.get("/", (req, res) => {
 	res.render("index", generateHomePage());
+});
+
+app.get("*", (req, res) => {
+	res.render("doc", generateDocPage(req.url));
 });
 
 /*

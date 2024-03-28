@@ -1,7 +1,7 @@
 import {fileLoader, compile} from "ejs";
 import path from "path";
-import {cp, writeFile, mkdir, existsSync} from "fs";
-import {getFiles, generateDocPage, getDocURI, generateHomePage} from "./src/utils.js";
+import {cp, writeFile, mkdir, existsSync, mkdirSync} from "fs";
+import {getFiles, generateDocPage, getDocURL, generateHomePage} from "./src/utils.js";
 import {fileURLToPath} from "url";
 import {minify} from "html-minifier";
 import readline from "node:readline";
@@ -34,25 +34,13 @@ const distDir = path.join(__dirname, "dist");
 /**
  * Minify Options
  */
-
-/**
- * [THIS IS THE SKETCHY BIT ABOUT THE BUILD SCRIPT]
- * find all a hrefs that are not external, and add .html to them
- * @param {string} html
- * @returns
- */
-function escapeInternalLinks(html) {
-	const regex = /<a\s+(?:[^>]*?\s+)?href="([^"]*)"/g;
-	return html.replaceAll(regex, (match, p1) => {
-		if (p1.startsWith("http")) {
-			return match;
-		}
-		if (p1 === "/" || p1.includes("#")) {
-			return match;
-		}
-		return match.replace(p1, p1 + ".html");
-	});
-}
+const MINIFY_OPTIONS = {
+	keepClosingSlash: true,
+	removeOptionalTags: false,
+	removeComments: true,
+	collapseWhitespace: true,
+	minifyJS: true,
+};
 
 function generate_HomePage() {
 	const templatePath = path.join(__dirname, "src", "ejs", "index.ejs");
@@ -60,14 +48,7 @@ function generate_HomePage() {
 	const template = compile(templateStr, {filename: templatePath});
 
 	var html = template(generateHomePage());
-	html = escapeInternalLinks(html);
-	html = minify(html, {
-		keepClosingSlash: true,
-		removeOptionalTags: false,
-		removeComments: true,
-		collapseWhitespace: true,
-		minifyJS: true,
-	});
+	html = minify(html, MINIFY_OPTIONS);
 
 	// Add to sitemap
 	if (buildSitemap)
@@ -94,18 +75,25 @@ function generate_DocPages(template, docTree) {
 			continue;
 		}
 
-		const fn = getDocURI(docTree[i]["path"], true);
-		const generate = generateDocPage(fn);
-		var html = template(generate);
-		html = escapeInternalLinks(html);
-		html = minify(html, {
-			keepClosingSlash: true,
-			removeOptionalTags: false,
-			removeComments: true,
-			collapseWhitespace: true,
-			minifyJS: true,
-		});
-		writeFile(path.join(distDir, fn + ".html"), html, (err) => {
+		// Get new to-be path in dist folder
+		let doc_dist_path = path.dirname(docTree[i]["path"]).split("/content")[1];
+		doc_dist_path = path.join(distDir, doc_dist_path);
+		// See if directory is created in dist
+		if (!existsSync(doc_dist_path)) {
+			// make directory
+			mkdirSync(doc_dist_path);
+		}
+
+		// Get to-be URL of this doc
+		const url = getDocURL(docTree[i]["path"]);
+		// Get to-be filename
+		const filename = url.split("/").pop();
+		// Generate HTML
+		const generate = generateDocPage(url);
+		let html = template(generate);
+		html = minify(html, MINIFY_OPTIONS);
+		// write .html file at to-be path
+		writeFile(path.join(doc_dist_path, filename), html, (err) => {
 			if (err) {
 				console.error("Error writing file", err);
 			}
@@ -113,13 +101,13 @@ function generate_DocPages(template, docTree) {
 		// Add to sitemap
 		if (buildSitemap) {
 			sitemap.push({
-				loc: `${baseURL}/${fn}.html`,
+				loc: `${baseURL}${url}`,
 				lastmod: new Date().toISOString(),
 				changefreq: scf,
 			});
 		}
 		// Log
-		console.log("=> Generated " + fn + ".html");
+		console.log("=> Generated " + url);
 	}
 }
 

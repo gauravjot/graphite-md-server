@@ -2,8 +2,8 @@
 title: Deploying Static Website (and Vercel)
 date: 2024-03-24T09:31:20Z
 description:
-prev: 2_Writing__your__First__Doc
-next: 3_Deploying__Graphite___2_Deploying__ExpressJS
+prev: 2_Writing_your_First_Doc.md
+next: 3_Deploying_Graphite/2_Deploying_ExpressJS.md
 ---
 
 This guide will help you deploy your Graphite Docs website to any static hosting provider and Vercel.
@@ -27,7 +27,7 @@ npm run build -- --sitemap --baseurl https://example.com
 | `--sitemap` | optional | Generate a sitemap.xml file                                 |
 | `--baseurl` | optional | The base URL of your website that is used for sitemap urls. |
 
-> This script is not tested thoroughly for stability. So, if you find any issues, please [report them](https://github.com/gauravjot/graphite-docs/issues).
+If you find any issues while building, please [report them](https://github.com/gauravjot/graphite-docs/issues).
 
 ## Deploying to Vercel
 

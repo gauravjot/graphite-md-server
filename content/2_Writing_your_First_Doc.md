@@ -1,14 +1,14 @@
 ---
 title: Writing your First Doc
-date: 2024-03-22T08:32:27Z
+date: 2024-03-28T22:51:27Z
 description:
-next: 3_Deploying__Graphite___1_Deploying__Static
-prev: 1_Getting__Started
+next: 3_Deploying_Graphite/1_Deploying_Static.html
+prev: 1_Getting_Started.html
 ---
 
 Now, let's get you started for writing your first doc!
 
-If you are unsure about where to make your file or how to name one, **check the [Getting Started](/1_Getting__Started.html#creating-docs-and-folders) page** first.
+If you are unsure about where to make your file or how to name one, **check the [Getting Started](/1_Getting_Started.html#creating-docs-and-folders) page** first.
 
 ## Layout
 
@@ -19,8 +19,8 @@ Here is the layout of a typical doc file:
 title         : Getting started
 date          : 2024-03-18T10:45:00Z
 description   : Useful information for starting with Graphite Docs
-next          : /2_Writing__your__First__Doc
-prev          :
+next          : /2_Writing_your_First_Doc.html
+prev          : /0_Installation.md
 ---
 
 Your content goes here.
@@ -31,6 +31,8 @@ Your content goes here.
 - **description**: A short description of the doc. This shows up under the title on the doc page.
 - **next**: (_optional_) The link to the next doc. This is used to create a "Next" button on buttom of the doc page.
 - **prev**: (_optional_) The link to the previous doc. This creates a "Previous" button.
+
+> In **next** and **prev** both `.md` and `.html` extensions work. You can choose whatever seems easy for you.
 
 ## Content Formatting
 
@@ -49,17 +51,19 @@ For best performance, it is recommended to convert images to WebP format. You ca
 ### Linking other Docs
 
 ```text
-[link title](/Folder__1___Folder__2___1_Doc)
+[link title](/Folder_1/Folder_2/1_Doc.html)
 ```
 
-This creates a link to a doc located at `content/Folder 1/Folder 2/1_Doc.md` in file tree.
+> Notice that when linking, the extension `.html` is used.
 
-##### Key Points
+This creates a link to a doc located at `content/Folder_1/Folder_2/1_Doc.md` in file tree. Notice that `content` is not included when linking.
+
+#### Key Points
 
 - The file path is relative to the `content` directory.
+- The file extension `.md` is replaced with `.html`.
 
-- Folders and file names have _spaces_ replaced with `__` (double underscore). The file extension `.md` is omitted.
-- To distinguish within folders and file, `___` (triple underscore) is used.
+> Related: See how to name your files and folders under [Schema - Getting Started](/1_Getting_Started.html#schema).
 
 ### Colorize Codeblocks
 
@@ -105,8 +109,8 @@ There are two ways to colorize codeblocks:
 
 Please check following resources to learn more about markdown that works with Graphite Docs:
 
-- [Using Math in Graphite](/4_Markdown___4_Using__Math__in__Graphite)
-- [Markdown Cheatsheet](/4_Markdown___5_Markdown__Cheatsheet)
+- [Using Math in Graphite](/4_Markdown/4_Using_Math_in_Graphite.html)
+- [Markdown Cheatsheet](/4_Markdown/5_Markdown_Cheatsheet.html)
 
 ### Using HTML
 
