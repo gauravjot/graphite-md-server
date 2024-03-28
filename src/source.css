@@ -308,7 +308,7 @@ hr {
 }
 #sidebar.shift-up,
 #toc-sidebar.shift-up {
-	@apply top-0 max-h-screen;
+	@apply top-4 max-h-[calc(100svh-1rem)];
 }
 #content {
 	transition-property: margin-left, width;
