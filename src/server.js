@@ -1,4 +1,4 @@
-import express, {static as estatic} from "express";
+import express from "express";
 // import { urlencoded, json } from "body-parser";
 import {join} from "path";
 import {generateDocPage, generateHomePage} from "./utils.js";
@@ -9,7 +9,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(estatic(join(__dirname, "..", "public")));
+app.use(express.static(join(__dirname, "..", "public")));
+app.use("/assets", express.static(join(__dirname, "..", "assets")));
 // app.use(urlencoded({ extended: true }));
 // app.use(json());
 

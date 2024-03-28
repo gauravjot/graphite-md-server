@@ -19,9 +19,13 @@ Then install `nodemon` globally:
 npm install -g nodemon
 ```
 
-## Cloning the Repository
+## Getting Graphite
 
-Clone the Graphite Docs repository from GitHub and `cd` into it:
+You can download the latest release from GitHub and extract the contents.
+
+- <https://github.com/gauravjot/graphite-docs/releases>
+
+Or you can clone the repository to get the latest changes:
 
 ```bash
 git clone https://github.com/gauravjot/graphite-docs
@@ -43,6 +47,14 @@ npm run dev
 ```
 
 The server will start at `http://localhost:3000`.
+
+## Cleaning Up
+
+The only directories you need to get started are `content` and `assets`. You can delete sample docs by removing everything inside of `content` directory. Similarly, you can remove the sample images from the `assets` directory.
+
+## Customizing Graphite
+
+For customizations such as changing logo and website name in navigation, check [Modify Website Pages](5_Customization___1_Modify__Pages).
 
 ## Building for Production
 

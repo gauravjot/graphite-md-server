@@ -53,4 +53,4 @@ npm run build -- --sitemap --baseurl https://example.com
 
 Here is an example of the settings:
 
-![Vercel Settings](images/vercel_deploy_settings.webp)
+![Vercel Settings](/assets/vercel_deploy_settings.webp)

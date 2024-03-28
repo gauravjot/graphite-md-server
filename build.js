@@ -137,7 +137,7 @@ async function build() {
 	// 1. Ask user if they want to build the sitemap
 	if (process.argv.includes("--sitemap")) {
 		buildSitemap = true;
-		console.log("\nBuilding sitemap...");
+		console.log("\nBuild sitemap flag found.");
 	} else {
 		// Ask user if they want to build the sitemap
 		if ((await askQuestion("Do you want to build a sitemap? (y/N):")) === "y") {
@@ -159,7 +159,7 @@ async function build() {
 	}
 
 	// 2. Dist folder
-	console.log("\nBuilding...\n");
+	console.log("\nStarting build...");
 	if (!existsSync(distDir)) {
 		mkdir(distDir, (err) => {
 			if (err) {
@@ -214,6 +214,23 @@ async function build() {
 			}
 		},
 	);
+	console.log("\nCopied public directory");
+
+	// 5.1 Copy assets folder files to dist folder
+	cp(
+		path.join(__dirname, "assets"),
+		path.join(__dirname, "dist", "assets"),
+		{recursive: true, force: true},
+		(err) => {
+			if (err) {
+				console.error(
+					"Error copying assets folder to dist folder. Please manually move the contents of assets folder to dist folder.",
+					err,
+				);
+			}
+		},
+	);
+	console.log("\nCopied assets directory");
 
 	// 6. Save sitemap
 	if (buildSitemap) {
@@ -243,7 +260,7 @@ async function build() {
 	}
 
 	// Success message
-	console.log("\nBuild complete! Files are saved in dist folder. 🎉\n");
+	console.log("Build complete! Files are saved in dist folder. 🎉\n");
 }
 
 build();

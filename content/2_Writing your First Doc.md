@@ -36,6 +36,16 @@ Your content goes here.
 
 The content is written in markdown format. If you are not familiar with markdown, you can check the [Markdown Guide](https://www.markdownguide.org/).
 
+### Using Images and Assets
+
+You can add your assets directly in the `assets` directory or make folders for organization. To use an image in your doc, you can use the following markdown: (assuming the image is in `assets` directory)
+
+```text
+![Alt text](/assets/image_name.png)
+```
+
+For best performance, it is recommended to convert images to WebP format. You can use tools like [CloudConvert](https://cloudconvert.com/webp-converter) to convert images to WebP.
+
 ### Linking other Docs
 
 ```text
@@ -44,7 +54,7 @@ The content is written in markdown format. If you are not familiar with markdown
 
 This creates a link to a doc located at `content/Folder 1/Folder 2/1_Doc.md` in file tree.
 
-###### Key Points
+##### Key Points
 
 - The file path is relative to the `content` directory.
 
