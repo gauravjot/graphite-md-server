@@ -42,7 +42,7 @@ function hideSidebar() {
 // Expand accordion for open page
 const sidebarDocList = document.getElementById("sidebar-doc-list").getElementsByTagName("a");
 for (let i = 0; i < sidebarDocList.length; i++) {
-	if (sidebarDocList[i].id === getLastURLPart()) {
+	if (sidebarDocList[i].getAttribute("aria-current") === "true") {
 		let parent = sidebarDocList[i].parentElement;
 		while (parent.id !== "sidebar-doc-list") {
 			// if tagName is button, then it is an accordion
@@ -55,13 +55,6 @@ for (let i = 0; i < sidebarDocList.length; i++) {
 		}
 		break;
 	}
-}
-function getLastURLPart() {
-	let part = window.location.href.split("/").slice(-1)[0];
-	if (part === "") {
-		return window.location.href.split("/").slice(-2)[0];
-	}
-	return part.replace(".html", "");
 }
 
 // Sidebar accordions on click listeners

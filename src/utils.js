@@ -97,47 +97,46 @@ export function getFiles(dir) {
 }
 
 /**
- * Generates URL string of the doc or id of the folder
+ * Generates URL string of the doc
  *
- * For files    : It returns a unique string that is used as
- *                URL string for anchor tag.
- * For folders  : It returns a unique string that is used as
- *                id string for folder div element in sidebar.
- * @param {string} filePath - Path to file or folder
- * @param {boolean} isFile - If it is a file or folder
- * @returns {string} - Unique string eg. "folder1___folder2___this__article"
+ * @param {string} filePath - Path to file
+ * @returns {string} - URL for doc
  */
-export function getDocURI(filePath, isFile) {
-	let id = filePath
+export function getDocURL(filePath) {
+	if (!filePath) {
+		return;
+	}
+	if (filePath.endsWith(".html")) {
+		return filePath; // already html path given
+	}
+	let uri = filePath
 		.split(path.join(__dirname, "..", "content"))
 		.pop()
-		.replace(/^\/|\/$/g, "")
-		.replaceAll("/", "___")
-		.replaceAll(" ", "__");
-	if (isFile) {
-		// it is a file, return URL string, replace .md with empty string
-		return encodeURIComponent(id.replace(".md", ""));
-	} else {
-		// it is a folder, return id
-		return id;
+		.replace(/^\/|\/$/g, "");
+	// it is a file, return URL string, replace .md with empty string
+	const encoded_uri_chunks = uri.split("/");
+	for (let i = 0; i < encoded_uri_chunks.length; i++) {
+		// encode each chunk
+		encoded_uri_chunks[i] = encodeURIComponent(encoded_uri_chunks[i]);
 	}
+	return "/" + encoded_uri_chunks.join("/").replace(/\.md$/, "") + ".html";
 }
 
 /**
- * Takes string like folder1___folder2___this__article and returns title
+ * Takes string like folder1/folder2/this_article.md and returns title
  *
- * @param {string} name
+ * @param {string} filepath e.g. folder1/folder2/this_article.md
  * @returns {string} title of the document
  */
-export function parseDocTitleFromURI(name) {
-	if (!name) {
+export function parseDocTitleFromURI(filepath) {
+	if (!filepath) {
 		return "";
 	}
 	let baseDir = path.join(__dirname, "..", "content");
-	let filePath = path.join(baseDir, name.replaceAll("___", "/").replaceAll("__", " ") + ".md");
+	let filePath = path.join(baseDir, filepath);
 	// read file
 	const file = matter.read(filePath);
-	return file.data.title || name.split("___").pop().replaceAll("__", " ").replace(/^\d+_/, "");
+	return file.data.title || filepath.replace(/^\d+_/, "").replaceAll("_", " ");
 }
 
 /**
@@ -145,37 +144,38 @@ export function parseDocTitleFromURI(name) {
  * to show the document tree
  *
  * @param {{path: string; title: string; files?:[]}[]} data - output of getFiles() function
- * @param {string} highlight - doc to highlight if it is opened
+ * @param {string} highlight - path of doc to highlight if it is opened
  * @returns {string} HTML
  */
 export function generateSidebarList(data, highlight = "") {
 	let html = "<ul><div>";
 	data.forEach((item) => {
 		if (item.files) {
-			const id = getDocURI(item.path, false);
-			html += '<div class="accordion" id="' + id + '">';
-			let name = id.split("___").slice(-1).join("").replaceAll("__", " ");
+			let dir_name = item.path.split("/").pop();
+			html += '<div class="accordion" id="' + dir_name + '">';
 			// regex [digit+]_ to remove the number prefix
-			if (/^\d+_/.test(name)) {
-				name = name.replace(/^\d+_/, "");
+			if (/^\d+_/.test(dir_name)) {
+				dir_name = dir_name.replace(/^\d+_/, "");
 			}
-			html += '<button class="accordion__button"><span>' + name + "</span></button>";
+			html +=
+				'<button class="accordion__button"><span>' +
+				dir_name.replaceAll("_", " ") +
+				"</span></button>";
 			html += generateSidebarList(item.files, highlight);
 			html += "</div>";
 		} else {
-			const link = getDocURI(item.path, true);
 			let name = item.title;
-			// regex [digit+]_ to remove the number prefix
+			// Regex [digit+]_ to remove the number prefix.
+			// This will only be true if no title is given inside .md file
+			// and file name is being used instead.
 			if (/^\d+_/.test(name)) {
 				name = name.replace(/^\d+_/, "");
 			}
 			html +=
-				'<li><a id="' +
-				link +
-				'" href="/' +
-				link +
+				'<li><a href="' +
+				getDocURL(item.path) +
 				'" aria-current="' +
-				(highlight === link) +
+				(highlight === item.path) +
 				'">' +
 				name +
 				"</a></li>";
@@ -188,37 +188,56 @@ export function generateSidebarList(data, highlight = "") {
 /**
  * Generates a doc page for express to render
  *
- * @param {string} article URL string of the article, eg. "folder1___folder2___this__article"
- * @returns {{post: string, title: string, date: string, description: string, docs: string}}
+ * @param {string} url  URL of doc, eg. /folder/doc.html
+ * @returns {{
+ * post: string,
+ * title: string,
+ * date: string,
+ * description: string,
+ * docs: string,
+ * next: string,
+ * prev: string,
+ * nextTitle:string,
+ * prevTitle:string
+ * }}
  */
-export function generateDocPage(article) {
-	article = decodeURIComponent(article);
-	let basedir = path.join(__dirname, "..", "content");
-	const subpath = article.split("___");
-	const filename = subpath.pop().replaceAll("__", " ") + ".md";
-	for (let i = 0; i < subpath.length; i++) {
-		basedir = path.join(basedir, subpath[i].replaceAll("__", " "));
+export function generateDocPage(url) {
+	// replace trailing .html
+	url = url.replace(/\.html$/, "");
+	// Get the file tree
+	const path_chunks = url.split("/");
+	// remove first empty string
+	path_chunks.shift();
+	// decode chunks to get actual file name
+	for (let i = 0; i < path_chunks.length; i++) {
+		path_chunks[i] = decodeURIComponent(path_chunks[i]);
 	}
-	const filepath = path.join(basedir, filename);
+	// Get file path
+	let basedir = path.join(__dirname, "..", "content");
+	const filepath = path.join(basedir, path_chunks.join("/") + ".md");
+
 	// read the markdown file
 	const file = matter.read(filepath);
 
 	// use markdown-it to convert content to HTML
 	const content = file.content;
-	const result = md.render(content);
+	const html = md.render(content);
 
+	// Get all docs for sidebar navigation
 	const docs = getFiles(path.join(__dirname, "..", "content"));
 
+	// in nextTitle and prevTitle, we need path of the file,
+	// in-case a .html path was given, switch it to .md
 	return {
-		post: result,
+		post: html,
 		title: file.data.title,
 		date: file.data.date,
 		description: file.data.description,
-		next: file.data.next || "",
-		nextTitle: parseDocTitleFromURI(file.data.next || ""),
-		prev: file.data.prev || "",
-		prevTitle: parseDocTitleFromURI(file.data.prev || ""),
-		docs: generateSidebarList(docs, article),
+		next: getDocURL(file.data.next, true) || "",
+		nextTitle: parseDocTitleFromURI(file.data.next ? file.data.next.replace(/\.html$/, ".md") : ""),
+		prev: getDocURL(file.data.prev, true) || "",
+		prevTitle: parseDocTitleFromURI(file.data.prev ? file.data.prev.replace(/\.html$/, ".md") : ""),
+		docs: generateSidebarList(docs, filepath),
 	};
 }
 

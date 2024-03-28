@@ -2,8 +2,8 @@
 title: Deploying Static Website (and Vercel)
 date: 2024-03-24T09:31:20Z
 description:
-prev: 2_Writing__your__First__Doc
-next: 3_Deploying__Graphite___2_Deploying__ExpressJS
+prev: 2_Writing_your_First_Doc.md
+next: 3_Deploying_Graphite/2_Deploying_ExpressJS.md
 ---
 
 This guide will help you deploy your Graphite Docs website to any static hosting provider and Vercel.

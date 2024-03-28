@@ -2,7 +2,7 @@
 title: Switch Accent Color
 date: 2024-03-21T23:32:12Z
 description:
-prev: 5_Customization___1_Modify__Pages
+prev: 5_Customization/1_Modify_Pages.md
 ---
 
 To change the accent color, you will have to edit the file `tailwind.config.js`. This file is located in the root directory of your project.
