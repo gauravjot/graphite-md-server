@@ -6,7 +6,7 @@ next: 2_Writing_your_First_Doc.md
 prev: 0_Installation.md
 ---
 
-Congratulations on setting up Graphite Docs! This page will help you get started with the project.
+Congratulations on setting up Planum Docs! This page will help you get started with the project.
 
 ## Creating Docs and Folders
 

@@ -3,14 +3,14 @@ title: Deploying Static Website (and Vercel)
 date: 2024-03-24T09:31:20Z
 description:
 prev: 2_Writing_your_First_Doc.md
-next: 3_Deploying_Graphite/2_Deploying_ExpressJS.md
+next: 3_Deploying_Planum/2_Deploying_ExpressJS.md
 ---
 
-This guide will help you deploy your Graphite Docs website to any static hosting provider and Vercel.
+This guide will help you deploy your Planum Docs website to any static hosting provider and Vercel.
 
 ## Prerequisites
 
-- As of now, Graphite Docs can only be deployed directly to top-level domains. E.g., `https://example.com` or `https://docs.example.com`. It does not support subdirectories like `https://example.com/docs`.
+- As of now, Planum can only be deployed directly to top-level domains. E.g., `https://example.com` or `https://docs.example.com`. It does not support subdirectories like `https://example.com/docs`.
 
   So, make sure you have a domain or subdomain ready. If you don't have one, you can use services like [Vercel](https://vercel.com) to host your website that provides a free subdomain.
 
@@ -27,7 +27,7 @@ npm run build -- --sitemap --baseurl https://example.com
 | `--sitemap` | optional | Generate a sitemap.xml file                                 |
 | `--baseurl` | optional | The base URL of your website that is used for sitemap urls. |
 
-If you find any issues while building, please [report them](https://github.com/gauravjot/graphite-docs/issues).
+If you find any issues while building, please [report them](https://github.com/gauravjot/planum-docs/issues).
 
 ## Deploying to Vercel
 
@@ -42,7 +42,7 @@ If you find any issues while building, please [report them](https://github.com/g
    | Framework Preset | `Other` |
    | Root Directory   | `./`    |
 
-   > If you have Graphite Docs in a subdirectory, you will need to point the `Root Directory` to that subdirectory.
+   > If you have Planum Docs in a subdirectory, you will need to point the `Root Directory` to that subdirectory.
 
 2. Under _Building and Output Settings_, set the commands as follows:
 

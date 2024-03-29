@@ -24,6 +24,10 @@ module.exports = {
 					950: "#142757",
 				},
 			},
+			screens: {
+				"3xl": "1800px",
+				"4xl": "1940px",
+			},
 		},
 	},
 	plugins: [require("@tailwindcss/container-queries")],

@@ -21,7 +21,7 @@ The `public/manifest.json` file is used to configure the PWA settings. Update th
 
 ## Pages
 
-The page layouts are stored in `src/ejs` directory. These files can be updated to customize Graphite Docs to your liking and rebrand the website.
+The page layouts are stored in `src/ejs` directory. These files can be updated to customize Planum Docs to your liking and rebrand the website.
 
 ### Home and Doc Page
 
@@ -30,7 +30,7 @@ The homepage layout is stored in `src/ejs/index.ejs` and the doc page layout is 
 To change title of the website, update the `app_name` variable in first line of both files.
 
 ```javascript
-1 <% var app_name = "Graphite Docs"; %>
+1 <% var app_name = "Planum Docs"; %>
 2 ...
 ```
 
@@ -39,7 +39,7 @@ To change title of the website, update the `app_name` variable in first line of 
 The navigation bar layout is stored in `src/ejs/partials/nav.ejs`. You can change the title by updating the `logo_text` variable in the first line.
 
 ```javascript
-1 <% var app_name = "Graphite Docs"; %>
+1 <% var app_name = "Planum Docs"; %>
 2 ...
 ```
 

@@ -104,7 +104,7 @@ print("Hello, World!")
 ```
 ````
 
-> Note: If you are using Graphite Docs, you can also colorize codeblocks. Check the [Colorize Codeblocks](/2_Writing_your_First_Doc.html#colorize-codeblocks) section for more information.
+> Note: If you are using Planum Docs, you can also colorize codeblocks. Check the [Colorize Codeblocks](/2_Writing_your_First_Doc.html#colorize-codeblocks) section for more information.
 
 ## Tables
 
@@ -143,4 +143,4 @@ Example: Here is a footnote reference[^1].
 
 ## Math
 
-Graphite Docs have built-in support for math equations. See the [Using Math in Graphite Docs](/4_Markdown/4_Using_Math_in_Graphite) page for more information.
+Planum Docs have built-in support for math equations. See the [Using Math in Planum Docs](/4_Markdown/4_Using_Math_in_Planum) page for more information.

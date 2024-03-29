@@ -2,7 +2,7 @@
 title: Writing your First Doc
 date: 2024-03-28T22:51:27Z
 description:
-next: 3_Deploying_Graphite/1_Deploying_Static.html
+next: 3_Deploying_Planum/1_Deploying_Static.html
 prev: 1_Getting_Started.html
 ---
 
@@ -18,7 +18,7 @@ Here is the layout of a typical doc file:
 ---
 title         : Getting started
 date          : 2024-03-18T10:45:00Z
-description   : Useful information for starting with Graphite Docs
+description   : Useful information for starting with Planum Docs
 next          : /2_Writing_your_First_Doc.html
 prev          : /0_Installation.md
 ---
@@ -107,9 +107,9 @@ There are two ways to colorize codeblocks:
 
 ### Complete Markdown Reference
 
-Please check following resources to learn more about markdown that works with Graphite Docs:
+Please check following resources to learn more about markdown that works with Planum Docs:
 
-- [Using Math in Graphite](/4_Markdown/4_Using_Math_in_Graphite.html)
+- [Using Math in Planum](/4_Markdown/4_Using_Math_in_Planum.html)
 - [Markdown Cheatsheet](/4_Markdown/5_Markdown_Cheatsheet.html)
 
 ### Using HTML

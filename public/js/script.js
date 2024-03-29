@@ -2,12 +2,12 @@
 let sb = document.getElementById("sidebar");
 let content = document.getElementById("content");
 let nb = document.getElementById("navbar");
-let isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
+let isMobile = window.matchMedia("only screen and (max-width: 1024px)").matches;
 if (isMobile) {
 	hideSidebar();
 }
 window.addEventListener("resize", () => {
-	isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
+	isMobile = window.matchMedia("only screen and (max-width: 1024px)").matches;
 	if (isMobile) {
 		hideSidebar();
 	} else {
@@ -32,6 +32,9 @@ function showSidebar() {
 	}
 }
 function hideSidebar() {
+	if (window.matchMedia("only screen and (min-width: 1536px)").matches) {
+		return; // dont hide sidebar on large screens
+	}
 	if (isMobile) {
 		sb.setAttribute("aria-hidden", "true");
 		content.classList.remove("sidebar-open");

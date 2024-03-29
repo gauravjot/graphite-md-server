@@ -5,7 +5,7 @@ description:
 next: 1_Getting_Started.md
 ---
 
-To get started with Graphite Docs, you need to set up a new instance. This page will guide you through the process.
+To get started with Planum Docs, you need to set up a new instance. This page will guide you through the process.
 
 ## Prerequisites
 
@@ -19,17 +19,17 @@ Then install `nodemon` globally:
 npm install -g nodemon
 ```
 
-## Getting Graphite
+## Getting Planum
 
 You can download the latest release from GitHub and extract the contents.
 
-- <https://github.com/gauravjot/graphite-docs/releases>
+- <https://github.com/gauravjot/planum-docs/releases>
 
 Or you can clone the repository to get the latest changes:
 
 ```bash
-git clone https://github.com/gauravjot/graphite-docs
-cd graphite-docs
+git clone https://github.com/gauravjot/planum-docs
+cd planum-docs
 ```
 
 ## Starting the Development Server
@@ -52,14 +52,14 @@ The server will start at <http://localhost:3000>.
 
 The only directories you need to get started are `content` and `assets`. You can delete sample docs by removing everything inside of `content` directory. Similarly, you can remove the sample images from the `assets` directory.
 
-## Customizing Graphite
+## Customizing Planum
 
 For customizations such as changing logo and website name in navigation, check [Modify Website Pages](5_Customization/1_Modify_Pages.html).
 
 ## Building for Production
 
-There are two ways to use Graphite Docs in production:
+There are two ways to use Planum Docs in production:
 
-- Static HTML (Preffered): See [Deploying Static Website (and Vercel)](3_Deploying_Graphite/1_Deploying_Static.html).
+- Static HTML (Preffered): See [Deploying Static Website (and Vercel)](3_Deploying_Planum/1_Deploying_Static.html).
 
-- Express Server: See [Deploying ExpressJS Server](3_Deploying_Graphite/2_Deploying_ExpressJS.html).
+- Express Server: See [Deploying ExpressJS Server](3_Deploying_Planum/2_Deploying_ExpressJS.html).

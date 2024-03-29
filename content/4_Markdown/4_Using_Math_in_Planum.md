@@ -1,10 +1,10 @@
 ---
-title: Using Math in Graphite
+title: Using Math in Planum
 date: 2024-03-21T22:28:42Z
 description:
 ---
 
-Graphite Docs support rendering math equations using KaTeX. A guide to KaTeX can be found at <https://katex.org/docs/supported.html>.
+Planum Docs support rendering math equations using KaTeX. A guide to KaTeX can be found at <https://katex.org/docs/supported.html>.
 
 ## Examples
 
@@ -84,4 +84,4 @@ $$\fcolorbox{red}{yellow}{\textcolor{green}{F=ma}}$$
 
 ## Limitations
 
-[HTML](https://katex.org/docs/supported.html#html) features of KaTeX are not fully supported in Graphite Docs. There is limited support for using `\url` and `\href` commands.
+[HTML](https://katex.org/docs/supported.html#html) features of KaTeX are not fully supported in Planum Docs. There is limited support for using `\url` and `\href` commands.
