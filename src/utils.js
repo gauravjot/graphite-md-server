@@ -239,7 +239,7 @@ export function generateDocPage(url) {
 	return {
 		post: html,
 		title: file.data.title,
-		date: file.data.date,
+		date: formatDate(file.data.date),
 		description: file.data.description,
 		next: getDocURL(file.data.next, true) || "",
 		nextTitle: parseDocTitle(file.data.next ? file.data.next.replace(/\.html$/, ".md") : ""),
@@ -270,4 +270,29 @@ export function generateHomePage() {
 		post: result,
 		docs: generateSidebarList(docs),
 	};
+}
+
+/**
+ * Helper functions
+ */
+export function formatDate(date) {
+	if (!date) {
+		return "";
+	}
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+	date = new Date(date);
+	return `${months[date.getUTCMonth()]} ${date.getUTCDate()}, ${date.getUTCFullYear()}`;
 }

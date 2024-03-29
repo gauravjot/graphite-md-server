@@ -200,7 +200,7 @@ hr {
 /* Code */
 
 #md-content pre {
-	@apply w-full rounded bg-black/5 dark:bg-white/5;
+	@apply w-full rounded bg-[#eaedef] dark:bg-white/5;
 	@apply my-5 overflow-auto;
 }
 #md-content li pre {
@@ -214,9 +214,9 @@ hr {
 }
 :not(#md-content pre) > code {
 	/* inline code */
-	@apply rounded bg-black/5 dark:bg-white/10;
-	@apply border border-black/10 dark:border-zinc-200/20;
-	@apply inline-block px-1 py-0 text-[15px] tracking-tight;
+	@apply rounded bg-slate-200/50 dark:bg-white/10;
+	@apply border border-slate-300 dark:border-zinc-200/20;
+	@apply inline-block px-1 py-0 text-[95%] tracking-tight;
 }
 #md-content pre.good,
 #md-content pre.bad {
@@ -241,11 +241,14 @@ hr {
 }
 #md-content .markdown-it-code-copy {
 	@apply place-items-center justify-center;
-	@apply flex rounded bg-zinc-200 p-2 text-sm hover:bg-zinc-300 lg:hidden dark:bg-zinc-900 hover:dark:bg-zinc-800;
+	@apply flex rounded bg-slate-300/50 p-2 text-sm hover:bg-slate-400/30 lg:hidden dark:bg-zinc-900 hover:dark:bg-zinc-800;
 }
 #md-content .markdown-it-code-copy span.copy-icon {
 	background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="24px" height="24px" stroke-width="1.6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M19.4 20H9.6C9.26863 20 9 19.7314 9 19.4V9.6C9 9.26863 9.26863 9 9.6 9H19.4C19.7314 9 20 9.26863 20 9.6V19.4C20 19.7314 19.7314 20 19.4 20Z" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 9V4.6C15 4.26863 14.7314 4 14.4 4H4.6C4.26863 4 4 4.26863 4 4.6V14.4C4 14.7314 4.26863 15 4.6 15H9" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
 	@apply block size-5 invert-[0.3] dark:invert-[0.7];
+}
+#md-content .markdown-it-code-copy:hover span.copy-icon {
+	@apply invert-0 dark:invert;
 }
 #md-content div:hover > .markdown-it-code-copy {
 	@apply flex;

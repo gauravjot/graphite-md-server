@@ -1,6 +1,5 @@
 ---
 title: Getting started
-date: 2024-03-28T22:43:22Z
 description:
 next: 2_Writing_your_First_Doc.md
 prev: 0_Installation.md

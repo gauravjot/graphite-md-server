@@ -1,6 +1,5 @@
 ---
 title: Installation Guide
-date: 2024-03-28T10:54:19Z
 description:
 next: 1_Getting_Started.md
 ---

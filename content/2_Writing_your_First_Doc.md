@@ -1,6 +1,6 @@
 ---
 title: Writing your First Doc
-date: 2024-03-28T22:51:27Z
+date: 2024-03-29
 description:
 next: 3_Deploying_Planum/1_Deploying_Static.html
 prev: 1_Getting_Started.html
@@ -17,7 +17,7 @@ Here is the layout of a typical doc file:
 ```text
 ---
 title         : Getting started
-date          : 2024-03-18T10:45:00Z
+date          : 2024-03-18
 description   : Useful information for starting with Planum Docs
 next          : /2_Writing_your_First_Doc.html
 prev          : /0_Installation.md
@@ -27,10 +27,10 @@ Your content goes here.
 ```
 
 - **title**: The title of the doc. If not present, the file name is used as the title.
-- **date**: The date of the doc. This shows up on top of the page. You may wish to update it when you make changes to the doc. The date in above sample markdown is in **UTC** time (_Z_ represents UTC) and gets converted to server's local time when rendering.
-- **description**: A short description of the doc. This shows up under the title on the doc page.
-- **next**: (_optional_) The link to the next doc. This is used to create a "Next" button on buttom of the doc page.
-- **prev**: (_optional_) The link to the previous doc. This creates a "Previous" button.
+- **date** (_optional_): This shows up on top of the page. You may wish to update it when you make changes to the doc. The date is read in in **UTC** time.
+- **description** (_optional_): A short description of the doc. This shows up under the title on the doc page.
+- **next** (_optional_): The link to the next doc. This is used to create a "Next" button on buttom of the doc page.
+- **prev** (_optional_): The link to the previous doc. This creates a "Previous" button.
 
 > In **next** and **prev** both `.md` and `.html` extensions work. You can choose whatever seems easy for you.
 
