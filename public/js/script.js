@@ -2,12 +2,12 @@
 let sb = document.getElementById("sidebar");
 let content = document.getElementById("content");
 let nb = document.getElementById("navbar");
-let isMobile = window.matchMedia("only screen and (max-width: 1024px)").matches;
+let isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
 if (isMobile) {
 	hideSidebar();
 }
 window.addEventListener("resize", () => {
-	isMobile = window.matchMedia("only screen and (max-width: 1024px)").matches;
+	isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
 	if (isMobile) {
 		hideSidebar();
 	} else {

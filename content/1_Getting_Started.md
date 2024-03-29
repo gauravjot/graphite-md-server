@@ -30,16 +30,16 @@ _Doc_D.md         # draft, is hidden
 
 The navigation tree inside sidebar will be rendered in this exact manner. Here are all the rules that apply:
 
-1. Use format `[number]_[name].md` to sort your files and directories, the prefix `[number]_` part is omitted during build.
+1. Use format `[number]_[name].md` to sort documents and folders; the prefix `[number]_` is omitted during build.
 2. Files starting with `_` (_underscore_) are treated as a draft and are hidden inside the navigation tree.
-3. Try not to use _spaces_ when naming a file or folder. You should also restrict to using only URL safe symbols such as `$-_.+!*'(),`, however it is not a requirement.
+3. Try not to use _spaces_ when naming a file or folder. You should also restrict to using URL safe symbols such as `$-_.+!*'(),`, however it is not a requirement.
 
    | Do this:              | Don't do this:        |
    | --------------------- | --------------------- |
    | `1_Doc_A.md`          | `1 Doc A.md`          |
    | `Some_Directory_Name` | `Some Directory Name` |
 
-   **Reason**: This is because markdown links do not render that contain spaces.
+   This is because markdown does not render links that contain spaces.
 
    ```markdown_good
    [Link to Doc A](1_Doc_A.md)  # works
@@ -49,7 +49,7 @@ The navigation tree inside sidebar will be rendered in this exact manner. Here a
    [Link to Doc A](1 Doc A.md)  # doesn't work
    ```
 
-   To make it work, you would have to replace the spaces with `%20`:
+   To make it work, you will have to replace the spaces with `%20`:
 
    ```markdown_good
    [Link to Doc A](1%20Doc%20A.md) # works although not very readable

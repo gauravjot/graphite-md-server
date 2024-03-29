@@ -79,15 +79,15 @@ hr {
 #md-content h4,
 #md-content h5,
 #md-content h6 {
-	@apply font-semibold text-black dark:text-white;
-	@apply mb-3 mt-9 tracking-[-0.012em];
+	@apply font-medium text-black dark:text-white;
+	@apply mb-3 mt-10 tracking-[-0.012em];
 }
 #md-content h1 {
-	@apply text-4xl !leading-[1.3];
+	@apply text-4xl font-semibold !leading-[1.3];
 }
 
 #md-content h2 {
-	@apply text-3xl;
+	@apply text-3xl !leading-[1.3];
 	@apply border-b border-zinc-300 pb-1 dark:border-zinc-800;
 }
 
@@ -121,7 +121,7 @@ hr {
 	@apply !no-underline opacity-100;
 }
 #md-content p {
-	@apply my-3.5;
+	@apply my-4;
 }
 #md-content p eq:before {
 	content: " ";
@@ -135,8 +135,9 @@ hr {
 	@apply my-5 w-full rounded shadow;
 }
 
-#md-content ul {
-	@apply mt-3.5;
+#md-content ul,
+#md-content ol {
+	@apply mt-4;
 }
 
 #md-content li > ul {
@@ -144,7 +145,7 @@ hr {
 }
 
 #md-content li {
-	@apply ml-5 mt-2.5 pl-2.5;
+	@apply ml-5 mt-2.5 pl-1.5 sm:pl-2.5;
 }
 
 #md-content ul > li {
@@ -215,7 +216,7 @@ hr {
 	/* inline code */
 	@apply rounded bg-black/5 dark:bg-white/10;
 	@apply border border-black/10 dark:border-zinc-200/20;
-	@apply inline-block px-1 py-0 font-sans text-[15px];
+	@apply inline-block px-1 py-0 text-[15px] tracking-tight;
 }
 #md-content pre.good,
 #md-content pre.bad {
@@ -251,8 +252,14 @@ hr {
 }
 
 #md-content blockquote {
-	@apply border-l-2 border-solid border-zinc-300 pl-4 dark:border-zinc-700;
+	@apply my-5 border-l-2 border-solid border-zinc-300 pl-4 dark:border-zinc-700;
 	font-style: italic;
+}
+
+.next-prev-btn {
+	@apply block rounded-md px-4 py-3.5 text-right shadow;
+	@apply hover:bg-zinc-100 hover:no-underline hover:dark:bg-zinc-900/50;
+	@apply border border-zinc-300 hover:border-zinc-400 dark:border-zinc-700 hover:dark:border-zinc-400;
 }
 
 /* Math */
@@ -327,7 +334,7 @@ section.eqno > span {
 #toc-sidebar,
 #navbar {
 	transition:
-		all 300ms ease-in-out,
+		all 500ms cubic-bezier(0.4, 0, 0.2, 1),
 		background-color 1ms,
 		border-color 1ms;
 }
@@ -344,10 +351,10 @@ section.eqno > span {
 	@apply pl-1;
 }
 #content.sidebar-open {
-	@apply 4xl:ml-[31rem] 3xl:ml-[25rem] lg:ml-64 xl:ml-72 2xl:ml-[21rem];
+	@apply lg:ml-64 xl:ml-72 2xl:ml-[21rem] 3xl:ml-[25rem] 4xl:ml-[31rem];
 }
 #toc-sidebar {
-	@apply 4xl:w-80 3xl:w-64 lg:w-56;
+	@apply xl:w-56 3xl:w-64 4xl:w-80;
 }
 #sidebar #sidebar-toggle,
 #sidebar-toggle-closed {
@@ -355,19 +362,26 @@ section.eqno > span {
 	/* at high resolution there is no need for sidebar to collapse*/
 	@apply 2xl:hidden;
 }
+#sidebar {
+	@apply border-r lg:border-r-0 dark:border-zinc-700;
+	@apply w-96 max-w-[80%] pr-4 sm:pr-5 md:pr-6;
+}
 #sidebar[aria-hidden="true"] {
-	@apply w-0 bg-transparent hover:bg-zinc-100 lg:w-10 dark:hover:bg-zinc-900;
+	@apply left-[min(-80%,-20rem)] lg:left-auto;
+	@apply hover:bg-zinc-100 lg:w-10 dark:hover:bg-zinc-900;
 }
 #sidebar[aria-hidden="false"] {
-	@apply 4xl:w-80 w-64 max-w-full pr-4 sm:pr-5 md:pr-6 lg:w-56 lg:pr-0 xl:w-60 2xl:w-[17rem];
-	@apply border-r lg:border-r-0 dark:border-zinc-700;
+	@apply left-4 lg:left-auto;
+	@apply lg:w-56 lg:pr-0 xl:w-60 2xl:w-[17rem] 4xl:w-80;
 }
-#sidebar[aria-hidden="true"] > div {
-	animation: fadeOut 0.15s linear forwards;
-	@apply pointer-events-none;
-}
-#sidebar[aria-hidden="false"] > div {
-	animation: fadeIn 0.15s linear forwards;
+@media (min-width: 1024px) {
+	#sidebar[aria-hidden="true"] > div {
+		animation: fadeOut 0.15s linear forwards;
+		@apply pointer-events-none;
+	}
+	#sidebar[aria-hidden="false"] > div {
+		animation: fadeIn 0.15s linear forwards;
+	}
 }
 #sidebar[aria-hidden="false"] #sidebar-toggle-closed {
 	@apply hidden;
@@ -387,27 +401,37 @@ section.eqno > span {
 #sidebar-nav-list a,
 #sidebar-doc-list .accordion__button,
 #sidebar-doc-list a {
-	@apply block text-[14.5px] font-medium leading-[1.3] hover:no-underline 2xl:text-[15px];
-	@apply my-1.5 rounded px-2 py-2 text-zinc-700 hover:bg-zinc-200 dark:text-zinc-300 dark:hover:bg-zinc-800;
+	@apply text-[14.5px] font-medium leading-[1.3] 2xl:text-[15px];
+	@apply my-1.5 block rounded px-2 py-2 hover:no-underline;
+	@apply text-zinc-600 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-white;
+	@apply hover:bg-zinc-200 dark:hover:bg-zinc-900;
 }
 #sidebar-doc-list .accordion__button {
-	@apply my-0;
+	@apply my-0 transition-all;
 }
 #sidebar-doc-list a[aria-current="true"],
 #sidebar-doc-list a[aria-current="true"]:hover {
 	@apply rounded border-none bg-primary-300/30 px-2 font-medium text-primary-700 hover:no-underline dark:bg-primary-500/10 dark:text-primary-200;
 }
 #sidebar-doc-list .accordion ul {
-	@apply grid border-l-2 border-zinc-200 pl-1 dark:border-zinc-800;
+	@apply ml-2 grid border-l-2 border-zinc-200 pl-1 opacity-0 dark:border-zinc-800;
 	grid-template-rows: 0fr;
-	transition: grid-template-rows 0.15s ease-in-out;
+	transition:
+		grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+		opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 #sidebar-doc-list .accordion > ul > div {
 	@apply overflow-hidden;
 }
+#sidebar-doc-list .accordion > ul > div > li:first-child > a {
+	@apply mt-0.5;
+}
+#sidebar-doc-list .accordion > ul > div > li:last-child > a {
+	@apply mb-0.5;
+}
 #sidebar-doc-list .accordion[aria-expanded="true"] > ul {
 	grid-template-rows: 1fr;
-	@apply mb-1;
+	@apply mb-1 opacity-100;
 }
 #sidebar-doc-list .accordion + .accordion {
 	@apply mt-1.5;
@@ -429,7 +453,7 @@ section.eqno > span {
 	@apply inline-block overflow-hidden truncate text-ellipsis;
 }
 #sidebar-doc-list .accordion[aria-expanded="true"] > .accordion__button {
-	@apply mb-1 bg-zinc-200 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100;
+	@apply mb-1;
 }
 #sidebar-doc-list .accordion[aria-expanded="true"] > .accordion__button > span {
 	@apply inline-block overflow-auto whitespace-normal text-left;
@@ -455,7 +479,7 @@ section.eqno > span {
 
 /* Table of Contents */
 #toc li a {
-	@apply my-1.5 block text-[15px] text-zinc-700 hover:text-primary-700 dark:text-zinc-300 dark:hover:text-primary-300;
+	@apply my-1.5 block text-[14.5px] text-zinc-700 hover:text-primary-700 dark:text-zinc-300 dark:hover:text-primary-300;
 }
 #toc li a[aria-current="true"] {
 	@apply text-primary-700 dark:text-primary-300;

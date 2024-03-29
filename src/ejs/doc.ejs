@@ -13,7 +13,7 @@
 		<div class="container">
 			<%- include ('./partials/sidebar.ejs') %>
 			<div
-				class="sidebar-open 4xl:gap-48 3xl:gap-32 mt-16 flex h-[calc(100%-4rem)] flex-col md:gap-6 lg:flex-row lg:gap-8 xl:gap-12 2xl:gap-16"
+				class="sidebar-open mt-16 flex h-[calc(100%-4rem)] flex-col md:gap-6 xl:flex-row xl:gap-12 2xl:gap-16 3xl:gap-32 4xl:gap-48"
 				id="content"
 			>
 				<div class="order-2 mb-8 flex-1 pt-px @container/doc" id="md-content">
@@ -28,10 +28,7 @@
 					<div id="doc-pn" class="mt-12 grid gap-5 @lg/doc:grid-cols-2 @lg/doc:gap-8">
 						<div class="col-span-1">
 							<% if(prev){ %>
-							<a
-								href="<%= prev %>"
-								class="block rounded-md border border-zinc-300 px-4 py-3.5 shadow hover:bg-zinc-100 hover:no-underline dark:border-zinc-700 hover:dark:bg-zinc-900/50"
-							>
+							<a href="<%= prev %>" class="next-prev-btn">
 								<div class="font-medium text-zinc-700 dark:text-zinc-300">
 									<div class="text-sm">Previous</div>
 									<div class="mt-2 w-[calc(100%)] truncate font-medium"><%= prevTitle %></div>
@@ -41,10 +38,7 @@
 						</div>
 						<div class="col-span-1">
 							<% if(next){ %>
-							<a
-								href="<%= next %>"
-								class="block rounded-md border border-zinc-300 px-4 py-3.5 text-right shadow hover:bg-zinc-100 hover:no-underline dark:border-zinc-700 hover:dark:bg-zinc-900/50"
-							>
+							<a href="<%= next %>" class="next-prev-btn">
 								<div class="font-medium text-zinc-700 dark:text-zinc-300">
 									<div class="text-sm">Next</div>
 									<div class="mt-2 w-[calc(100%)] truncate font-medium"><%= nextTitle %></div>
@@ -58,9 +52,9 @@
 				<!-- Table of Contents starts -->
 				<div
 					id="toc-sidebar"
-					class="order-1 flex-1 md:flex-initial lg:sticky lg:top-16 lg:order-3 lg:max-h-[calc(100vh-4rem)] lg:overflow-auto"
+					class="order-1 flex-1 md:flex-initial xl:sticky xl:top-16 xl:order-3 xl:max-h-[calc(100vh-4rem)] xl:overflow-auto"
 				>
-					<div class="mt-8 rounded-md border p-3 pt-4 lg:border-none lg:p-0 dark:border-zinc-900">
+					<div class="mt-8 rounded-md border p-3 pt-4 xl:border-none xl:p-0 dark:border-zinc-900">
 						<div class="mb-4 text-sm font-medium text-zinc-700 dark:text-zinc-300">
 							TABLE OF CONTENTS
 						</div>
