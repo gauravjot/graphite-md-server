@@ -63,7 +63,7 @@ a {
 }
 
 hr {
-	@apply my-6 border-t border-zinc-500;
+	@apply my-6 border-t border-zinc-300 dark:border-zinc-800;
 }
 
 /* Doc theming */

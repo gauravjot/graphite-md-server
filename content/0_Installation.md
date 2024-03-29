@@ -28,7 +28,7 @@ You can download the latest release from GitHub and extract the contents.
 Or you can clone the repository to get the latest changes:
 
 ```bash
-git clone https://github.com/gauravjot/planum-docs
+git clone --depth 1 https://github.com/gauravjot/planum-docs
 cd planum-docs
 ```
 
@@ -50,7 +50,12 @@ The server will start at <http://localhost:3000>.
 
 ## Cleaning Up
 
-The only directories you need to get started are `content` and `assets`. You can delete sample docs by removing everything inside of `content` directory. Similarly, you can remove the sample images from the `assets` directory.
+- Empty out `content` directory.
+- Empty out `assets` directory.
+- Delete `press` directory.
+- Delete hidden `.git` directory if you cloned the repository.
+
+If you will be setting up a repository, make sure to keep at least one file inside `content` and `assets`. Usually the empty directories are not pushed to the remote repositories.
 
 ## Customizing Planum
 
@@ -60,6 +65,6 @@ For customizations such as changing logo and website name in navigation, check [
 
 There are two ways to use Planum Docs in production:
 
-- Static HTML (Preffered): See [Deploying Static Website (and Vercel)](3_Deploying_Planum/1_Deploying_Static.html).
+- Static HTML (Recommended): See [Deploying Static Website (and Vercel)](3_Deploying_Planum/1_Deploying_Static.html).
 
 - Express Server: See [Deploying ExpressJS Server](3_Deploying_Planum/2_Deploying_ExpressJS.html).
