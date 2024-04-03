@@ -161,9 +161,9 @@ print("🎉")
 
 ##### Format
 
-- `1`: Highlights line 1.
-- `3-7`: Highlights all lines between 3 and 7.
-- `9-*`: Highlights all lines starting from 9 to the last.
+- `2`: Highlights line 2.
+- `4-5`: Highlights all lines between and including 4 and 5.
+- `7-*`: Highlights all lines starting from 7 to the last.
 - `*-10`: Highlights all lines from first to 10.
 
 #### Using Multiple Attributes

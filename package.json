@@ -1,6 +1,6 @@
 {
 	"name": "planum-docs",
-	"version": "1.5.1",
+	"version": "1.6.0",
 	"description": "",
 	"main": "server.js",
 	"type": "module",

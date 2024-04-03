@@ -586,7 +586,7 @@ section.eqno > span {
 	@apply w-full;
 }
 .hljsp-pre code > span {
-	@apply inline-block w-full px-4;
+	@apply inline-table w-full px-4;
 }
 .hljsp-pre .hljsp-linehl {
 	@apply bg-black/10 dark:bg-white/10;
