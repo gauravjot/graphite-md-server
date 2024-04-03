@@ -69,12 +69,12 @@ This creates a link to a doc located at `content/Folder_1/Folder_2/1_Doc.md` in 
 
 You can customize codeblocks by using attributes. There are four attributes available:
 
-| Attribute  | Values             | Description                               |
-| ---------- | ------------------ | ----------------------------------------- |
-| `color`    | `good\|bad` string | Colors the codeblock                      |
-| `linenums` | none               | Add line numbers to the codeblock         |
-| `title`    | string             | Add a title to the codeblock              |
-| `hl_lines` | string             | Highlight specific lines in the codeblock |
+| Attribute   | Values             | Description                               |
+| ----------- | ------------------ | ----------------------------------------- |
+| `color`     | `good\|bad` string | Colors the codeblock                      |
+| `lines`     | none               | Add line numbers to the codeblock         |
+| `title`     | string             | Add a title to the codeblock              |
+| `highlight` | string             | Highlight specific lines in the codeblock |
 
 > To use attributes, you need to specify the language name. If you are not using a language, you can use `text` as the language.
 
@@ -111,10 +111,10 @@ There are two ways to color codeblocks:
 
 #### Add Line Numbers
 
-Add line numbers to your codeblocks by using `linenums` attribute.
+Add line numbers to your codeblocks by using `lines` attribute.
 
 ````text
-```python linenums
+```python lines
 i = 0
 while i < len(books):
     print(books[i])
@@ -124,7 +124,7 @@ while i < len(books):
 
 This will render like this
 
-```python linenums
+```python lines
 i = 0
 while i < len(books):
     print(books[i])
@@ -144,11 +144,11 @@ for book in books:
 
 #### Add Line Highlighting
 
-`hl_lines="2,4-5,7-*"`
+`highlight="2,4-5,7-*"`
 
 This will highlight lines 2, 4 to 5, and all lines starting from 7 to end. Attribute values are separated by commas.
 
-```python hl_lines="2,4-5,7-*" linenums
+```python highlight="2,4-5,7-*" lines
 # List of books
 books = ["Book 1", "Book 2", "Book 3", "Book 4", "Book 5"]
 
@@ -170,9 +170,9 @@ print("🎉")
 
 You can use multiple attributes in a codeblock.
 
-`color="good" linenums title="Print Books" hl_lines="1,3-4,6-*"`
+`color="good" lines title="Print Books" highlight="1,3-4,6-*"`
 
-```python color="good" linenums title="Print Books" hl_lines="1,3-4,6-*"
+```python color="good" lines title="Print Books" highlight="1,3-4,6-*"
 books = ["Book 1", "Book 2", "Book 3", "Book 4", "Book 5"]
 
 for book in books:

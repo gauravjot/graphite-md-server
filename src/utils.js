@@ -16,24 +16,6 @@ const __dirname = path.dirname(__filename);
 
 let content_dir = path.join(__dirname, "..", "content");
 
-// //hljs, wrap each line in a span
-// hljs.addPlugin({
-// 	"after:highlight": (result) => {
-// 		console.log("-------");
-// 		console.log(JSON.stringify(result._emitter));
-// 		let classes = [];
-// 		// split into lines array
-// 		let lines = result.value.split("\n");
-// 		// trim the last line if it is empty
-// 		if (lines[lines.length - 1] === "") {
-// 			lines.pop();
-// 		}
-// 		// wrap each line in a span
-// 		lines = lines.map((line) => `<span class="${classes.join(" ")}">${line}</span>`);
-// 		result.value = lines.join("\n");
-// 	},
-// });
-
 // markdown-it options
 const md = MarkdownIt({
 	html: true,
@@ -60,7 +42,7 @@ const md = MarkdownIt({
 			block += `<code>`;
 		}
 		let classes = [];
-		if (attr.linenums) {
+		if (attr.lines) {
 			classes.push("hljsp-linenums");
 		}
 		// split into lines array
@@ -70,9 +52,9 @@ const md = MarkdownIt({
 			lines.pop();
 		}
 		// wrap each line in a span and highlight if needed
-		const highlighted_lines = attr.hl_lines ? highlightedLines(attr.hl_lines, lines.length) : [];
+		const highlighted_lines = attr.highlight ? highlightedLines(attr.highlight, lines.length) : [];
 		lines = lines.map((line, index) => {
-			let is_highlighted_line = attr.hl_lines && highlighted_lines.includes(index + 1);
+			let is_highlighted_line = highlighted_lines.includes(index + 1);
 			let span_class = classes.join(" ") + (is_highlighted_line ? " hljsp-linehl" : "");
 			span_class = span_class.trim();
 			return `<span class="${span_class}">${line}</span>`;
@@ -347,9 +329,9 @@ export function formatDate(date) {
 /**
  *
  * @param {*} str
- * @returns {{linenums?:boolean; color?: good|bad; title?:string; hl_lines?:string;}}
+ * @returns {{lines?:boolean; color?: good|bad; title?:string; highlight?:string;}}
  */
-function parseCodeBlockAttrs(str) {
+export function parseCodeBlockAttrs(str) {
 	const obj = {};
 	str.replace(/(\w+)(?:\s*=\s*"([^"]*)")?/g, (match, key, value) => {
 		if (value === "true" || value === undefined) {
@@ -367,13 +349,17 @@ function parseCodeBlockAttrs(str) {
  * @param {number} lineNumber
  * @param {*} hlLinesAttribute e.g. "1-3,5,7-9,10-*"
  * @param {number} maxLines
- * @returns
+ * @returns {number[]} e.g. [1,2,3,5,7,8,9,10,11,12,13,14,15]
  */
-function highlightedLines(hlLinesAttribute, maxLines) {
+export function highlightedLines(hlLinesAttribute, maxLines) {
 	const hlLinesRanges = hlLinesAttribute.split(","); // Split the hl_lines attribute value by comma
 	const highlightedLines = [];
 
 	hlLinesRanges.forEach((range) => {
+		range = range.trim();
+		if (range === "") {
+			return;
+		}
 		if (range.includes("-")) {
 			const [start, end] = range.split("-");
 			if (start === "*") {
