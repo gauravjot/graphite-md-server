@@ -1,14 +1,12 @@
 ---
 title: Writing your First Doc
 date: 2024-03-29
-description:
+description: Let's get you started with writing your first doc! This page will help you understand the layout and adding content such as images, links, and codeblocks to your docs.
 next: 3_Deploying_Planum/1_Deploying_Static.html
 prev: 1_Getting_Started.html
 ---
 
-Now, let's get you started for writing your first doc!
-
-If you are unsure about where to make your file or how to name one, **check the [Getting Started](/1_Getting_Started.html#creating-docs-and-folders) page** first.
+If you are unsure about where to make your file or how to name one, check the [Getting Started](/1_Getting_Started.html#creating-docs-and-folders) page first.
 
 ## Layout
 
@@ -27,8 +25,8 @@ Your content goes here.
 ```
 
 - **title**: The title of the doc and the HTML page. If not present, the file name is used as the title.
-- **date** (_optional_): This shows up on top of the page. You may wish to update it when you make changes to the doc. The date is read in in **UTC** time.
-- **description** (_optional_, _recommended_): This shows up under the title on the doc page. For better SEO, it is recommended to have a description as it is used in meta tags.
+- **date** (_optional_): This shows up on top of the page. You may wish to update it when you make changes to the doc. The date is read in **UTC** time.
+- **description** (_recommended_): This shows up under the title on the doc page. For better SEO, it is recommended to have a description for meta tags. As such, no markdown is allowed.
 - **next** (_optional_): The link to next doc. This is used to create a "Next" button on buttom of the doc page.
 - **prev** (_optional_): The link to previous doc. This creates a "Previous" button.
 
