@@ -26,11 +26,11 @@ prev          : /0_Installation.md
 Your content goes here.
 ```
 
-- **title**: The title of the doc. If not present, the file name is used as the title.
+- **title**: The title of the doc and the HTML page. If not present, the file name is used as the title.
 - **date** (_optional_): This shows up on top of the page. You may wish to update it when you make changes to the doc. The date is read in in **UTC** time.
-- **description** (_optional_): A short description of the doc. This shows up under the title on the doc page.
-- **next** (_optional_): The link to the next doc. This is used to create a "Next" button on buttom of the doc page.
-- **prev** (_optional_): The link to the previous doc. This creates a "Previous" button.
+- **description** (_optional_, _recommended_): This shows up under the title on the doc page. For better SEO, it is recommended to have a description as it is used in meta tags.
+- **next** (_optional_): The link to next doc. This is used to create a "Next" button on buttom of the doc page.
+- **prev** (_optional_): The link to previous doc. This creates a "Previous" button.
 
 > In **next** and **prev** both `.md` and `.html` extensions work. You can choose whatever seems easy for you.
 

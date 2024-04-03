@@ -1,12 +1,10 @@
 ---
 title: Deploying Static Website (and Vercel)
 date: 2024-03-24T09:31:20Z
-description:
+description: This guide will help you deploy your Planum Docs website to any static hosting provider and Vercel.
 prev: 2_Writing_your_First_Doc.md
 next: 3_Deploying_Planum/2_Deploying_ExpressJS.md
 ---
-
-This guide will help you deploy your Planum Docs website to any static hosting provider and Vercel.
 
 ## Prerequisites
 

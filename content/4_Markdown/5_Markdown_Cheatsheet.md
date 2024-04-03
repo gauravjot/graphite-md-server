@@ -1,7 +1,7 @@
 ---
 title: Markdown Cheat Sheet
 date: 2024-03-21T21:15:42Z
-description: A quick reference to markdown syntax
+description: A quick reference for general markdown syntax.
 ---
 
 When using a markdown element, it is recommended to use a **blank line before and after the element**. This ensures that the document is rendered correctly and also makes the markdown more readable. If you are not familiar with markdown, you can check the [Markdown Guide](https://www.markdownguide.org/).

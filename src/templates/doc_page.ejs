@@ -6,7 +6,7 @@
 <html lang="en">
 	<head>
 		<title><%=title %> | <%= app_name %></title>
-		<meta name="description" content="Documentation for <%= app_name %> by <%= app_name %>." />
+		<meta name="description" content="<%= description %>" />
 		<%- include ('./partials/head_tag.ejs') %>
 	</head>
 	<body>
@@ -23,7 +23,7 @@
 						<% if (date) { %> Updated — <%= date %> <% } %>
 					</div>
 					<h1><%= title %></h1>
-					<p class="text-base font-medium leading-8 dark:!text-zinc-200"><%= description %></p>
+					<p><%= description %></p>
 					<div><%- post %></div>
 					<div id="doc-pn" class="mt-12 grid gap-5 @lg/doc:grid-cols-2 @lg/doc:gap-8">
 						<div class="col-span-1">
