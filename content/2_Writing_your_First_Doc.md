@@ -1,6 +1,6 @@
 ---
 title: Writing your First Doc
-date: 2024-03-29
+date: 2024-04-03
 description: Let's get you started with writing your first doc! This page will help you understand the layout and adding content such as images, links, and codeblocks to your docs.
 next: 3_Deploying_Planum/1_Deploying_Static.html
 prev: 1_Getting_Started.html
@@ -65,14 +65,27 @@ This creates a link to a doc located at `content/Folder_1/Folder_2/1_Doc.md` in 
 
 > Related: See how to name your files and folders under [Schema - Getting Started](/1_Getting_Started.html#schema).
 
-### Colorize Codeblocks
+### Codeblocks
 
-There are two ways to colorize codeblocks:
+You can customize codeblocks by using attributes. There are four attributes available:
 
-1. Green: Using language `[langauge]_good`
+| Attribute  | Values             | Description                               |
+| ---------- | ------------------ | ----------------------------------------- |
+| `color`    | `good\|bad` string | Colors the codeblock                      |
+| `linenums` | none               | Add line numbers to the codeblock         |
+| `title`    | string             | Add a title to the codeblock              |
+| `hl_lines` | string             | Highlight specific lines in the codeblock |
 
-   ````markdown
-   ```python_good
+> To use attributes, you need to specify the language name. If you are not using a language, you can use `text` as the language.
+
+#### Add Color for Context
+
+There are two ways to color codeblocks:
+
+1. Green: Using attribute `color="good"`
+
+   ````text
+   ```python color="good"
    i = 0
    while i < len(books):
        print(books[i])
@@ -82,28 +95,91 @@ There are two ways to colorize codeblocks:
 
    This will render like this
 
-   ```python_good
+   ```python color="good"
    i = 0
    while i < len(books):
        print(books[i])
        i += 1
    ```
 
-2. Red: Using language `[langauge]_bad`
+2. Red: Using attribute `color="bad"`
 
-   ````markdown
-   ```python_bad
+   ```python color="bad"
    for book in books:
        print(book)
    ```
-   ````
 
-   Rendering
+#### Add Line Numbers
 
-   ```python_bad
-   for book in books:
-       print(book)
-   ```
+Add line numbers to your codeblocks by using `linenums` attribute.
+
+````text
+```python linenums
+i = 0
+while i < len(books):
+    print(books[i])
+    i += 1
+```
+````
+
+This will render like this
+
+```python linenums
+i = 0
+while i < len(books):
+    print(books[i])
+    i += 1
+```
+
+#### Add Title
+
+`title="Your Title"`
+
+Example:
+
+```python title="Print Books"
+for book in books:
+    print(book)
+```
+
+#### Add Line Highlighting
+
+`hl_lines="2,4-5,7-*"`
+
+This will highlight lines 2, 4 to 5, and all lines starting from 7 to end. Attribute values are separated by commas.
+
+```python hl_lines="2,4-5,7-*" linenums
+# List of books
+books = ["Book 1", "Book 2", "Book 3", "Book 4", "Book 5"]
+
+for book in books:
+    print(book)
+
+print("Done")
+print("🎉")
+```
+
+##### Format
+
+- `1`: Highlights line 1.
+- `3-7`: Highlights all lines between 3 and 7.
+- `9-*`: Highlights all lines starting from 9 to the last.
+- `*-10`: Highlights all lines from first to 10.
+
+#### Using Multiple Attributes
+
+You can use multiple attributes in a codeblock.
+
+`color="good" linenums title="Print Books" hl_lines="1,3-4,6-*"`
+
+```python color="good" linenums title="Print Books" hl_lines="1,3-4,6-*"
+books = ["Book 1", "Book 2", "Book 3", "Book 4", "Book 5"]
+
+for book in books:
+    print(book)
+
+print("Done")
+```
 
 ### Complete Markdown Reference
 

@@ -98,13 +98,13 @@ Example: Here is an `inline code` in a sentence.
 
 #### Blocks
 
-````markdown
+````text
 ```python
 print("Hello, World!")
 ```
 ````
 
-> Note: If you are using Planum Docs, you can also colorize codeblocks. Check the [Colorize Codeblocks](/2_Writing_your_First_Doc.html#colorize-codeblocks) section for more information.
+> Note: If you are using Planum Docs, you can do alot more with codeblocks. Check the [Codeblocks](/2_Writing_your_First_Doc.html#codeblocks) section for more information.
 
 ## Tables
 

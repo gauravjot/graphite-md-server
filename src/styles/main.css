@@ -100,7 +100,7 @@ hr {
 }
 
 #md-content h4 {
-	@apply mt-8 text-xl;
+	@apply mt-8 text-[1.325rem] leading-7;
 }
 
 #md-content h5 {
@@ -214,7 +214,7 @@ hr {
 #md-content pre > code {
 	@apply inline-block bg-transparent !font-normal;
 	@apply font-mono text-zinc-700 dark:text-zinc-100;
-	@apply py-3 pl-4 pr-12;
+	@apply py-3;
 }
 :not(#md-content pre) > code {
 	/* inline code */
@@ -486,10 +486,19 @@ section.eqno > span {
 
 /* Table of Contents */
 #toc li a {
-	@apply my-1 block py-1 text-[14.5px] leading-5 text-zinc-700 hover:text-primary-700 dark:text-zinc-300 dark:hover:text-primary-300;
+	@apply my-1 block py-1 text-[14.5px] leading-5 text-zinc-800 hover:text-primary-700 dark:text-zinc-200 dark:hover:text-primary-300;
 }
 #toc li a[aria-current="true"] {
 	@apply text-primary-700 dark:text-primary-300;
+}
+#toc .toc-h4-indent {
+	@apply pl-6 text-zinc-500 dark:text-zinc-400;
+}
+#toc .toc-h4-indent a {
+	@apply text-zinc-600 dark:text-zinc-400;
+}
+#toc .toc-h3-indent {
+	@apply pl-3;
 }
 
 /* Syntax Highlighting */
@@ -556,4 +565,44 @@ section.eqno > span {
 }
 .hljs-strong {
 	font-weight: 700;
+}
+.hljsp-pre {
+	@apply relative;
+}
+.hljsp-pre > .hljsp-title {
+	@apply font-sans text-[90%] font-medium text-black/70 dark:text-zinc-400;
+	@apply border-b border-zinc-300 px-4 py-1 dark:border-zinc-700;
+}
+.hljsp-pre.good > .hljsp-title,
+.hljsp-pre.bad > .hljsp-title {
+	@apply absolute left-0 right-0 top-0 py-[0.565rem] pl-12;
+}
+.hljsp-pre.good > .hljsp-title + code,
+.hljsp-pre.bad > .hljsp-title + code {
+	@apply mt-4;
+}
+.hljsp-pre code {
+	counter-reset: line;
+	@apply w-full;
+}
+.hljsp-pre code > span {
+	@apply inline-block w-full px-4;
+}
+.hljsp-pre .hljsp-linehl {
+	@apply bg-black/10 dark:bg-white/10;
+}
+.hljsp-pre .hljsp-linenums::before {
+	counter-increment: line;
+	content: counter(line);
+	min-width: 3rem;
+	letter-spacing: -0.05em;
+	--tw-text-opacity: 1;
+	@apply -ml-4 mr-3 inline-block text-zinc-600 dark:text-zinc-400;
+	@apply bg-black/5 px-2 text-right text-[85%] leading-[2.05] dark:bg-white/5;
+}
+.hljsp-pre .hljsp-linenums:first-child::before {
+	@apply rounded-tr-sm;
+}
+.hljsp-pre .hljsp-linenums:last-child::before {
+	@apply rounded-br-sm;
 }
