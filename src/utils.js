@@ -21,49 +21,7 @@ const md = MarkdownIt({
 	html: true,
 	xhtmlOut: true,
 	breaks: true,
-	highlight: function (str, lang, attrs) {
-		let attr = parseCodeBlockAttrs(attrs);
-
-		let block = `<pre class="hljsp-pre${attr.color ? " " + attr.color : ""}">`;
-		if (attr.title) {
-			block += `<div class="hljsp-title">${attr.title}</div>`;
-		}
-		let hl = `${str}`;
-		let hl_success = false;
-		if (lang && hljs.getLanguage(lang)) {
-			try {
-				hl = hljs.highlight(str, {language: lang}).value;
-				hl_success = true;
-			} catch (__) {}
-		}
-		if (hl_success) {
-			block += `<code class="language-${lang}">`;
-		} else {
-			block += `<code>`;
-		}
-		let classes = [];
-		if (attr.lines) {
-			classes.push("hljsp-linenums");
-		}
-		// split into lines array
-		let lines = hl.split("\n");
-		// trim the last line if it is empty
-		if (lines[lines.length - 1] === "") {
-			lines.pop();
-		}
-		// wrap each line in a span and highlight if needed
-		const highlighted_lines = attr.highlight ? highlightedLines(attr.highlight, lines.length) : [];
-		lines = lines.map((line, index) => {
-			let is_highlighted_line = highlighted_lines.includes(index + 1);
-			let span_class = classes.join(" ") + (is_highlighted_line ? " hljsp-linehl" : "");
-			span_class = span_class.trim();
-			return `<span class="${span_class}">${line}</span>`;
-		});
-		// join the lines back
-		block += lines.join("\n");
-		block += "</code></pre>";
-		return block;
-	},
+	highlight: highlightCode,
 });
 md.use(anchor, {
 	slugify: (s) => encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, "-")),
@@ -326,10 +284,58 @@ export function formatDate(date) {
 	date = new Date(date);
 	return `${months[date.getUTCMonth()]} ${date.getUTCDate()}, ${date.getUTCFullYear()}`;
 }
+
+function highlightCode(str, lang, attrs) {
+	let attr = parseCodeBlockAttrs(attrs);
+	let line_start = attr.start ? attr.start : 1;
+
+	let block = `<pre class="hljsp-pre${attr.color ? " " + attr.color : ""}">`;
+	if (attr.title) {
+		block += `<div class="hljsp-title">${attr.title}</div>`;
+	}
+	let hl = `${str}`;
+	let hl_success = false;
+	if (lang && hljs.getLanguage(lang)) {
+		try {
+			hl = hljs.highlight(str, {language: lang}).value;
+			hl_success = true;
+		} catch (__) {}
+	}
+	if (hl_success) {
+		block += `<code class="language-${lang}" style="counter-reset: line ${line_start - 1};">`;
+	} else {
+		block += `<code>`;
+	}
+	let classes = [];
+	if (attr.lines) {
+		classes.push("hljsp-linenums");
+	}
+	// split into lines array
+	let lines = hl.split("\n");
+	// trim the last line if it is empty
+	if (lines[lines.length - 1] === "") {
+		lines.pop();
+	}
+	// wrap each line in a span and highlight if needed
+	const highlighted_lines = attr.highlight
+		? highlightedLines(attr.highlight, lines.length + line_start)
+		: [];
+	lines = lines.map((line, index) => {
+		let is_highlighted_line = highlighted_lines.includes(index + line_start);
+		let span_class = classes.join(" ") + (is_highlighted_line ? " hljsp-linehl" : "");
+		span_class = span_class.trim();
+		return `<span class="${span_class}">${line}</span>`;
+	});
+	// join the lines back
+	block += lines.join("\n");
+	block += "</code></pre>";
+	return block;
+}
+
 /**
  *
  * @param {*} str
- * @returns {{lines?:boolean; color?: good|bad; title?:string; highlight?:string;}}
+ * @returns {{lines?:boolean; color?: good|bad; title?:string; highlight?:string; start?:number}}
  */
 export function parseCodeBlockAttrs(str) {
 	const obj = {};
@@ -339,11 +345,20 @@ export function parseCodeBlockAttrs(str) {
 		} else if (value === "false") {
 			obj[key] = false;
 		} else {
-			obj[key] = value;
+			if (key === "start") {
+				try {
+					obj[key] = parseInt(value);
+				} catch (e) {
+					obj[key] = 1;
+				}
+			} else {
+				obj[key] = value;
+			}
 		}
 	});
 	return obj;
 }
+
 /**
  *
  * @param {number} lineNumber

@@ -67,14 +67,15 @@ This creates a link to a doc located at `content/Folder_1/Folder_2/1_Doc.md` in 
 
 ### Codeblocks
 
-You can customize codeblocks by using attributes. There are four attributes available:
+You can customize codeblocks by using attributes. There are five attributes available:
 
-| Attribute   | Values             | Description                               |
-| ----------- | ------------------ | ----------------------------------------- |
-| `color`     | `good\|bad` string | Colors the codeblock                      |
-| `lines`     | none               | Add line numbers to the codeblock         |
-| `title`     | string             | Add a title to the codeblock              |
-| `highlight` | string             | Highlight specific lines in the codeblock |
+| Attribute   | Example Values      | Description                                   |
+| ----------- | ------------------- | --------------------------------------------- |
+| `color`     | `="good"`, `="bad"` | Colors the codeblock                          |
+| `lines`     |                     | Show line numbers                             |
+| `title`     | `="any string"`     | Add a title to the codeblock                  |
+| `highlight` | `="1,3-5,7-*"`      | Highlight specific lines in the codeblock     |
+| `start`     | `="4"`              | Start line number; Use with `lines` attribute |
 
 > To use attributes, you need to specify the language name. If you are not using a language, you can use `text` as the language.
 
@@ -109,7 +110,18 @@ There are two ways to color codeblocks:
        print(book)
    ```
 
-#### Add Line Numbers
+#### Add Title
+
+`title="Your Title"`
+
+Usage is same as `color` attribute. Example:
+
+```python title="Print Books"
+for book in books:
+    print(book)
+```
+
+#### Show Line Numbers
 
 Add line numbers to your codeblocks by using `lines` attribute.
 
@@ -131,20 +143,25 @@ while i < len(books):
     i += 1
 ```
 
-#### Add Title
+#### Start Line Number
 
-`title="Your Title"`
+`start="5"`
 
-Example:
+Use with attribute: `lines`
+Default value: `1`
 
-```python title="Print Books"
+You can specify the starting line number using the `start` attribute.
+
+```python lines start="5"
 for book in books:
     print(book)
 ```
 
-#### Add Line Highlighting
+#### Line Highlighting
 
 `highlight="2,4-5,7-*"`
+
+Line numbers are relative to the `start` attribute.
 
 This will highlight lines 2, 4 to 5, and all lines starting from 7 to end. Attribute values are separated by commas.
 
@@ -170,9 +187,9 @@ print("🎉")
 
 You can use multiple attributes in a codeblock.
 
-`color="good" lines title="Print Books" highlight="1,3-4,6-*"`
+`color="good" title="Print Books" lines highlight="3,5-6,8-*" start="3"`
 
-```python color="good" lines title="Print Books" highlight="1,3-4,6-*"
+```python color="good" title="Print Books" lines highlight="3,5-6,8-*" start="3"
 books = ["Book 1", "Book 2", "Book 3", "Book 4", "Book 5"]
 
 for book in books:
