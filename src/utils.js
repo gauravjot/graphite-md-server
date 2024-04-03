@@ -118,14 +118,16 @@ export function getDocURL(file_path) {
 		return file_path; // already html path given
 	}
 	let uri = file_path.split(content_dir).pop();
-	// remove leading slash and then chunk the uri
-	const encoded_uri_chunks = uri.replace(/^\/|\/$/g, "").split("/");
+	// split the uri into chunks
+	const encoded_uri_chunks = uri.split(path.sep);
 	// encode each chunk
 	for (let i = 0; i < encoded_uri_chunks.length; i++) {
+		// see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent#description
 		encoded_uri_chunks[i] = encodeURIComponent(encoded_uri_chunks[i]);
 	}
 	// pack the chunks back together, remove .md and add .html
-	return "/" + encoded_uri_chunks.join("/").replace(/\.md$/, "") + ".html";
+	let result = encoded_uri_chunks.join("/").replace(/\.md$/, "") + ".html";
+	return result.startsWith("/") ? result : "/" + result;
 }
 
 /**
@@ -154,12 +156,12 @@ export function parseDocTitle(file_path) {
  * @returns {string} HTML
  */
 export function generateSidebarList(data, highlight = "") {
-	let html = "<ul><div>";
+	let html = "<div><ul>";
 	data.forEach((item) => {
 		if (item.files) {
 			// item is a directory
 			let dir_name = path.basename(item.path);
-			html += '<div class="accordion" id="' + dir_name + '">';
+			html += '<li class="accordion" id="' + dir_name + '">';
 			// regex [digit+]_ to remove the number prefix used for sorting
 			// We didn't remove this for id because id has to be unique
 			if (/^\d+_/.test(dir_name)) {
@@ -170,7 +172,7 @@ export function generateSidebarList(data, highlight = "") {
 				dir_name.replaceAll("_", " ") +
 				"</span></button>";
 			html += generateSidebarList(item.files, highlight); // nested list
-			html += "</div>";
+			html += "</li>";
 		} else {
 			// item is a file
 			let name = item.title;
@@ -190,7 +192,7 @@ export function generateSidebarList(data, highlight = "") {
 				"</a></li>";
 		}
 	});
-	html += "</div></ul>";
+	html += "</ul></div>";
 	return html;
 }
 

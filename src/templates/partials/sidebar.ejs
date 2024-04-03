@@ -1,7 +1,7 @@
 <!-- Sidebar starts -->
 <div
 	id="sidebar"
-	aria-hidden="false"
+	data-hidden="false"
 	class="fixed bottom-0 top-16 z-50 mt-px flex max-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-zinc-50 dark:bg-zinc-950"
 >
 	<div class="relative h-[calc(100%-2.27rem)] flex-1 overflow-y-auto">
@@ -23,9 +23,7 @@
 		<!-- DO NOT EDIT 5 lINES BELOW-->
 		<div class="mt-8 text-sm font-medium text-zinc-500">DOCS</div>
 		<!-- Doc list for navigation -->
-		<ul id="sidebar-doc-list" class="my-4">
-			<%- docs %>
-		</ul>
+		<div id="sidebar-doc-list" class="my-4"><%- docs %></div>
 
 		<!-- Sidebar menu ends -->
 	</div>
@@ -39,7 +37,7 @@
 				target="_blank"
 				rel="noopener noreferrer"
 			>
-				<span>v1.5.0</span>
+				<span>v1.5.1</span>
 			</a>
 			<!-- link ends -->
 
@@ -55,7 +53,7 @@
 			<!-- link ends -->
 		</div>
 
-		<!-- No need to change anything below -->
+		<!-- NO NEED TO CHANGE ANYTHING BELOW -->
 
 		<!-- Sidebar toggle button (appears when sidebar open) -->
 		<div id="sidebar-toggle">

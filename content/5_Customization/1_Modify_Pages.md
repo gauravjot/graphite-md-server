@@ -21,11 +21,11 @@ The `public/manifest.json` file is used to configure the PWA settings. Update th
 
 ## Pages
 
-The page layouts are stored in `src/ejs` directory. These files can be updated to customize Planum Docs to your liking and rebrand the website.
+The page layouts are stored in `src/templates` directory. These files can be updated to customize Planum Docs to your liking and rebrand the website.
 
 ### Home and Doc Page
 
-The homepage layout is stored in `src/ejs/index.ejs` and the doc page layout is stored in `src/ejs/doc.ejs`
+The homepage layout is stored in `src/templates/home_page.ejs` and the doc page layout is stored in `src/templates/doc_page.ejs`
 
 To change title of the website, update the `app_name` variable in first line of both files.
 
@@ -36,7 +36,7 @@ To change title of the website, update the `app_name` variable in first line of 
 
 ### Navigation Bar
 
-The navigation bar layout is stored in `src/ejs/partials/nav.ejs`. You can change the title by updating the `logo_text` variable in the first line.
+The navigation bar layout is stored in `src/templates/partials/nav.ejs`. You can change the title by updating the `logo_text` variable in the first line.
 
 ```javascript
 1 <% var app_name = "Planum Docs"; %>
@@ -47,15 +47,15 @@ To update the logo, follow [Favicon, Logo, Manifest](#favicon%2C-logo%2C-manifes
 
 ### Sidebar
 
-The sidebar layout is stored in `src/ejs/partials/sidebar.ejs`.
+The sidebar layout is stored in `src/templates/partials/sidebar.ejs`.
 
 Here you can change the link that says `Github Repository` and the links that are at the bottom of the sidebar inlcuding version number, and `Docs`.
 
 ## CSS (Optional)
 
-Use the `src/source.css` file to write your CSS. The file is processed and minified using TailwindCSS, and the production version is stored in `public/css/styles.css`.
+Use the `src/styles/main.css` file to write your CSS. The file is processed and minified using TailwindCSS, and the production version is stored in `public/css/styles.css`.
 
-When making changes in `source.css`, run the following command to build the CSS:
+When making changes in `main.css`, run the following command to build the CSS:
 
 ```bash
 npm run css
@@ -65,4 +65,4 @@ This also watches for changes in the CSS file and rebuilds the CSS automatically
 
 ### Switching Accent Color
 
-Check [Switch Accent Color](5_Customization/2_Switch_Accent_Color.html) page to learn how to switch the accent color of the website.
+Check [Switch Accent Color](/5_Customization/2_Switch_Accent_Color.html) page to learn how to switch the accent color of the website.

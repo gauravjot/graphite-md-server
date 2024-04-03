@@ -1,7 +1,18 @@
 import {fileLoader, compile} from "ejs";
 import path from "path";
-import {cp, writeFile, mkdir, existsSync, mkdirSync} from "fs";
-import {getFiles, generateDocPage, getDocURL, generateHomePage} from "./src/utils.js";
+import {
+	cpSync,
+	writeFile,
+	mkdir,
+	existsSync,
+	mkdirSync,
+	readFile,
+	writeFileSync,
+	readdirSync,
+	statSync,
+	readFileSync,
+} from "fs";
+import {getFiles, generateDocPage, getDocURL, generateHomePage} from "../src/utils.js";
 import {fileURLToPath} from "url";
 import {minify} from "html-minifier";
 import readline from "node:readline";
@@ -27,9 +38,19 @@ const sitemap = [];
 const scf = "daily";
 
 /**
+ * Base Directory
+ */
+const baseDir = path.join(__dirname, "..");
+
+/**
  * Build Directory
  */
-const distDir = path.join(__dirname, "dist");
+const distDir = path.join(__dirname, "..", "dist");
+
+/**
+ * Content Directory
+ */
+const content_dir = path.join(__dirname, "..", "content");
 
 /**
  * Minify Options
@@ -43,7 +64,7 @@ const MINIFY_OPTIONS = {
 };
 
 function generate_HomePage() {
-	const templatePath = path.join(__dirname, "src", "ejs", "index.ejs");
+	const templatePath = path.join(baseDir, "src", "templates", "home_page.ejs");
 	const templateStr = fileLoader(templatePath, "utf8");
 	const template = compile(templateStr, {filename: templatePath});
 
@@ -76,7 +97,7 @@ function generate_DocPages(template, docTree) {
 		}
 
 		// Get new to-be path in dist folder
-		let doc_dist_path = path.dirname(docTree[i]["path"]).split("/content")[1];
+		let doc_dist_path = path.dirname(docTree[i]["path"]).split(content_dir)[1];
 		doc_dist_path = path.join(distDir, doc_dist_path);
 		// See if directory is created in dist
 		if (!existsSync(doc_dist_path)) {
@@ -179,19 +200,18 @@ async function build() {
 	 * 4. Save Doc Pages
 	 */
 	// Since all docs pages use same template
-	const templatePath = path.join(__dirname, "src", "ejs", "doc.ejs");
+	const templatePath = path.join(baseDir, "src", "templates", "doc_page.ejs");
 	const templateStr = fileLoader(templatePath, "utf8");
 	const template = compile(templateStr, {filename: templatePath});
 	// Get the files
-	const docs = getFiles(path.join(__dirname, "content"));
 	console.log("Generating Doc Pages");
 	// Generate the pages
-	generate_DocPages(template, docs);
+	generate_DocPages(template, getFiles(content_dir));
 
 	// 5. Copy public folder files to dist folder
-	cp(
-		path.join(__dirname, "public"),
-		path.join(__dirname, "dist"),
+	cpSync(
+		path.join(baseDir, "public"),
+		path.join(baseDir, "dist"),
 		{recursive: true, force: true},
 		(err) => {
 			if (err) {
@@ -204,10 +224,31 @@ async function build() {
 	);
 	console.log("\nCopied public directory");
 
+	// Minify files inside dist/js
+	const jsFiles = readdirSync(path.join(baseDir, "dist", "js"));
+	for (let i = 0; i < jsFiles.length; i++) {
+		let item_path = path.join(baseDir, "dist", "js", jsFiles[i]);
+		if (statSync(item_path).isDirectory()) {
+			// this is a directory
+			continue;
+		}
+		let jsCode = readFileSync(item_path, "utf8", (err, data) => {
+			if (err) {
+				console.error("Error reading JS file", err);
+			}
+		});
+		jsCode = minifyJS(jsCode);
+		writeFileSync(item_path, jsCode, (err) => {
+			if (err) {
+				console.error("Error writing JS file", err);
+			}
+		});
+	}
+
 	// 5.1 Copy assets folder files to dist folder
-	cp(
-		path.join(__dirname, "assets"),
-		path.join(__dirname, "dist", "assets"),
+	cpSync(
+		path.join(baseDir, "assets"),
+		path.join(baseDir, "dist", "assets"),
 		{recursive: true, force: true},
 		(err) => {
 			if (err) {
@@ -229,17 +270,22 @@ async function build() {
 			sitemapXML += `<url><loc>${page.loc}</loc><lastmod>${page.lastmod}</lastmod><changefreq>${page.changefreq}</changefreq></url>\n`;
 		});
 		sitemapXML += `</urlset>`;
-		writeFile(sitemapPath, sitemapXML, (err) => {
+		writeFileSync(sitemapPath, sitemapXML, (err) => {
 			if (err) {
 				console.error("Error writing sitemap file", err);
 			}
 		});
 		console.log("=> Generated sitemap.xml");
 
-		// Generate robots.txt
+		// Generate robots.txt with sitemap
 		const robotsPath = path.join(distDir, "robots.txt");
-		const robotsTxt = `User-agent: *\n\nSitemap: ${baseURL}/sitemap.xml`;
-		writeFile(robotsPath, robotsTxt, (err) => {
+		let rb_contents = readFileSync(robotsPath, "utf8", (err, data) => {
+			if (err) {
+				console.error("Error reading robots.txt file", err);
+			}
+		});
+		rb_contents += `\n\nSitemap: ${baseURL}/sitemap.xml`;
+		writeFileSync(robotsPath, rb_contents, (err) => {
 			if (err) {
 				console.error("Error writing robots.txt file", err);
 			}
@@ -251,7 +297,8 @@ async function build() {
 	console.log("Build complete! Files are saved in dist folder. 🎉\n");
 }
 
-build();
+// Run build function if this file is run directly
+if (process.argv[1] === fileURLToPath(import.meta.url)) build();
 
 /**
  * Helper function to create a readline interface
@@ -269,4 +316,29 @@ function askQuestion(query) {
 			resolve(ans);
 		}),
 	);
+}
+export function minifyJS(code) {
+	// Preserve string literals
+	const stringLiterals = [];
+	code = code.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, (match) => {
+		const replacement = `___STRING${stringLiterals.length}___`;
+		stringLiterals.push(match);
+		return replacement;
+	});
+
+	// Remove comments (single-line and multi-line)
+	code = code.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "");
+
+	// Minify code while preserving necessary spaces
+	code = code.replace(/\s+/g, " "); // Replace all white spaces with a single space
+	code = code.replace(/\s*([()\[\]{};,.+\-*\/%="|&!<>:])\s*/g, "$1"); // Remove spaces around operators and punctuations
+
+	// Restore string literals
+	stringLiterals.forEach((literal, index) => {
+		const placeholder = `___STRING${index}___`;
+		code = code.replace(placeholder, literal);
+	});
+	code = code.trim();
+
+	return code;
 }

@@ -46,7 +46,7 @@ You can add your assets directly in the `assets` directory or make folders for o
 ![Alt text](/assets/image_name.png)
 ```
 
-For best performance, it is recommended to convert images to WebP format. You can use tools like [CloudConvert](https://cloudconvert.com/webp-converter) to convert images to WebP.
+For best performance, it is recommended to convert images to **WebP format** and use maximum **width of 900px**. You can use tools like [CloudConvert](https://cloudconvert.com/webp-converter) to convert images to WebP.
 
 ### Linking other Docs
 
@@ -58,10 +58,12 @@ For best performance, it is recommended to convert images to WebP format. You ca
 
 This creates a link to a doc located at `content/Folder_1/Folder_2/1_Doc.md` in file tree. Notice that `content` is not included when linking.
 
-#### Key Points
+#### Please Remember
 
 - The file path is relative to the `content` directory.
 - The file extension `.md` is replaced with `.html`.
+- Always start your links with `/`.
+- Non-URL-safe characters are converted to URL-safe characters. For example, spaces are converted to `%20`.
 
 > Related: See how to name your files and folders under [Schema - Getting Started](/1_Getting_Started.html#schema).
 

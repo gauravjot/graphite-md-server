@@ -27,18 +27,25 @@ _Doc_D.md         # draft, is hidden
 
 > Underscores as separators are preferred and also look clean. See point 3 below.
 
-The navigation tree inside sidebar will be rendered in this exact manner. Here are all the rules that apply:
+The navigation tree inside sidebar will be rendered in this exact manner. Here are **three** rules that apply:
 
 1. Use format `[number]_[name].md` to sort documents and folders; the prefix `[number]_` is omitted during build.
+   > Note: The number is used to sort the files in ascending order. If you have more than 9 files, use two digits like `01`, `02`, etc. Otherwise, the files will be sorted like `1`, `10`, `11`, `2`, `3`, etc.
 2. Files starting with `_` (_underscore_) are treated as a draft and are hidden inside the navigation tree.
-3. Try not to use _spaces_ when naming a file or folder. You should also restrict to using URL safe symbols such as `$-_.+!*'(),`, however it is not a requirement.
+3. When naming a file or folder:
 
-   | Do this:              | Don't do this:        |
+   - Do not to use _spaces_.
+   - Use these URL safe symbols `-_.!'()`.
+   - Use only English (A-Z a-z) and numerical (0-9) characters.
+
+   None of the above are strict rules, but following them will make your life easier when [linking docs](/2_Writing_your_First_Doc.html#linking-other-docs).
+
+   | Not Recommended       | Recommended           |
    | --------------------- | --------------------- |
-   | `1_Doc_A.md`          | `1 Doc A.md`          |
-   | `Some_Directory_Name` | `Some Directory Name` |
+   | `1 Doc A.md`          | `1_Doc_A.md`          |
+   | `Some Directory Name` | `Some_Directory_Name` |
 
-   This is because markdown does not render links that contain spaces.
+   When using spaces and special characters other than `-_.!'()`, markdown may not render links properly.
 
    ```markdown_good
    [Link to Doc A](1_Doc_A.md)  # works
@@ -53,3 +60,5 @@ The navigation tree inside sidebar will be rendered in this exact manner. Here a
    ```markdown_good
    [Link to Doc A](1%20Doc%20A.md) # works although not very readable
    ```
+
+   For character encoding reference, see [W3 Schools - URL Encoding](https://www.w3schools.com/tags/ref_urlencode.ASP).

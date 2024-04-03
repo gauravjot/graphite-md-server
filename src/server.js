@@ -15,7 +15,7 @@ app.use("/assets", express.static(join(__dirname, "..", "assets")));
 // app.use(json());
 
 // Set up EJS
-app.set("views", join(__dirname, "./ejs"));
+app.set("views", join(__dirname, "./templates"));
 app.set("view engine", "ejs");
 
 /*
@@ -23,11 +23,11 @@ app.set("view engine", "ejs");
  */
 
 app.get("/", (req, res) => {
-	res.render("index", generateHomePage());
+	res.render("home_page", generateHomePage());
 });
 
 app.get("*", (req, res) => {
-	res.render("doc", generateDocPage(req.url));
+	res.render("doc_page", generateDocPage(req.url));
 });
 
 /*

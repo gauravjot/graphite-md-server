@@ -72,7 +72,7 @@ _italic_
 [Link title](https://example.com)
 ```
 
-> Note: For linking to internal doc pages, see [Linking other Docs](2_Writing__your__First__Doc.html#linking-other-docs) section.
+> Note: For linking to internal doc pages, see [Linking other Docs](/2_Writing_your_First_Doc.html#linking-other-docs) section.
 
 ## Images
 

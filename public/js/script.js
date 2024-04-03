@@ -15,7 +15,7 @@ window.addEventListener("resize", () => {
 	}
 });
 function toggleSidebar() {
-	if (sb.getAttribute("aria-hidden") === "true") {
+	if (sb.dataset.hidden === "true") {
 		showSidebar();
 	} else {
 		hideSidebar();
@@ -23,10 +23,10 @@ function toggleSidebar() {
 }
 function showSidebar() {
 	if (isMobile) {
-		sb.setAttribute("aria-hidden", "false");
+		sb.dataset.hidden = "false";
 		content.classList.remove("sidebar-open");
 	} else {
-		sb.setAttribute("aria-hidden", "false");
+		sb.dataset.hidden = "false";
 		content.classList.add("sidebar-open");
 		content.classList.remove("ml-16");
 	}
@@ -36,10 +36,10 @@ function hideSidebar() {
 		return; // dont hide sidebar on large screens
 	}
 	if (isMobile) {
-		sb.setAttribute("aria-hidden", "true");
+		sb.dataset.hidden = "true";
 		content.classList.remove("sidebar-open");
 	} else {
-		sb.setAttribute("aria-hidden", "true");
+		sb.dataset.hidden = "true";
 		content.classList.remove("sidebar-open");
 		content.classList.add("ml-16");
 	}
@@ -52,8 +52,7 @@ for (let i = 0; i < sbDocList.length; i++) {
 		let parent = sbDocList[i].parentElement;
 		while (parent.id !== "sidebar-doc-list") {
 			// if tagName is button, then it is an accordion
-			if (parent.tagName === "DIV" && parent.classList.contains("accordion")) {
-				console.log(parent);
+			if (parent.tagName.toUpperCase() === "LI" && parent.classList.contains("accordion")) {
 				parent.setAttribute("aria-expanded", "true");
 			}
 			parent = parent.parentElement;
@@ -90,11 +89,13 @@ for (let i = 0; i < mdHeads.length; i++) {
 }
 // Render the table of contents
 const mdToc = document.getElementById("toc");
-for (let i = 0; i < mdHeadingList.length; i++) {
-	const li = document.createElement("li");
-	li.innerHTML = `<a href="${mdHeadingList[i].href}">${mdHeadingList[i].text}</a>`;
-	giveMarginForHeading(li, mdHeadingList[i]);
-	mdToc.appendChild(li);
+if (mdToc) {
+	for (let i = 0; i < mdHeadingList.length; i++) {
+		const li = document.createElement("li");
+		li.innerHTML = `<a href="${mdHeadingList[i].href}">${mdHeadingList[i].text}</a>`;
+		giveMarginForHeading(li, mdHeadingList[i]);
+		mdToc.appendChild(li);
+	}
 }
 function giveMarginForHeading(li, heading) {
 	if (heading.level === "H2" || heading.level === "H1") {
