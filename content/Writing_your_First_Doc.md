@@ -2,11 +2,11 @@
 title: Writing your First Doc
 date: 2024-04-03
 description: Let's get you started with writing your first doc! This page will help you understand the layout and adding content such as images, links, and codeblocks to your docs.
-next: 3_Deploying_Planum/1_Deploying_Static.html
-prev: 1_Getting_Started.html
+next: Deploying_Planum/Deploying_Static.html
+prev: Getting_Started.html
 ---
 
-If you are unsure about where to make your file or how to name one, check the [Getting Started](/1_Getting_Started.html#creating-docs-and-folders) page first.
+If you are unsure about where to make your file or how to name one, check the [Getting Started](/Getting_Started.html#creating-docs-and-folders) page first.
 
 ## Layout
 
@@ -17,8 +17,8 @@ Here is the layout of a typical doc file:
 title         : Getting started
 date          : 2024-03-18
 description   : Useful information for starting with Planum Docs
-next          : /2_Writing_your_First_Doc.html
-prev          : /0_Installation.md
+next          : /Writing_your_First_Doc.html
+prev          : /Installation.md
 ---
 
 Your content goes here.
@@ -63,7 +63,7 @@ This creates a link to a doc located at `content/Folder_1/Folder_2/1_Doc.md` in 
 - Always start your links with `/`.
 - Non-URL-safe characters are converted to URL-safe characters. For example, spaces are converted to `%20`.
 
-> Related: See how to name your files and folders under [Schema - Getting Started](/1_Getting_Started.html#schema).
+> Related: See how to name your files and folders under [Schema - Getting Started](/Getting_Started.html#schema).
 
 ### Codeblocks
 
@@ -198,12 +198,38 @@ for book in books:
 print("Done")
 ```
 
+### Embed Iframes
+
+You can embed iframes in your docs. This can be useful for embedding videos, maps, and other content.
+
+**YouTube Video**
+
+```text
+<iframe width="100%" style="aspect-ratio:16/9;" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=zlbpakY2yEUGQZBp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+```
+
+**Codepen**
+
+```text
+<iframe height="500" style="width: 100%;" scrolling="no" title="Game of Life" src="https://codepen.io/gauravjot/embed/preview/gOqJmGL?default-tab=result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/gauravjot/pen/gOqJmGL">
+  Game of Life</a> by Gauravjot Garaya (<a href="https://codepen.io/gauravjot">@gauravjot</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+```
+
+<iframe height="500" style="width: 100%;" scrolling="no" title="Game of Life" src="https://codepen.io/gauravjot/embed/preview/gOqJmGL?default-tab=result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/gauravjot/pen/gOqJmGL">
+  Game of Life</a> by Gauravjot Garaya (<a href="https://codepen.io/gauravjot">@gauravjot</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
 ### Complete Markdown Reference
 
 Please check following resources to learn more about markdown that works with Planum Docs:
 
-- [Using Math in Planum](/4_Markdown/4_Using_Math_in_Planum.html)
-- [Markdown Cheatsheet](/4_Markdown/5_Markdown_Cheatsheet.html)
+- [Using Math in Planum](/Markdown/Using_Math_in_Planum.html)
+- [Markdown Cheatsheet](/Markdown/Markdown_Cheatsheet.html)
 
 ### Using HTML
 

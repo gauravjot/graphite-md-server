@@ -2,7 +2,7 @@
 title: Modify Website Pages
 date: 2024-03-21T23:46:03Z
 description:
-next: 5_Customization/2_Switch_Accent_Color.md
+next: Customization/Switch_Accent_Color.md
 ---
 
 ## Favicon, Logo, Manifest
@@ -29,18 +29,18 @@ The homepage layout is stored in `src/templates/home_page.ejs` and the doc page 
 
 To change title of the website, update the `app_name` variable in first line of both files.
 
-```javascript
-1 <% var app_name = "Planum Docs"; %>
-2 ...
+```javascript lines
+<% var app_name = "Planum Docs"; %>
+...
 ```
 
 ### Navigation Bar
 
 The navigation bar layout is stored in `src/templates/partials/nav.ejs`. You can change the title by updating the `logo_text` variable in the first line.
 
-```javascript
-1 <% var app_name = "Planum Docs"; %>
-2 ...
+```javascript lines
+<% var app_name = "Planum Docs"; %>
+...
 ```
 
 To update the logo, follow [Favicon, Logo, Manifest](#favicon%2C-logo%2C-manifest) section.
@@ -65,4 +65,4 @@ This also watches for changes in the CSS file and rebuilds the CSS automatically
 
 ### Switching Accent Color
 
-Check [Switch Accent Color](/5_Customization/2_Switch_Accent_Color.html) page to learn how to switch the accent color of the website.
+Check [Switch Accent Color](/Customization/Switch_Accent_Color.html) page to learn how to switch the accent color of the website.

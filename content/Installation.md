@@ -1,7 +1,7 @@
 ---
 title: Installation Guide
 description: To get started with Planum Docs, you need to set up a new instance. This page will guide you through the process.
-next: 1_Getting_Started.md
+next: Getting_Started.md
 ---
 
 ## Prerequisites
@@ -56,12 +56,12 @@ If you will be setting up a repository, make sure to keep at least one file insi
 
 ## Customizing Planum
 
-For customizations such as changing logo and website name in navigation, check [Modify Website Pages](5_Customization/1_Modify_Pages.html).
+For customizations such as changing logo and website name in navigation, check [Modify Website Pages](Customization/Modify_Pages.html).
 
 ## Building for Production
 
 There are two ways to use Planum Docs in production:
 
-- Static HTML (Recommended): See [Deploying Static Website (and Vercel)](3_Deploying_Planum/1_Deploying_Static.html).
+- Static HTML (Recommended): See [Deploying Static Website (and Vercel)](Deploying_Planum/Deploying_Static.html).
 
-- Express Server: See [Deploying ExpressJS Server](3_Deploying_Planum/2_Deploying_ExpressJS.html).
+- Express Server: See [Deploying ExpressJS Server](Deploying_Planum/Deploying_ExpressJS.html).

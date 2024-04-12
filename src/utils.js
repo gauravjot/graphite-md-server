@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs, {existsSync} from "fs";
 import matter from "gray-matter";
 import path from "path";
 import anchor from "markdown-it-anchor";
@@ -143,6 +143,25 @@ export function parseDocTitle(file_path) {
  */
 export function generateSidebarList(data, highlight = "") {
 	let html = "<div><ul>";
+	// Read the meta.json file if it exists
+	const meta_path = path.join(path.dirname(data[0].path), "meta.json");
+	if (existsSync(meta_path)) {
+		try {
+			const meta = JSON.parse(fs.readFileSync(meta_path));
+			if (meta.order && meta.order.length > 0) {
+				// Sort the files based on the order in meta.json
+				data.sort((a, b) => {
+					const a_index = meta.order.indexOf(path.basename(a.path));
+					const b_index = meta.order.indexOf(path.basename(b.path));
+					return a_index - b_index;
+				});
+			}
+		} catch (e) {
+			throw new Error(
+				`Error reading meta.json file for ${item.path}. Check if the file is valid JSON.`,
+			);
+		}
+	}
 	data.forEach((item) => {
 		if (item.files) {
 			// item is a directory

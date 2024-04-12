@@ -6,7 +6,7 @@
 
 # Welcome to Planum Docs
 
-Deploy Markdown Docs as a Website
+Pure Markdown Docs as a Website
 
 <a href="https://github.com/gauravjot/planum-docs" aria-label="Go to Repository"><img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" width="100px" height="30px" style="width:100px; display:inline" alt="Github badge"></a>
 

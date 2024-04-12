@@ -204,7 +204,7 @@ hr {
 /* Code */
 
 #md-content pre {
-	@apply w-full rounded bg-[#eaedef] dark:bg-white/5;
+	@apply w-full rounded border bg-[#f6f6f6] dark:border-zinc-800 dark:bg-white/5;
 	@apply my-5 overflow-auto;
 }
 #md-content li pre {
@@ -244,15 +244,16 @@ hr {
 	background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='24px' height='24px' stroke-width='1.6' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' color='%23dc2626'%3E%3Cpath d='M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284' stroke='%23dc2626' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3Cpath d='M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z' stroke='%23dc2626' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3C/svg%3E");
 }
 #md-content .markdown-it-code-copy {
-	@apply place-items-center justify-center;
-	@apply flex rounded bg-slate-200 p-2 text-sm hover:bg-slate-300 lg:hidden dark:bg-zinc-900 hover:dark:bg-zinc-800;
+	@apply place-items-center justify-center rounded-md;
+	@apply border border-zinc-300 hover:border-primary-600 dark:border-zinc-800 dark:hover:border-primary-600;
+	@apply flex bg-white p-1.5 text-sm hover:bg-primary-600 lg:hidden dark:bg-zinc-950 hover:dark:bg-primary-600;
 }
 #md-content .markdown-it-code-copy span.copy-icon {
 	background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="24px" height="24px" stroke-width="1.6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M19.4 20H9.6C9.26863 20 9 19.7314 9 19.4V9.6C9 9.26863 9.26863 9 9.6 9H19.4C19.7314 9 20 9.26863 20 9.6V19.4C20 19.7314 19.7314 20 19.4 20Z" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15 9V4.6C15 4.26863 14.7314 4 14.4 4H4.6C4.26863 4 4 4.26863 4 4.6V14.4C4 14.7314 4.26863 15 4.6 15H9" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
 	@apply block size-5 invert-[0.3] dark:invert-[0.7];
 }
 #md-content .markdown-it-code-copy:hover span.copy-icon {
-	@apply invert-0 dark:invert;
+	@apply invert;
 }
 #md-content div:hover > .markdown-it-code-copy {
 	@apply flex;
@@ -264,7 +265,7 @@ hr {
 }
 
 .next-prev-btn {
-	@apply block rounded-md px-4 py-3.5 text-right shadow;
+	@apply block rounded-md px-4 py-3.5 text-right;
 	@apply hover:bg-zinc-100 hover:no-underline hover:dark:bg-zinc-900/50;
 	@apply border border-zinc-300 hover:border-zinc-400 dark:border-zinc-700 hover:dark:border-zinc-400;
 }
@@ -502,69 +503,88 @@ section.eqno > span {
 }
 
 /* Syntax Highlighting */
-.hljs-comment {
-	@apply text-zinc-500 dark:text-zinc-500;
+.hljs {
+	@apply text-[#24292e] dark:text-[#c9d1d9];
 }
-.hljs-punctuation,
-.hljs-tag {
-	@apply text-[#165181] dark:text-[#a5d6ff];
-}
-.hljs-tag .hljs-attr,
-.hljs-tag .hljs-name {
-	@apply text-[#0d7717] dark:text-[#7ee787];
-}
-.hljs-attribute,
 .hljs-doctag,
 .hljs-keyword,
 .hljs-meta .hljs-keyword,
-.hljs-name,
-.hljs-selector-tag {
-	@apply text-[#ad3229] dark:text-[#ff7b72];
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+	@apply text-[#d73a49] dark:text-[#ff7b72];
 }
-.hljs-deletion,
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+	@apply text-[#6f42c1] dark:text-[#d2a8ff];
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
 .hljs-number,
-.hljs-quote,
+.hljs-operator,
+.hljs-selector-attr,
 .hljs-selector-class,
 .hljs-selector-id,
-.hljs-string,
-.hljs-template-tag,
-.hljs-type {
-	@apply text-[#165181] dark:text-[#a5d6ff];
-}
-.hljs-section,
-.hljs-title {
-	@apply text-[#5712a0] dark:text-[#d2a8ff];
-}
-.hljs-link,
-.hljs-operator,
-.hljs-regexp,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-symbol,
-.hljs-template-variable,
 .hljs-variable {
-	@apply text-slate-800 dark:text-slate-300;
+	@apply text-[#005cc5] dark:text-[#79c0ff];
 }
-.hljs-literal {
-	@apply text-[#225d92] dark:text-[#79c0ff];
+
+.hljs-meta .hljs-string,
+.hljs-regexp,
+.hljs-string {
+	@apply text-[#032f62] dark:text-[#a5d6ff];
 }
-.hljs-addition,
+
 .hljs-built_in,
-.hljs-bullet,
-.hljs-code {
-	@apply text-[hsl(283,65%,29%)] dark:text-[hsl(283,63%,75%)];
+.hljs-symbol {
+	@apply text-[#e36209] dark:text-[#ffa657];
 }
-.hljs-meta {
-	color: #1f7199;
+
+.hljs-code,
+.hljs-comment,
+.hljs-formula {
+	@apply text-[#6a737d] dark:text-[#8b949e];
 }
-.hljs-meta .hljs-string {
-	color: #38a;
+
+.hljs-name,
+.hljs-quote,
+.hljs-selector-pseudo,
+.hljs-selector-tag {
+	@apply text-[#22863a] dark:text-[#7ee787];
 }
+
+.hljs-subst {
+	@apply text-[#24292e] dark:text-[#c9d1d9];
+}
+
+.hljs-section {
+	@apply font-bold text-[#005cc5] dark:text-[#1f6feb];
+}
+
+.hljs-bullet {
+	@apply text-[#735c0f] dark:text-[#f2cc60];
+}
+
 .hljs-emphasis {
-	font-style: italic;
+	@apply italic text-[#24292e] dark:text-[#c9d1d9];
 }
+
 .hljs-strong {
-	font-weight: 700;
+	@apply font-bold text-[#24292e] dark:text-[#c9d1d9];
+}
+
+.hljs-addition {
+	@apply bg-[#f0fff4] text-[#22863a] dark:bg-[#033a16] dark:text-[#aff5b4];
+}
+
+.hljs-deletion {
+	@apply bg-[#ffeef0] text-[#b31d28] dark:bg-[#67060c] dark:text-[#ffdcd7];
 }
 .hljsp-pre {
 	@apply relative;
@@ -589,7 +609,7 @@ section.eqno > span {
 	@apply inline-table w-full pl-4 pr-12;
 }
 .hljsp-pre .hljsp-linehl {
-	@apply bg-black/10 dark:bg-white/10;
+	@apply bg-black/5 dark:bg-white/5;
 }
 .hljsp-pre .hljsp-linenums::before {
 	counter-increment: line;
@@ -598,7 +618,10 @@ section.eqno > span {
 	letter-spacing: -0.05em;
 	--tw-text-opacity: 1;
 	@apply -ml-4 mr-3 inline-block text-zinc-600 dark:text-zinc-400;
-	@apply bg-black/5 px-2 text-right text-[85%] leading-[2.05] dark:bg-white/5;
+	@apply pr-4 text-right text-[85%] leading-[2.05];
+}
+.hljsp-pre .hljsp-linehl.hljsp-linenums::before {
+	@apply font-bold text-black dark:text-white;
 }
 .hljsp-pre .hljsp-linenums:first-child::before {
 	@apply rounded-tr-sm;
