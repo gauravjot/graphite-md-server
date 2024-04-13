@@ -137,25 +137,17 @@ if (typeof tocLinks !== "undefined" && tocLinks !== null) {
 	});
 }
 
-// Auto-hide Nav bar
-let prevScrollpos = window.scrollY;
+// Shrink Nav bar
+let target = nb.getElementsByTagName("div")[0];
 window.onscroll = function () {
 	let currentScrollPos = window.scrollY;
-	if (currentScrollPos < 300 || prevScrollpos > currentScrollPos) {
-		nb.style.top = "0";
-		sb.classList.remove("shift-up");
-		document.getElementById("toc-sidebar").classList.remove("shift-up");
+	if (currentScrollPos < 300) {
+		target.classList.remove("h-14");
+		target.classList.add("h-16");
 	} else {
-		// Check if user is not on mobile and sidebar is not expanded
-		// In that case, we dont take away the navbar
-		if (isMobile && sb.getAttribute("aria-hidden") === "false") {
-			return;
-		}
-		nb.style.top = "-6rem";
-		sb.classList.add("shift-up");
-		document.getElementById("toc-sidebar").classList.add("shift-up");
+		target.classList.remove("h-16");
+		target.classList.add("h-14");
 	}
-	prevScrollpos = currentScrollPos;
 };
 
 // When anchor links are clicked, have some offset from top
