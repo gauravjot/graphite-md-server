@@ -208,6 +208,8 @@ You can embed iframes in your docs. This can be useful for embedding videos, map
 <iframe width="100%" style="aspect-ratio:16/9;" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=zlbpakY2yEUGQZBp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 ```
 
+<iframe width="100%" style="aspect-ratio:16/9;" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 **Codepen**
 
 ```text

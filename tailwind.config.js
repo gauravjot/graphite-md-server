@@ -1,4 +1,4 @@
-import {CUSTOMIZE} from "./config/config";
+import {CUSTOMIZE} from "./config/app";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -7,6 +7,10 @@ module.exports = {
 	theme: {
 		extend: {
 			...CUSTOMIZE,
+			screens: {
+				"3xl": "1800px",
+				"4xl": "1940px",
+			},
 		},
 	},
 	plugins: [require("@tailwindcss/container-queries")],

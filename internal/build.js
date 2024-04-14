@@ -232,17 +232,15 @@ async function build() {
 			// this is a directory
 			continue;
 		}
-		let jsCode = readFileSync(item_path, "utf8", (err, data) => {
-			if (err) {
-				console.error("Error reading JS file", err);
-			}
-		});
-		jsCode = minifyJS(jsCode);
-		writeFileSync(item_path, jsCode, (err) => {
-			if (err) {
-				console.error("Error writing JS file", err);
-			}
-		});
+		try {
+			let jsCode = readFileSync(item_path, "utf8");
+			jsCode = minifyJS(jsCode);
+			writeFileSync(item_path, jsCode, (err) => {
+				if (err) {
+					console.error("Error writing JS file", err);
+				}
+			});
+		} catch (err) {}
 	}
 
 	// 5.1 Copy assets folder files to dist folder
@@ -279,11 +277,13 @@ async function build() {
 
 		// Generate robots.txt with sitemap
 		const robotsPath = path.join(distDir, "robots.txt");
-		let rb_contents = readFileSync(robotsPath, "utf8", (err, data) => {
-			if (err) {
-				console.error("Error reading robots.txt file", err);
-			}
-		});
+
+		let rb_contents = "";
+		try {
+			readFileSync(robotsPath, "utf8");
+		} catch (err) {
+			rb_contents = "User-agent: *";
+		}
 		rb_contents += `\n\nSitemap: ${baseURL}/sitemap.xml`;
 		writeFileSync(robotsPath, rb_contents, (err) => {
 			if (err) {

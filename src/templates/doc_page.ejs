@@ -7,12 +7,12 @@
 	<head>
 		<title><%=title %> | <%= app_name %></title>
 		<meta name="description" content="<%= description %>" />
-		<%- include ('./partials/head_tag.ejs') %>
+		<%- include ('./partials/head_tag.ejs', {config: config}) %>
 	</head>
 	<body>
-		<%- include ('./partials/nav.ejs') %>
+		<%- include ('./partials/nav.ejs', {config: config}) %>
 		<div class="container">
-			<%- include ('./partials/sidebar.ejs') %>
+			<%- include ('./partials/sidebar.ejs', {config: config}) %>
 			<div
 				class="sidebar-open mt-16 flex h-[calc(100%-4rem)] flex-col md:gap-6 xl:flex-row xl:gap-12 2xl:gap-16 3xl:gap-32 4xl:gap-48"
 				id="content"
@@ -65,6 +65,6 @@
 				<!-- Table of Contents ends -->
 			</div>
 		</div>
-		<%- include ('./partials/footer.ejs') %>
+		<%- include ('./partials/footer.ejs', {config: config}) %>
 	</body>
 </html>

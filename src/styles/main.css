@@ -465,6 +465,9 @@ section.eqno > span {
 #sidebar-doc-list .accordion[aria-expanded="true"] > .accordion__button > span {
 	@apply inline-block overflow-auto whitespace-normal text-left;
 }
+.foot-links a {
+	@apply text-zinc-600 dark:text-zinc-400;
+}
 @keyframes fadeOut {
 	0% {
 		opacity: 1;

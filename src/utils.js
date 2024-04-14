@@ -9,6 +9,7 @@ import katex from "katex";
 import tm from "markdown-it-texmath";
 import footnote_plugin from "markdown-it-footnote";
 import markdownItCodeCopy from "markdown-it-code-copy";
+import {loadLinks, loadMeta, loadScripts, loadSidebarLinks} from "./utils/load_config.js";
 
 // get the directory name of the current module
 const __filename = fileURLToPath(import.meta.url);
@@ -201,6 +202,15 @@ export function generateSidebarList(data, highlight = "") {
 	return html;
 }
 
+const config_options = {
+	meta: loadMeta(),
+	links: loadLinks(),
+	scripts: loadScripts(),
+	sidebar: {
+		links: loadSidebarLinks(),
+	},
+};
+
 /**
  * Generates a doc page for express to render
  *
@@ -253,6 +263,8 @@ export function generateDocPage(url) {
 		prev: getDocURL(file.data.prev, true) || "",
 		prevTitle: parseDocTitle(file.data.prev ? file.data.prev.replace(/\.html$/, ".md") : ""),
 		docs: generateSidebarList(docs, filepath),
+		// Configuration options set by the user
+		config: config_options,
 	};
 }
 
@@ -276,6 +288,8 @@ export function generateHomePage() {
 	return {
 		post: result,
 		docs: generateSidebarList(docs),
+		// Configuration options set by the user
+		config: config_options,
 	};
 }
 

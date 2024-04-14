@@ -2,40 +2,39 @@
  * How to edit -
  * Only edit values in the right hand side of the colon (:)
  *
- * Read: https://planum-docs.vercel.app/configuration/app
+ * Read: https://planum-docs.vercel.app/Configuration/App.html
  */
 
 /**
  * App metadata
  */
 export const META = {
-	app_icon: "public/favicon.svg",
+	// icons and logos should be in the public directory
+	// for public/favicon.ico, use "/favicon.ico"
+	app_icon: "/favicon.svg",
 	app_name: "Planum Docs",
 	app_description: "Planum Docs is a simple and easy to use documentation tool.",
 	app_url: "https://planum-docs.vercel.app/",
-	icons: {
-		favicon: "public/favicon.ico",
-		appleTouchIcon: "public/apple-touch-icon.png",
-		android192: "public/android-chrome-192.png",
-		android512: "public/android-chrome-512.png",
-	},
-	logo: {
-		style: "icon_with_text",
-		variations: {
-			icon_with_text: {
-				icon: "public/favicon.svg",
-				text: "Planum Docs",
-			},
-			text_only: {
-				text: "Planum Docs",
-			},
-			icon_only: {
-				icon: "public/favicon.svg",
-			},
-			full_logo: {
-				logo: "public/favicon.svg",
-				width: 200,
-				height: 65,
+	favicon: "/favicon.ico",
+	navbar: {
+		logo: {
+			style: "icon_with_text",
+			variations: {
+				icon_with_text: {
+					icon: "/favicon.svg",
+					text: "Planum Docs",
+				},
+				text_only: {
+					text: "Planum Docs",
+				},
+				icon_only: {
+					icon: "/favicon.svg",
+				},
+				full_logo: {
+					logo: "/favicon.svg",
+					width: 200,
+					height: 65,
+				},
 			},
 		},
 	},
@@ -43,10 +42,23 @@ export const META = {
 
 /**
  * Declare any additional stylesheets or scripts that you want to include in the head.
+ * `link` is for stylesheets and `scripts` is for scripts.
  */
 export const INLCUDE = {
-	stylesheets: [
-		"https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Source+Code+Pro&display=swap",
+	links: [
+		{
+			href: "https://fonts.googleapis.com",
+			rel: "preconnect",
+		},
+		{
+			href: "https://fonts.gstatic.com",
+			rel: "preconnect",
+			crossorigin: true,
+		},
+		{
+			href: "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Source+Code+Pro&display=swap",
+			rel: "stylesheet",
+		},
 	],
 	scripts: [],
 };
@@ -75,13 +87,4 @@ export const CUSTOMIZE = {
 			950: "#142757",
 		},
 	},
-	screens: {
-		"3xl": "1800px",
-		"4xl": "1940px",
-	},
-};
-
-export const OTHER = {
-	use_dot_html: true,
-	lowercase_routing_only: false,
 };

@@ -6,20 +6,13 @@
 >
 	<div class="relative h-[calc(100%-2.27rem)] flex-1 overflow-y-auto">
 		<!-- Sidebar menu starts -->
+		<% if (config.sidebar.links.main.length > 0) { %>
 		<div class="mt-8 text-sm font-medium text-zinc-500 dark:text-zinc-400">LINKS</div>
 		<ul id="sidebar-nav-list" class="my-4">
-			<li>
-				<a href="/">Home</a>
-			</li>
-
-			<!-- TODO: CHANGE this link to whatever you like -->
-			<li>
-				<a href="https://github.com/gauravjot/planum-docs" target="_blank" rel="noopener noreferrer"
-					>GitHub Repository</a
-				>
-			</li>
+			<% for(var i=0; i < config.sidebar.links.main.length; i++) { %> <%-
+			config.sidebar.links.main[i] %> <% } %>
 		</ul>
-
+		<% } %>
 		<!-- DO NOT EDIT 5 lINES BELOW-->
 		<div class="mt-8 text-sm font-medium text-zinc-500 dark:text-zinc-400">DOCS</div>
 		<!-- Doc list for navigation -->
@@ -29,28 +22,10 @@
 	</div>
 	<!-- Sidebar footer starts -->
 	<div class="flex border-t text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
-		<div class="flex h-14 flex-1 place-items-center gap-3">
-			<!-- TODO: CHANGE link -->
-			<a
-				class="text-zinc-600 dark:text-zinc-400"
-				href="https://github.com/gauravjot/planum-docs/releases"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<span>v1.7.0</span>
-			</a>
-			<!-- link ends -->
-
-			<!-- TODO: CHANGE link -->
-			<a
-				class="text-zinc-600 dark:text-zinc-400"
-				href="https://planum-docs.vercel.app"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				Docs
-			</a>
-			<!-- link ends -->
+		<div class="foot-links flex h-14 flex-1 place-items-center gap-3">
+			<% if (config.sidebar.links.foot.length > 0) { %> <% for(var i=0; i <
+			config.sidebar.links.foot.length; i++) { %> <%- config.sidebar.links.foot[i] %> <% } %> <% }
+			%>
 		</div>
 
 		<!-- NO NEED TO CHANGE ANYTHING BELOW -->
