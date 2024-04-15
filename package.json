@@ -1,28 +1,32 @@
 {
 	"name": "planum-docs",
 	"version": "1.7.0",
-	"description": "",
+	"description": "Pure Markdown Docs as a Website.",
 	"main": "./src/server.js",
 	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/gauravjot/planum-docs"
+	},
 	"scripts": {
-		"live": "node ./src/server.js",
-		"css": "npx tailwindcss -i ./src/styles/main.css -o ./public/css/styles.css --minify --watch",
+		"css": "npx tailwindcss -i ./src/styles/main.css -o ./pd-static/styles.css --minify",
+		"watch-css": "npx tailwindcss -i ./src/styles/main.css -o ./pd-static/styles.css --minify --watch",
 		"nodemon": "npx nodemon ./src/server.js",
-		"dev": "npm run nodemon & npm run css",
-		"build": "node ./internal/build.js",
+		"dev": "concurrently \"npm run nodemon\" \"npm run watch-css\"",
+		"build": "npm run css; node ./internal/build.js",
 		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --forceExit"
 	},
-	"author": "",
+	"author": "Gauravjot Garaya",
 	"license": "MIT",
 	"dependencies": {
 		"@tailwindcss/container-queries": "^0.1.1",
 		"ascii2mathml": "^0.7.1",
 		"body-parse": "^0.1.0",
-		"ejs": "^3.1.9",
-		"express": "^4.18.3",
+		"ejs": "^3.1.10",
+		"express": "^4.19.2",
 		"gray-matter": "^4.0.3",
 		"highlight.js": "^11.9.0",
-		"katex": "^0.16.9",
+		"katex": "^0.16.10",
 		"markdown-it": "^14.1.0",
 		"markdown-it-anchor": "^8.6.7",
 		"markdown-it-code-copy": "^0.1.2",
@@ -31,6 +35,7 @@
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^6.21.0",
+		"concurrently": "^8.2.2",
 		"eslint": "^8.57.0",
 		"eslint-config-standard-with-typescript": "^43.0.1",
 		"eslint-plugin-import": "^2.29.1",
@@ -41,9 +46,9 @@
 		"jest": "^29.7.0",
 		"prettier": "^3.2.5",
 		"prettier-plugin-ejs": "^1.0.3",
-		"prettier-plugin-tailwindcss": "^0.5.12",
-		"tailwindcss": "^3.4.1",
-		"typescript": "^5.4.3"
+		"prettier-plugin-tailwindcss": "^0.5.13",
+		"tailwindcss": "^3.4.3",
+		"typescript": "^5.4.5"
 	},
 	"jest": {
 		"transform": {}

@@ -144,60 +144,68 @@ export function parseDocTitle(file_path) {
  */
 export function generateSidebarList(data, highlight = "") {
 	let html = "<div><ul>";
-	// Read the meta.json file if it exists
-	const meta_path = path.join(path.dirname(data[0].path), "meta.json");
-	if (existsSync(meta_path)) {
-		try {
-			const meta = JSON.parse(fs.readFileSync(meta_path));
-			if (meta.order && meta.order.length > 0) {
-				// Sort the files based on the order in meta.json
-				data.sort((a, b) => {
-					const a_index = meta.order.indexOf(path.basename(a.path));
-					const b_index = meta.order.indexOf(path.basename(b.path));
-					return a_index - b_index;
-				});
-			}
-		} catch (e) {
-			throw new Error(
-				`Error reading meta.json file for ${item.path}. Check if the file is valid JSON.`,
-			);
-		}
-	}
-	data.forEach((item) => {
-		if (item.files) {
-			// item is a directory
-			let dir_name = path.basename(item.path);
-			html += '<li class="accordion" id="' + dir_name + '">';
-			// regex [digit+]_ to remove the number prefix used for sorting
-			// We didn't remove this for id because id has to be unique
-			if (/^\d+_/.test(dir_name)) {
-				dir_name = dir_name.replace(/^\d+_/, "");
-			}
-			html +=
-				'<button class="accordion__button"><span>' +
-				dir_name.replaceAll("_", " ") +
-				"</span></button>";
-			html += generateSidebarList(item.files, highlight); // nested list
-			html += "</li>";
-		} else {
-			// item is a file
-			let name = item.title;
-			// Regex [digit+]_ to remove the number prefix.
-			if (/^\d+_/.test(name)) {
-				// This will only be the case if no title is given inside .md file
-				// and file name is being used for title
-				name = name.replace(/^\d+_/, "");
-			}
-			html +=
-				'<li><a href="' +
-				getDocURL(item.path) +
-				'" aria-current="' +
-				(highlight === item.path) +
-				'">' +
-				name +
-				"</a></li>";
-		}
-	});
+  try {
+    // Read the meta.json file if it exists
+    const meta_path = path.join(path.dirname(data[0].path), "meta.json");
+    if (existsSync(meta_path)) {
+      try {
+        const meta = JSON.parse(fs.readFileSync(meta_path));
+        if (meta.order && meta.order.length > 0) {
+          // Sort the files based on the order in meta.json
+          data.sort((a, b) => {
+            const a_index = meta.order.indexOf(path.basename(a.path));
+            const b_index = meta.order.indexOf(path.basename(b.path));
+            return a_index - b_index;
+          });
+        }
+      } catch (e) {
+        throw new Error(
+          `Error reading meta.json file for ${item.path}. Check if the file is valid JSON.`,
+        );
+      }
+    }
+    for (let i = 0; i < data.length; i++) {
+      let item = data[i];
+      if (item.files) {
+        // item is a directory
+        let dir_name = path.basename(item.path);
+        html += '<li class="accordion" id="' + dir_name + '">';
+        // regex [digit+]_ to remove the number prefix used for sorting
+        // We didn't remove this for id because id has to be unique
+        if (/^\d+_/.test(dir_name)) {
+          dir_name = dir_name.replace(/^\d+_/, "");
+        }
+        html +=
+          '<button class="accordion__button"><span>' +
+          dir_name.replaceAll("_", " ") +
+          "</span></button>";
+        html += generateSidebarList(item.files, highlight); // nested list
+        html += "</li>";
+      } else {
+        // Ignore index.md
+        if (path.basename(item.path) === "index.md") {
+          continue;
+        }
+        // item is a file
+        let name = item.title;
+        // Regex [digit+]_ to remove the number prefix.
+        if (/^\d+_/.test(name)) {
+          // This will only be the case if no title is given inside .md file
+          // and file name is being used for title
+          name = name.replace(/^\d+_/, "");
+        }
+        html +=
+          '<li><a href="' +
+          getDocURL(item.path) +
+          '" aria-current="' +
+          (highlight === item.path) +
+          '">' +
+          name +
+          "</a></li>";
+      }
+    };
+  } catch(err) {
+  }
 	html += "</ul></div>";
 	return html;
 }
@@ -275,7 +283,7 @@ export function generateDocPage(url) {
  */
 export function generateHomePage() {
 	const file_name = "index.md";
-	const file_path = path.join(__dirname, file_name);
+	const file_path = path.join(content_dir, file_name);
 	// read the markdown file
 	const file = matter.read(file_path);
 
