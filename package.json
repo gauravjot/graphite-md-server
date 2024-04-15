@@ -2,7 +2,7 @@
 	"name": "planum-docs",
 	"version": "1.7.0",
 	"description": "",
-	"main": "server.js",
+	"main": "./src/server.js",
 	"type": "module",
 	"scripts": {
 		"live": "node ./src/server.js",

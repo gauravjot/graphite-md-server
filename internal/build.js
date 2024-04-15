@@ -209,25 +209,20 @@ async function build() {
 	generate_DocPages(template, getFiles(content_dir));
 
 	// 5. Copy public folder files to dist folder
-	cpSync(
-		path.join(baseDir, "public"),
-		path.join(baseDir, "dist"),
-		{recursive: true, force: true},
-		(err) => {
-			if (err) {
-				console.error(
-					"Error copying public folder to dist folder. Please manually move the contents of public folder to dist folder.",
-					err,
-				);
-			}
-		},
-	);
+	cpSync(path.join(baseDir, "public"), distDir, {recursive: true, force: true}, (err) => {
+		if (err) {
+			console.error(
+				"Error copying public folder to dist folder. Please manually move the contents of public folder to dist folder.",
+				err,
+			);
+		}
+	});
 	console.log("\nCopied public directory");
 
 	// Minify files inside dist/js
-	const jsFiles = readdirSync(path.join(baseDir, "dist", "js"));
+	const jsFiles = readdirSync(path.join(distDir, "js"));
 	for (let i = 0; i < jsFiles.length; i++) {
-		let item_path = path.join(baseDir, "dist", "js", jsFiles[i]);
+		let item_path = path.join(distDir, "js", jsFiles[i]);
 		if (statSync(item_path).isDirectory()) {
 			// this is a directory
 			continue;
@@ -246,7 +241,7 @@ async function build() {
 	// 5.1 Copy assets folder files to dist folder
 	cpSync(
 		path.join(baseDir, "assets"),
-		path.join(baseDir, "dist", "assets"),
+		path.join(distDir, "assets"),
 		{recursive: true, force: true},
 		(err) => {
 			if (err) {
