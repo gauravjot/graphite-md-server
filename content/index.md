@@ -1,10 +1,12 @@
-<br>
+---
+title: Welcome to Planum Docs
+next: installation.md
+---
+
 <br>
 <center>
 
 <img src="/favicon.svg"  style="width:100px;" width="100px" height="100px" alt="Planum Logo">
-
-# Welcome to Planum Docs
 
 Pure Markdown Docs as a Website
 

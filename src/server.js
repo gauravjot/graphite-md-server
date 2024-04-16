@@ -1,9 +1,9 @@
 import express from "express";
 // import { urlencoded, json } from "body-parser";
 import {join} from "path";
-import {generateDocPage, generateHomePage} from "./utils.js";
 import path from "path";
 import {fileURLToPath} from "url";
+import {generateDocPage} from "./utils/generate_doc_page.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,11 +21,6 @@ app.set("view engine", "ejs");
 /*
  * Routes
  */
-
-app.get("/", (req, res) => {
-	res.render("home_page", generateHomePage());
-});
-
 app.get("*", (req, res) => {
 	res.render("doc_page", generateDocPage(req.url));
 });

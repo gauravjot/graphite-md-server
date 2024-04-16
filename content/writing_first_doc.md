@@ -2,8 +2,8 @@
 title: Writing your First Doc
 date: 2024-04-03
 description: Let's get you started with writing your first doc! This page will help you understand the layout and adding content such as images, links, and codeblocks to your docs.
-next: Deploying_Planum/Deploying_Static.html
-prev: Getting_Started.html
+next: deploying_planum/static.md
+prev: getting_started.md
 ---
 
 If you are unsure about where to make your file or how to name one, check the [Getting Started](/Getting_Started.html#creating-docs-and-folders) page first.

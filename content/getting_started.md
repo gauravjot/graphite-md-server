@@ -1,8 +1,8 @@
 ---
 title: Getting started
 description:
-next: Writing_your_First_Doc.md
-prev: Installation.md
+next: writing_first_doc.md
+prev: installation.md
 ---
 
 Congratulations on setting up Planum Docs! This page will help you get started with the project.

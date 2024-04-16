@@ -2,17 +2,16 @@ import {fileLoader, compile} from "ejs";
 import path from "path";
 import {
 	cpSync,
-	writeFile,
-	mkdir,
 	existsSync,
 	mkdirSync,
-	readFile,
 	writeFileSync,
 	readdirSync,
 	statSync,
 	readFileSync,
 } from "fs";
-import {getFiles, generateDocPage, getDocURL, generateHomePage} from "../src/utils.js";
+import {getFiles} from "../src/utils/get_files.js";
+import {generateDocPage} from "../src/utils/generate_doc_page.js";
+import {getDocURL} from "../src/utils/get_doc_url.js";
 import {fileURLToPath} from "url";
 import {minify} from "html-minifier";
 import readline from "node:readline";
@@ -64,25 +63,6 @@ const MINIFY_OPTIONS = {
 	minifyJS: true,
 };
 
-function generate_HomePage() {
-	const templatePath = path.join(baseDir, "src", "templates", "home_page.ejs");
-	const templateStr = fileLoader(templatePath, "utf8");
-	const template = compile(templateStr, {filename: templatePath});
-
-	var html = template(generateHomePage());
-	html = minify(html, MINIFY_OPTIONS);
-
-	// Add to sitemap
-	if (buildSitemap)
-		sitemap.push({
-			loc: `${baseURL}/`,
-			lastmod: new Date().toISOString(),
-			changefreq: scf,
-		});
-
-	return html;
-}
-
 /**
  *
  * @param {*} template
@@ -107,13 +87,10 @@ function generate_DocPages(template, docTree) {
 		}
 
 		// Get to-be URL of this doc
-		const url = getDocURL(docTree[i]["path"]);
+		const url = getDocURL(content_dir, docTree[i]["path"]);
 		// Get to-be filename
 		const filename = url.split("/").pop();
 		// Generate HTML
-		if (filename === "index.html") {
-			return;
-		}
 		const generate = generateDocPage(url);
 		let html = template(generate);
 		html = minify(html, MINIFY_OPTIONS);
@@ -144,10 +121,9 @@ function generate_DocPages(template, docTree) {
  * Steps:
  * 1. Ask to build the sitemap
  * 2. Make the dist folder
- * 3. Save the Home Page
- * 4. Save the Doc Pages
- * 5. Copy public folder files to dist folder
- * 6. Save the sitemap
+ * 3. Save the Doc Pages
+ * 4. Copy public folder files to dist folder
+ * 5. Save the sitemap
  */
 async function build() {
 	// 1. Ask user if they want to build the sitemap
@@ -179,7 +155,7 @@ async function build() {
 	console.log();
 	console.log(chalk.blue("[Info]"), "Starting build...");
 	if (!existsSync(distDir)) {
-		mkdir(distDir, (err) => {
+		mkdirSync(distDir, (err) => {
 			if (err) {
 				console.error("Error creating dist folder", err);
 				return;
@@ -188,29 +164,8 @@ async function build() {
 		console.log(chalk.blue("[Info]"), "Created dist folder");
 	}
 
-	// 3. Save Home Page
-	console.log("\nGenerating Home Page");
-	let html = minify(generate_HomePage(), {
-		keepClosingSlash: true,
-		removeOptionalTags: false,
-		removeComments: true,
-		collapseWhitespace: true,
-		minifyJS: true,
-	});
-	writeFileSync(path.join(distDir, "index.html"), html, (err) => {
-		if (err) {
-			console.error("Error writing file", err);
-			return;
-		}
-	});
-	// Log
-	let {size} = statSync(path.join(distDir, "index.html"));
-	size = (size / 1024).toFixed(2);
-	size += "KB";
-	console.log(chalk.cyan("[Done]"), "index.html", chalk.green(size));
-
 	/*
-	 * 4. Save Doc Pages
+	 * 3. Save Doc Pages
 	 */
 	// Since all docs pages use same template
 	const templatePath = path.join(baseDir, "src", "templates", "doc_page.ejs");
@@ -221,7 +176,7 @@ async function build() {
 	// Generate the pages
 	generate_DocPages(template, getFiles(content_dir));
 
-	// 5. Copy public folder files to dist folder
+	// 4. Copy public folder files to dist folder
 	cpSync(path.join(baseDir, "public"), distDir, {recursive: true, force: true}, (err) => {
 		if (err) {
 			console.error(
@@ -233,7 +188,7 @@ async function build() {
 	console.log();
 	console.log(chalk.cyan("[Done]"), "Copied public directory");
 
-	// 5.1 Copy assets folder files to dist folder
+	// 4.1 Copy pd-static folder files to dist folder
 	cpSync(
 		path.join(baseDir, "pd-static"),
 		path.join(distDir, "pd-static"),
@@ -268,7 +223,7 @@ async function build() {
 		} catch (err) {}
 	}
 
-	// 6. Save sitemap
+	// 5. Save sitemap
 	if (buildSitemap) {
 		console.log("\nGenerating Sitemap");
 		const sitemapPath = path.join(distDir, "sitemap.xml");

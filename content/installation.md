@@ -1,7 +1,7 @@
 ---
 title: Installation Guide
 description: To get started with Planum Docs, you need to set up a new instance. This page will guide you through the process.
-next: Getting_Started.md
+next: getting_started.md
 ---
 
 ## Prerequisites

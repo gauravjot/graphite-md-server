@@ -12,8 +12,8 @@
 		"css": "npx tailwindcss -i ./src/styles/main.css -o ./pd-static/styles.css --minify",
 		"watch-css": "npx tailwindcss -i ./src/styles/main.css -o ./pd-static/styles.css --minify --watch",
 		"nodemon": "npx nodemon ./src/server.js",
-		"dev": "concurrently \"npm run nodemon\" \"npm run watch-css\"",
-		"build": "npm run css; node ./internal/build.js",
+		"dev": "npm run nodemon && npm run watch-css",
+		"build": "npm run test; npm run css; node ./internal/build.js",
 		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --forceExit"
 	},
 	"author": "Gauravjot Garaya",

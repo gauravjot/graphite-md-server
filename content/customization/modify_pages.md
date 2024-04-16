@@ -2,7 +2,7 @@
 title: Modify Website Pages
 date: 2024-03-21T23:46:03Z
 description:
-next: Customization/Switch_Accent_Color.md
+next: customization/switch_accent_color.md
 ---
 
 ## Favicon, Logo, Manifest
