@@ -16,6 +16,7 @@ import {getFiles, generateDocPage, getDocURL, generateHomePage} from "../src/uti
 import {fileURLToPath} from "url";
 import {minify} from "html-minifier";
 import readline from "node:readline";
+import chalk from "chalk";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -110,11 +111,14 @@ function generate_DocPages(template, docTree) {
 		// Get to-be filename
 		const filename = url.split("/").pop();
 		// Generate HTML
+		if (filename === "index.html") {
+			return;
+		}
 		const generate = generateDocPage(url);
 		let html = template(generate);
 		html = minify(html, MINIFY_OPTIONS);
 		// write .html file at to-be path
-		writeFile(path.join(doc_dist_path, filename), html, (err) => {
+		writeFileSync(path.join(doc_dist_path, filename), html, (err) => {
 			if (err) {
 				console.error("Error writing file", err);
 			}
@@ -128,7 +132,10 @@ function generate_DocPages(template, docTree) {
 			});
 		}
 		// Log
-		console.log("=> Generated " + url);
+		let {size} = statSync(path.join(doc_dist_path, filename));
+		size = (size / 1024).toFixed(2);
+		size += "KB";
+		console.log(chalk.cyan("[Done]"), url, chalk.green(size));
 	}
 }
 
@@ -148,11 +155,12 @@ async function build() {
 		buildSitemap = true;
 		console.log("\nBuild sitemap flag found.");
 	} else {
+		console.log("\nSitemap");
 		// Ask user if they want to build the sitemap
-		if ((await askQuestion("Do you want to build a sitemap? (y/N):")) === "y") {
+		if ((await askQuestion("Do you want to build a sitemap? (y/N): ")) === "y") {
 			buildSitemap = true;
 		} else {
-			console.log("No sitemap will be built.");
+			console.log(chalk.blue("[Info]"), "No sitemap will be built.");
 		}
 	}
 	if (buildSitemap) {
@@ -161,14 +169,15 @@ async function build() {
 			console.log(`Using base URL: ${baseURL}`);
 		} else {
 			// Ask user for the base URL
-			baseURL = await askQuestion("Enter the base URL (e.g. https://example.com):");
+			baseURL = await askQuestion("Enter the base URL (e.g. https://example.com): ");
 			// remove trailing slash
 			baseURL = baseURL.replace(/\/$/, "");
 		}
 	}
 
 	// 2. Dist folder
-	console.log("\nStarting build...");
+	console.log();
+	console.log(chalk.blue("[Info]"), "Starting build...");
 	if (!existsSync(distDir)) {
 		mkdir(distDir, (err) => {
 			if (err) {
@@ -176,7 +185,7 @@ async function build() {
 				return;
 			}
 		});
-		console.log("\nCreated dist folder");
+		console.log(chalk.blue("[Info]"), "Created dist folder");
 	}
 
 	// 3. Save Home Page
@@ -188,13 +197,17 @@ async function build() {
 		collapseWhitespace: true,
 		minifyJS: true,
 	});
-	writeFile(path.join(distDir, "index.html"), html, (err) => {
+	writeFileSync(path.join(distDir, "index.html"), html, (err) => {
 		if (err) {
 			console.error("Error writing file", err);
 			return;
 		}
 	});
-	console.log("=> Generated index.html\n");
+	// Log
+	let {size} = statSync(path.join(distDir, "index.html"));
+	size = (size / 1024).toFixed(2);
+	size += "KB";
+	console.log(chalk.cyan("[Done]"), "index.html", chalk.green(size));
 
 	/*
 	 * 4. Save Doc Pages
@@ -204,7 +217,7 @@ async function build() {
 	const templateStr = fileLoader(templatePath, "utf8");
 	const template = compile(templateStr, {filename: templatePath});
 	// Get the files
-	console.log("Generating Doc Pages");
+	console.log("\nGenerating Doc Pages");
 	// Generate the pages
 	generate_DocPages(template, getFiles(content_dir));
 
@@ -217,13 +230,30 @@ async function build() {
 			);
 		}
 	});
-	console.log("\nCopied public directory");
+	console.log();
+	console.log(chalk.cyan("[Done]"), "Copied public directory");
 
-	// Minify files inside dist/js
-	const jsFiles = readdirSync(path.join(distDir, "js"));
+	// 5.1 Copy assets folder files to dist folder
+	cpSync(
+		path.join(baseDir, "pd-static"),
+		path.join(distDir, "pd-static"),
+		{recursive: true, force: true},
+		(err) => {
+			if (err) {
+				console.error(
+					"Error copying pd-static folder to dist folder. Please manually move the contents of assets folder to dist folder.",
+					err,
+				);
+			}
+		},
+	);
+	console.log(chalk.cyan("[Done]"), "Copied pd-static directory");
+
+	// Minify files inside pd-static
+	const jsFiles = readdirSync(path.join(distDir, "pd-static"));
 	for (let i = 0; i < jsFiles.length; i++) {
-		let item_path = path.join(distDir, "js", jsFiles[i]);
-		if (statSync(item_path).isDirectory()) {
+		let item_path = path.join(distDir, "pd-static", jsFiles[i]);
+		if (statSync(item_path).isDirectory() || !jsFiles[i].endsWith(".js")) {
 			// this is a directory
 			continue;
 		}
@@ -237,22 +267,6 @@ async function build() {
 			});
 		} catch (err) {}
 	}
-
-	// 5.1 Copy assets folder files to dist folder
-	cpSync(
-		path.join(baseDir, "assets"),
-		path.join(distDir, "assets"),
-		{recursive: true, force: true},
-		(err) => {
-			if (err) {
-				console.error(
-					"Error copying assets folder to dist folder. Please manually move the contents of assets folder to dist folder.",
-					err,
-				);
-			}
-		},
-	);
-	console.log("\nCopied assets directory");
 
 	// 6. Save sitemap
 	if (buildSitemap) {
@@ -268,7 +282,7 @@ async function build() {
 				console.error("Error writing sitemap file", err);
 			}
 		});
-		console.log("=> Generated sitemap.xml");
+		console.log(chalk.cyan("[Done]"), "sitemap.xml", chalk.green(filesize(sitemapPath)));
 
 		// Generate robots.txt with sitemap
 		const robotsPath = path.join(distDir, "robots.txt");
@@ -285,11 +299,11 @@ async function build() {
 				console.error("Error writing robots.txt file", err);
 			}
 		});
-		console.log("=> Generated robots.txt\n");
+		console.log(chalk.cyan("[Done]"), "robots.txt", chalk.green(filesize(robotsPath)));
 	}
 
 	// Success message
-	console.log("Build complete! Files are saved in dist folder. 🎉\n");
+	console.log("\nBuild complete! Files are saved in dist folder. 🎉\n");
 }
 
 // Run build function if this file is run directly
@@ -336,4 +350,9 @@ export function minifyJS(code) {
 	code = code.trim();
 
 	return code;
+}
+function filesize(path) {
+	let {size} = statSync(path);
+	size = (size / 1024).toFixed(2);
+	return size + "KB";
 }
