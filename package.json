@@ -9,8 +9,8 @@
 		"url": "https://github.com/gauravjot/planum-docs"
 	},
 	"scripts": {
-		"css": "npx tailwindcss -i ./src/styles/main.css -o ./pd-static/styles.css --minify",
-		"watch-css": "npx tailwindcss -i ./src/styles/main.css -o ./pd-static/styles.css --minify --watch",
+		"css": "npx tailwindcss -i ./src/styles/main.css -o ./src/pd-static/styles.css --minify",
+		"watch-css": "npx tailwindcss -i ./src/styles/main.css -o ./src/pd-static/styles.css --minify --watch",
 		"nodemon": "npx nodemon ./src/server.js",
 		"dev": "npm run nodemon",
 		"build": "npm run test; npm run css; node ./src/internal/build.js",
