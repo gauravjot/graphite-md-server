@@ -68,9 +68,17 @@ for (let i = 0; i < sbAccordions.length; i++) {
 	const btn = sbAccordions[i].getElementsByTagName("button")[0];
 	btn.addEventListener("click", function (e) {
 		e.preventDefault();
-		btn.parentElement.setAttribute(
+		let parent = btn.parentElement;
+		while (!parent.classList.contains("accordion")) {
+			parent = parent.parentElement;
+			if (parent.id === "sidebar-doc-list") {
+				break;
+			}
+		}
+		console.log(parent);
+		parent.setAttribute(
 			"aria-expanded",
-			btn.parentElement.getAttribute("aria-expanded") === "true" ? "false" : "true",
+			parent.getAttribute("aria-expanded") === "true" ? "false" : "true",
 		);
 	});
 }

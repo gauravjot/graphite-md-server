@@ -45,16 +45,38 @@ function generate(content_dir, data, highlight = "") {
 		for (let i = 0; i < data.length; i++) {
 			let item = data[i];
 			if (item.files) {
+				// Check if has index.md file
+				const index_md = item.files.find((f) => path.basename(f.path) === "index.md");
 				// item is a directory
 				let dir_name = path.basename(item.path);
-				html += '<li class="accordion" id="' + dir_name + '">';
-				// Check if alias was given in meta.json file
-				if (aliases[dir_name]) {
-					dir_name = aliases[dir_name];
+				if (index_md) {
+					html += '<li class="accordion" id="' + dir_name + '">';
+					// Check if alias was given in meta.json file
+					if (aliases[dir_name]) {
+						dir_name = aliases[dir_name];
+					}
+					html += '<p class="flex place-items-center">';
+					html +=
+						'<a href="' +
+						getDocURL(content_dir, index_md.path) +
+						'" class="flex-1" aria-current="' +
+						(highlight === index_md.path) +
+						'"><span>' +
+						dir_name +
+						'</span></a><button class="accordion__button" title="Expand"></button>';
+					html += "</p>";
+					html += generate(content_dir, item.files, highlight); // nested list
+					html += "</li>";
+				} else {
+					html += '<li class="accordion" id="' + dir_name + '">';
+					// Check if alias was given in meta.json file
+					if (aliases[dir_name]) {
+						dir_name = aliases[dir_name];
+					}
+					html += '<button class="accordion__button"><span>' + dir_name + "</span></button>";
+					html += generate(content_dir, item.files, highlight); // nested list
+					html += "</li>";
 				}
-				html += '<button class="accordion__button"><span>' + dir_name + "</span></button>";
-				html += generate(content_dir, item.files, highlight); // nested list
-				html += "</li>";
 			} else {
 				// Ignore index.md
 				if (path.basename(item.path) === "index.md") {

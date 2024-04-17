@@ -72,8 +72,13 @@ export function generateDocPage(url) {
 		path_chunks[i] = decodeURIComponent(path_chunks[i]);
 	}
 	// Get absolute file path
-	const filename = path_chunks.join("/");
-	const filepath = path.join(content_dir, (filename ? filename : "index") + ".md");
+	const filename = path_chunks.pop();
+	const file_relative_path = path_chunks.join("/");
+	const filepath = path.join(
+		content_dir,
+		file_relative_path,
+		(filename ? filename : "index") + ".md",
+	);
 
 	// read the markdown file
 	const file = matter.read(filepath);
