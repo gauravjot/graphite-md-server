@@ -12,7 +12,7 @@ import {loadLinks, loadMeta, loadScripts, loadSidebarLinks} from "./load_config.
 
 import {generateSidebarList} from "./generate_sidebar.js";
 import {getDocURL} from "./get_doc_url.js";
-import {formatDate} from "../utils.js";
+import {formatDate} from "./datetime.js";
 
 // get the directory name of the current module
 const __filename = fileURLToPath(import.meta.url);

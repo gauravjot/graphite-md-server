@@ -1,18 +1,14 @@
-<% var app_name = "Planum Docs"; %>
-
-<!-- No need to edit anything below -->
-
 <!doctype html>
 <html lang="en">
 	<head>
-		<title><%=title %> | <%= app_name %></title>
+		<title><%=title %> | <%= config.meta.app_name %></title>
 		<% if (description) { %>
 		<meta name="description" content="<%= description %>" />
 		<% } %> <%- include ('./partials/head_tag.ejs', {config: config}) %>
 	</head>
 	<body>
 		<%- include ('./partials/nav.ejs', {config: config}) %>
-		<div class="container">
+		<div class="container" id="pd-page-container">
 			<%- include ('./partials/sidebar.ejs', {config: config}) %>
 			<div
 				class="sidebar-open mt-16 flex h-[calc(100%-4rem)] flex-col md:gap-6 xl:flex-row xl:gap-12 2xl:gap-16 3xl:gap-32 4xl:gap-48"
