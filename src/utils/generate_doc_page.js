@@ -8,6 +8,7 @@ import katex from "katex";
 import tm from "markdown-it-texmath";
 import footnote_plugin from "markdown-it-footnote";
 import markdownItCodeCopy from "markdown-it-code-copy";
+import {parse} from "node-html-parser";
 import {loadLinks, loadMeta, loadScripts, loadSidebarLinks} from "./load_config.js";
 
 import {generateSidebarList} from "./generate_sidebar.js";
@@ -99,6 +100,7 @@ export function generateDocPage(url) {
 		prev: getDocURL(content_dir, file.data.prev) || "",
 		prevTitle: parseDocTitle(file.data.prev ? file.data.prev.replace(/\.html$/, ".md") : ""),
 		docs: generateSidebarList(content_dir, filepath),
+		toc: generateTOC(html),
 		// Configuration options set by the user
 		config: config_options,
 	};
@@ -243,4 +245,40 @@ export function highlightedLines(hlLinesAttribute, maxLines) {
 	});
 
 	return highlightedLines;
+}
+
+/**
+ * Generate TOC for the markdown content
+ */
+function generateTOC(html) {
+	// Get all headings under the element with id `md-content`
+	const mdContent = parse(html);
+	const mdHeads = mdContent.querySelectorAll("h2, h3, h4");
+	// Get all hrefs of a tag inside heading, also note the level
+	const mdHeadingList = [];
+	for (let i = 0; i < mdHeads.length; i++) {
+		mdHeadingList.push({
+			text: mdHeads[i].textContent,
+			href: `#${mdHeads[i].id}`,
+			level: mdHeads[i].tagName,
+		});
+	}
+	// TOC: Render the table of contents
+	let res = `<ul id="toc">`;
+	for (let i = 0; i < mdHeadingList.length; i++) {
+		res += `<li class="${giveMarginForHeading(mdHeadingList[i])}">`;
+		res += `<a href="${mdHeadingList[i].href}">${mdHeadingList[i].text}</a>`;
+		res += `</li>`;
+	}
+	res += `</ul>`;
+	function giveMarginForHeading(heading) {
+		if (heading.level === "H2" || heading.level === "H1") {
+			return "pl-0";
+		} else if (heading.level === "H3") {
+			return "toc-h3-indent";
+		} else {
+			return "toc-h4-indent";
+		}
+	}
+	return res;
 }

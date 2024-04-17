@@ -641,3 +641,31 @@ section.eqno > span {
 .hljsp-pre .hljsp-linenums:last-child::before {
 	@apply rounded-br-sm;
 }
+
+/**
+dyanmic loading stuff
+**/
+#loading {
+	@apply fixed left-0 right-0 top-0 z-50 hidden h-1;
+	/* rainbow moving gradient*/
+	background: linear-gradient(90deg, #55eef6, #7162f9, #e76dff, #f9d262, #f6ad55);
+	background-size: 400% 400%;
+	animation: gradient 3s linear infinite;
+	transform: translateY(-4px);
+	transition: transform 0.5s ease;
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+#loading.show {
+	@apply block;
+	transform: translateY(0);
+}

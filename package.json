@@ -31,7 +31,8 @@
 		"markdown-it-anchor": "^8.6.7",
 		"markdown-it-code-copy": "^0.1.2",
 		"markdown-it-footnote": "^4.0.0",
-		"markdown-it-texmath": "^1.0.0"
+		"markdown-it-texmath": "^1.0.0",
+		"node-html-parser": "^6.1.13"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^6.21.0",

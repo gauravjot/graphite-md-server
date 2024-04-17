@@ -61,7 +61,7 @@ function generate(content_dir, data, highlight = "") {
 						getDocURL(content_dir, index_md.path) +
 						'" class="flex-1" aria-current="' +
 						(highlight === index_md.path) +
-						'"><span>' +
+						'" data-type="dynamic"><span>' +
 						dir_name +
 						'</span></a><button class="accordion__button" title="Expand"></button>';
 					html += "</p>";
@@ -95,7 +95,7 @@ function generate(content_dir, data, highlight = "") {
 					getDocURL(content_dir, item.path) +
 					'" aria-current="' +
 					(highlight === item.path) +
-					'">' +
+					'" data-type="dynamic">' +
 					name +
 					"</a></li>";
 			}

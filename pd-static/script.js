@@ -75,7 +75,6 @@ for (let i = 0; i < sbAccordions.length; i++) {
 				break;
 			}
 		}
-		console.log(parent);
 		parent.setAttribute(
 			"aria-expanded",
 			parent.getAttribute("aria-expanded") === "true" ? "false" : "true",
@@ -83,54 +82,25 @@ for (let i = 0; i < sbAccordions.length; i++) {
 	});
 }
 
-// Get all headings under the element with id `md-content`
-const mdContent = document.getElementById("md-content");
-const mdHeads = mdContent.querySelectorAll("h2, h3, h4");
-// Get all hrefs of a tag inside heading, also note the level
-const mdHeadingList = [];
-for (let i = 0; i < mdHeads.length; i++) {
-	mdHeadingList.push({
-		text: mdHeads[i].textContent,
-		href: mdHeads[i].querySelector("a").href,
-		level: mdHeads[i].tagName,
-	});
-}
-// TOC: Render the table of contents
-const mdToc = document.getElementById("toc");
-if (mdToc) {
-	for (let i = 0; i < mdHeadingList.length; i++) {
-		const li = document.createElement("li");
-		li.innerHTML = `<a href="${mdHeadingList[i].href}">${mdHeadingList[i].text}</a>`;
-		giveMarginForHeading(li, mdHeadingList[i]);
-		mdToc.appendChild(li);
-	}
-}
-function giveMarginForHeading(li, heading) {
-	if (heading.level === "H2" || heading.level === "H1") {
-		li.classList.add("pl-0");
-	} else if (heading.level === "H3") {
-		li.classList.add("toc-h3-indent");
-	} else {
-		li.classList.add("toc-h4-indent");
-	}
-}
 // Highlight the current heading in toc on page scroll
-let tocLinks = document.getElementById("toc");
-if (typeof tocLinks !== "undefined" && tocLinks !== null) {
-	tocLinks = tocLinks.getElementsByTagName("a");
-	window.addEventListener("scroll", () => {
+window.addEventListener("scroll", () => {
+	let tocLinks = document.getElementById("toc");
+	if (typeof tocLinks !== "undefined" && tocLinks !== null) {
+		tocLinks = tocLinks.getElementsByTagName("a");
 		// If mobile, return
 		if (isMobile) {
 			return;
 		}
 		let latest;
 		let fromTop = window.scrollY;
-		for (let i = 0; i < mdHeadingList.length; i++) {
-			let section = document.getElementById(mdHeadingList[i].href.split("#")[1]);
+		// Get all headings under the element with id `md-content`
+		const mdContent = document.getElementById("md-content");
+		const mdHeads = mdContent.querySelectorAll("h2, h3, h4");
+		for (let i = 0; i < mdHeads.length; i++) {
 			// When heading is halfway from top, highlight the toc link
 			if (
-				section.offsetTop <= fromTop + 50 &&
-				section.offsetTop + section.offsetHeight > fromTop + 50
+				mdHeads[i].offsetTop <= fromTop + 50 &&
+				mdHeads[i].offsetTop + mdHeads[i].offsetHeight > fromTop + 50
 			) {
 				// Remove if new heading is selected
 				latest = tocLinks[i];
@@ -142,10 +112,10 @@ if (typeof tocLinks !== "undefined" && tocLinks !== null) {
 			}
 			latest.setAttribute("aria-current", "true");
 		}
-	});
-}
+	}
+});
 
-// Shrink Nav bar
+// Shrink Nav bar on scroll
 let target = nb.getElementsByTagName("div")[0];
 window.onscroll = function () {
 	let currentScrollPos = window.scrollY;

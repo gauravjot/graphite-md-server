@@ -8,7 +8,8 @@
 	</head>
 	<body>
 		<%- include ('./partials/nav.ejs', {config: config}) %>
-		<div class="container" id="pd-page-container">
+		<div id="loading"></div>
+		<div class="container">
 			<%- include ('./partials/sidebar.ejs', {config: config}) %>
 			<div
 				class="sidebar-open mt-16 flex h-[calc(100%-4rem)] flex-col md:gap-6 xl:flex-row xl:gap-12 2xl:gap-16 3xl:gap-32 4xl:gap-48"
@@ -56,7 +57,7 @@
 							TABLE OF CONTENTS
 						</div>
 
-						<ul id="toc"></ul>
+						<%- toc %>
 					</div>
 				</div>
 				<!-- Table of Contents ends -->
