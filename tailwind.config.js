@@ -2,7 +2,12 @@ import {CUSTOMIZE} from "./config/app";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: ["./src/**/*.{html,js,ejs}", "./public/**/*.{html,js,ejs}"],
+	content: [
+		"./src/**/*.{html,js,ejs}",
+		"./pd-static/**/*.{html,js,ejs}",
+		"./content/**/*.{md,mdx}",
+		"./public/**/*.{html,js,ejs}",
+	],
 	darkMode: "selector",
 	theme: {
 		extend: {

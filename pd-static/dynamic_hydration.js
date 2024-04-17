@@ -22,7 +22,6 @@ for (let i = 0; i < dynamic_a.length; i++) {
 					response.text().then((text) => renderContent(text, dynamic_a[i].href));
 				})
 				.catch(() => {
-					console.log("Error");
 					window.location.replace(dynamic_a[i].href);
 				});
 		} else {
@@ -68,7 +67,6 @@ function plug(html, elementSelector) {
 		}
 		return false;
 	} catch (e) {
-		console.error(e);
 		return false;
 	}
 }
