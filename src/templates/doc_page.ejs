@@ -6,8 +6,9 @@
 <html lang="en">
 	<head>
 		<title><%=title %> | <%= app_name %></title>
+		<% if (description) { %>
 		<meta name="description" content="<%= description %>" />
-		<%- include ('./partials/head_tag.ejs', {config: config}) %>
+		<% } %> <%- include ('./partials/head_tag.ejs', {config: config}) %>
 	</head>
 	<body>
 		<%- include ('./partials/nav.ejs', {config: config}) %>
