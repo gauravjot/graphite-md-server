@@ -9,9 +9,9 @@ import {
 	statSync,
 	readFileSync,
 } from "fs";
-import {getFiles} from "../src/utils/get_files.js";
-import {generateDocPage} from "../src/utils/generate_doc_page.js";
-import {getDocURL} from "../src/utils/get_doc_url.js";
+import {getFiles} from "../utils/get_files.js";
+import {generateDocPage} from "../utils/generate_doc_page.js";
+import {getDocURL} from "../utils/get_doc_url.js";
 import {fileURLToPath} from "url";
 import {minify} from "html-minifier";
 import readline from "node:readline";
@@ -40,17 +40,17 @@ const scf = "daily";
 /**
  * Base Directory
  */
-const baseDir = path.join(__dirname, "..");
+const baseDir = path.join(__dirname, "..", "..");
 
 /**
  * Build Directory
  */
-const distDir = path.join(__dirname, "..", "dist");
+const distDir = path.join(baseDir, "dist");
 
 /**
  * Content Directory
  */
-const content_dir = path.join(__dirname, "..", "content");
+const content_dir = path.join(baseDir, "content");
 
 /**
  * Minify Options
@@ -190,7 +190,7 @@ async function build() {
 
 	// 4.1 Copy pd-static folder files to dist folder
 	cpSync(
-		path.join(baseDir, "pd-static"),
+		path.join(baseDir, "src", "pd-static"),
 		path.join(distDir, "pd-static"),
 		{recursive: true, force: true},
 		(err) => {
@@ -205,6 +205,8 @@ async function build() {
 	console.log(chalk.cyan("[Done]"), "Copied pd-static directory");
 
 	// Minify files inside pd-static
+	console.log();
+	console.log(chalk.blue("[Info]"), "Minifying pd-static JS files...");
 	const jsFiles = readdirSync(path.join(distDir, "pd-static"));
 	for (let i = 0; i < jsFiles.length; i++) {
 		let item_path = path.join(distDir, "pd-static", jsFiles[i]);
@@ -220,6 +222,11 @@ async function build() {
 					console.error("Error writing JS file", err);
 				}
 			});
+			// Log
+			let {size} = statSync(item_path);
+			size = (size / 1024).toFixed(2);
+			size += "KB";
+			console.log(chalk.cyan("[Done]"), jsFiles[i], chalk.green(size));
 		} catch (err) {}
 	}
 

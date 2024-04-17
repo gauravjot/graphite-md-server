@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.static(join(__dirname, "..", "public")));
-app.use("/pd-static", express.static(join(__dirname, "..", "pd-static")));
+app.use("/pd-static", express.static(join(__dirname, "pd-static")));
 // app.use(urlencoded({ extended: true }));
 // app.use(json());
 
