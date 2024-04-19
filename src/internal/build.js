@@ -14,15 +14,12 @@ import {generateDocPage} from "../utils/generate_doc_page.js";
 import {getDocURL} from "../utils/get_doc_url.js";
 import {fileURLToPath} from "url";
 import {minify} from "html-minifier";
-import readline from "node:readline";
 import chalk from "chalk";
+import {loadMeta} from "../utils/load_config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Sitemap
-// Reference: https://www.sitemaps.org/protocol.html
-let buildSitemap = false;
 let baseURL = "";
 /**
  * Sitemap
@@ -101,13 +98,11 @@ function generate_DocPages(template, docTree) {
 			}
 		});
 		// Add to sitemap
-		if (buildSitemap) {
-			sitemap.push({
-				loc: `${baseURL}${url}`,
-				lastmod: new Date().toISOString(),
-				changefreq: scf,
-			});
-		}
+		sitemap.push({
+			loc: `${baseURL}${url}`,
+			lastmod: new Date().toISOString(),
+			changefreq: scf,
+		});
 		// Log
 		let {size} = statSync(path.join(doc_dist_path, filename));
 		size = (size / 1024).toFixed(2);
@@ -119,53 +114,34 @@ function generate_DocPages(template, docTree) {
 /**
  * Build the site
  * Steps:
- * 1. Ask to build the sitemap
- * 2. Make the dist folder
- * 3. Save the Doc Pages
- * 4. Copy public folder files to dist folder
- * 5. Save the sitemap
+ * 1. Make the dist folder
+ * 2. Save the Doc Pages
+ * 3. Copy public folder files and pd-static to dist folder
+ * 4. Build and save the sitemap.xml + robots.txt
  */
 async function build() {
-	// 1. Ask user if they want to build the sitemap
-	if (process.argv.includes("--sitemap")) {
-		buildSitemap = true;
-		console.log("\nBuild sitemap flag found.");
-	} else {
-		console.log("\nSitemap");
-		// Ask user if they want to build the sitemap
-		if ((await askQuestion("Do you want to build a sitemap? (y/N): ")) === "y") {
-			buildSitemap = true;
-		} else {
-			console.log(chalk.blue("[Info]"), "No sitemap will be built.");
-		}
+	baseURL = loadMeta().app_url;
+	// Remove trailing slash if exists
+	if (baseURL.endsWith("/")) {
+		baseURL = baseURL.slice(0, -1);
 	}
-	if (buildSitemap) {
-		if (process.argv.includes("--baseurl")) {
-			baseURL = process.argv[process.argv.indexOf("--baseurl") + 1];
-			console.log(`Using base URL: ${baseURL}`);
-		} else {
-			// Ask user for the base URL
-			baseURL = await askQuestion("Enter the base URL (e.g. https://example.com): ");
-			// remove trailing slash
-			baseURL = baseURL.replace(/\/$/, "");
-		}
-	}
-
-	// 2. Dist folder
 	console.log();
-	console.log(chalk.blue("[Info]"), "Starting build...");
+	console.log("Starting build...");
+	console.log(chalk.blue("[Info]"), "App URL:", baseURL);
+
+	// 1. Dist folder
 	if (!existsSync(distDir)) {
-		mkdirSync(distDir, (err) => {
-			if (err) {
-				console.error("Error creating dist folder", err);
-				return;
-			}
-		});
-		console.log(chalk.blue("[Info]"), "Created dist folder");
+		try {
+			mkdirSync(distDir);
+			console.log(chalk.blue("[Info]"), "Created dist folder");
+		} catch (err) {
+			console.error(chalk.red("[ERROR]"), "Unable to create dist folder.", err);
+			return;
+		}
 	}
 
 	/*
-	 * 3. Save Doc Pages
+	 * 2. Save Doc Pages
 	 */
 	// Since all docs pages use same template
 	const templatePath = path.join(baseDir, "src", "templates", "doc_page.ejs");
@@ -176,35 +152,19 @@ async function build() {
 	// Generate the pages
 	generate_DocPages(template, getFiles(content_dir));
 
-	// 4. Copy public folder files to dist folder
-	cpSync(path.join(baseDir, "public"), distDir, {recursive: true, force: true}, (err) => {
-		if (err) {
-			console.error(
-				"Error copying public folder to dist folder. Please manually move the contents of public folder to dist folder.",
-				err,
-			);
-		}
-	});
+	// 3. Copy public folder files to dist folder
+	cpSync(path.join(baseDir, "public"), distDir, {recursive: true, force: true});
 	console.log();
 	console.log(chalk.cyan("[Done]"), "Copied public directory");
 
-	// 4.1 Copy pd-static folder files to dist folder
-	cpSync(
-		path.join(baseDir, "src", "pd-static"),
-		path.join(distDir, "pd-static"),
-		{recursive: true, force: true},
-		(err) => {
-			if (err) {
-				console.error(
-					"Error copying pd-static folder to dist folder. Please manually move the contents of assets folder to dist folder.",
-					err,
-				);
-			}
-		},
-	);
+	// > 3.1 Copy pd-static folder files to dist folder
+	cpSync(path.join(baseDir, "src", "pd-static"), path.join(distDir, "pd-static"), {
+		recursive: true,
+		force: true,
+	});
 	console.log(chalk.cyan("[Done]"), "Copied pd-static directory");
 
-	// Minify files inside pd-static
+	// > 3.1.1 Minify files inside pd-static
 	console.log();
 	console.log(chalk.blue("[Info]"), "Minifying pd-static JS files...");
 	const jsFiles = readdirSync(path.join(distDir, "pd-static"));
@@ -217,11 +177,7 @@ async function build() {
 		try {
 			let jsCode = readFileSync(item_path, "utf8");
 			jsCode = minifyJS(jsCode);
-			writeFileSync(item_path, jsCode, (err) => {
-				if (err) {
-					console.error("Error writing JS file", err);
-				}
-			});
+			writeFileSync(item_path, jsCode);
 			// Log
 			let {size} = statSync(item_path);
 			size = (size / 1024).toFixed(2);
@@ -230,20 +186,17 @@ async function build() {
 		} catch (err) {}
 	}
 
-	// 5. Save sitemap
-	if (buildSitemap) {
-		console.log("\nGenerating Sitemap");
+	// 4. Save sitemap.xml and robots.txt
+	if (baseURL) {
+		console.log("\nGenerating Sitemap and Robots.txt");
+		// Reference: https://www.sitemaps.org/protocol.html
 		const sitemapPath = path.join(distDir, "sitemap.xml");
 		let sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 		sitemap.forEach((page) => {
 			sitemapXML += `<url><loc>${page.loc}</loc><lastmod>${page.lastmod}</lastmod><changefreq>${page.changefreq}</changefreq></url>\n`;
 		});
 		sitemapXML += `</urlset>`;
-		writeFileSync(sitemapPath, sitemapXML, (err) => {
-			if (err) {
-				console.error("Error writing sitemap file", err);
-			}
-		});
+		writeFileSync(sitemapPath, sitemapXML);
 		console.log(chalk.cyan("[Done]"), "sitemap.xml", chalk.green(filesize(sitemapPath)));
 
 		// Generate robots.txt with sitemap
@@ -256,11 +209,7 @@ async function build() {
 			rb_contents = "User-agent: *";
 		}
 		rb_contents += `\n\nSitemap: ${baseURL}/sitemap.xml`;
-		writeFileSync(robotsPath, rb_contents, (err) => {
-			if (err) {
-				console.error("Error writing robots.txt file", err);
-			}
-		});
+		writeFileSync(robotsPath, rb_contents);
 		console.log(chalk.cyan("[Done]"), "robots.txt", chalk.green(filesize(robotsPath)));
 	}
 
@@ -275,19 +224,6 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) build();
  * Helper function to create a readline interface
  * @param {string} query
  */
-function askQuestion(query) {
-	const rl = readline.createInterface({
-		input: process.stdin,
-		output: process.stdout,
-	});
-
-	return new Promise((resolve) =>
-		rl.question(query, (ans) => {
-			rl.close();
-			resolve(ans);
-		}),
-	);
-}
 export function minifyJS(code) {
 	// Preserve string literals
 	const stringLiterals = [];
