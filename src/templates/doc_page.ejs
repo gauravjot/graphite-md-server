@@ -26,8 +26,8 @@
 					<div id="doc-pn" class="mt-12 grid gap-5 @lg/doc:grid-cols-2 @lg/doc:gap-8">
 						<div class="col-span-1">
 							<% if(prev){ %>
-							<a href="<%= prev %>" class="next-prev-btn">
-								<div class="font-medium text-zinc-700 dark:text-zinc-300">
+							<a href="<%= prev %>" class="next-prev-btn" <% if(config.settings.dynamic_hydration){ %> data-type="dynamic" <% } %>>
+								<div class="font-medium text-zinc-700 dark:text-zinc-300 text-left">
 									<div class="text-sm">Previous</div>
 									<div class="mt-2 w-[calc(100%)] truncate font-medium"><%= prevTitle %></div>
 								</div>
@@ -36,7 +36,7 @@
 						</div>
 						<div class="col-span-1">
 							<% if(next){ %>
-							<a href="<%= next %>" class="next-prev-btn">
+							<a href="<%= next %>" class="next-prev-btn"  <% if(config.settings.dynamic_hydration){ %> data-type="dynamic" <% } %>>
 								<div class="font-medium text-zinc-700 dark:text-zinc-300">
 									<div class="text-sm">Next</div>
 									<div class="mt-2 w-[calc(100%)] truncate font-medium"><%= nextTitle %></div>
@@ -52,12 +52,14 @@
 					id="toc-sidebar"
 					class="order-1 flex-1 md:flex-initial xl:sticky xl:top-16 xl:order-3 xl:max-h-[calc(100vh-4rem)] xl:overflow-auto"
 				>
-					<div class="mt-8 rounded-md border p-3 pt-4 xl:border-none xl:p-0 dark:border-zinc-900">
-						<div class="mb-4 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+					<div class="mt-8 rounded-md border xl:border-none dark:border-zinc-900">
+						<div
+							class="toc-toggle-btn text-sm font-medium text-zinc-700 dark:text-zinc-300"
+							onclick="toggleToc()"
+						>
 							TABLE OF CONTENTS
 						</div>
-
-						<%- toc %>
+						<div id="toc-container" class="px-4 xl:p-0" data-hidden="false"><%- toc %></div>
 					</div>
 				</div>
 				<!-- Table of Contents ends -->

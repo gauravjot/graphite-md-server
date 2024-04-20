@@ -1,6 +1,5 @@
 ---
 title: Deploying ExpressJS Server
-date: 2024-03-21T21:07:42Z
 description:
 prev: deploying_planum/static.md
 ---

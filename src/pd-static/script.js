@@ -6,12 +6,20 @@ let isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
 if (isMobile) {
 	hideSidebar();
 }
+if (window.matchMedia("only screen and (max-width: 1279px)").matches) {
+	hideToc();
+}
 window.addEventListener("resize", () => {
 	isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
 	if (isMobile) {
 		hideSidebar();
 	} else {
 		showSidebar();
+	}
+	if (window.matchMedia("only screen and (max-width: 1279px)").matches) {
+		hideToc();
+	} else {
+		showToc();
 	}
 });
 function toggleSidebar() {
@@ -32,7 +40,7 @@ function showSidebar() {
 	}
 }
 function hideSidebar() {
-	if (window.matchMedia("only screen and (min-width: 1536px)").matches) {
+	if (window.matchMedia("only screen and (min-width: 1280px)").matches) {
 		return; // dont hide sidebar on large screens
 	}
 	if (isMobile) {
@@ -43,6 +51,28 @@ function hideSidebar() {
 		content.classList.remove("sidebar-open");
 		content.classList.add("ml-16");
 	}
+}
+
+// Toggle TOC
+function toggleToc() {
+	if (window.matchMedia("only screen and (min-width: 1536px)").matches) {
+		return; // dont hide
+	}
+	let toc = document.getElementById("toc-container");
+	if (toc.dataset.hidden === "true") {
+		showToc();
+	} else {
+		hideToc();
+	}
+	document.getElementsByClassName("toc-toggle-btn")[0].classList.toggle("rotate-arr");
+}
+function showToc() {
+	let toc = document.getElementById("toc-container");
+	toc.dataset.hidden = "false";
+}
+function hideToc() {
+	let toc = document.getElementById("toc-container");
+	toc.dataset.hidden = "true";
 }
 
 // Expand accordion for open page

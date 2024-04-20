@@ -3,9 +3,6 @@
  *
  */
 export const SIDEBAR = {
-	navTree: {
-		always_expanded: false,
-	},
 	permalinks: {
 		main: {
 			enabled: true,

@@ -1,6 +1,5 @@
 ---
 title: Using Math in Planum
-date: 2024-03-21T22:28:42Z
 description:
 ---
 

@@ -2,6 +2,9 @@ import fs, {existsSync} from "fs";
 import path from "path";
 import {getDocURL} from "./get_doc_url.js";
 import {getFiles} from "./get_files.js";
+import {SETTINGS} from "../../config/app.js";
+
+const DYNAMIC = SETTINGS.dynamic_hydration ?? false;
 
 /**
  * This function generates a list that is used in the sidebar
@@ -56,14 +59,8 @@ function generate(content_dir, data, highlight = "") {
 						dir_name = aliases[dir_name];
 					}
 					html += '<p class="flex place-items-center">';
-					html +=
-						'<a href="' +
-						getDocURL(content_dir, index_md.path) +
-						'" class="flex-1" aria-current="' +
-						(highlight === index_md.path) +
-						'" data-type="dynamic"><span>' +
-						dir_name +
-						'</span></a><button class="accordion__button" title="Expand"></button>';
+					html += `<a href="${getDocURL(content_dir, index_md.path)}" class="flex-1" aria-current="${highlight === index_md.path}" ${DYNAMIC ? 'data-type="dynamic"' : ""}><span>${dir_name}</span></a>`;
+					html += '<button class="accordion__button" title="Expand"></button>';
 					html += "</p>";
 					html += generate(content_dir, item.files, highlight); // nested list
 					html += "</li>";
@@ -95,7 +92,7 @@ function generate(content_dir, data, highlight = "") {
 					getDocURL(content_dir, item.path) +
 					'" aria-current="' +
 					(highlight === item.path) +
-					'" data-type="dynamic">' +
+					`" ${DYNAMIC ? 'data-type="dynamic"' : ""}>` +
 					name +
 					"</a></li>";
 			}

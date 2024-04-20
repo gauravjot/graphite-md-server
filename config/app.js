@@ -2,7 +2,7 @@
  * How to edit -
  * Only edit values in the right hand side of the colon (:)
  *
- * Read: https://planum-docs.vercel.app/Configuration/App.html
+ * Read: https://planum-docs.vercel.app/configuration/app.html
  */
 
 /**
@@ -14,11 +14,14 @@ export const META = {
 	app_icon: "/favicon.svg",
 	app_name: "Planum Docs",
 	app_description: "Planum Docs is a simple and easy to use documentation tool.",
+	// app_url is where the app is hosted
 	app_url: "https://planum-docs.vercel.app/",
 	favicon: "/favicon.ico",
 	navbar: {
 		logo: {
+			// logo can be an image, text, or both
 			style: "icon_with_text",
+			// whatever style you choose, provide the necessary values
 			variations: {
 				icon_with_text: {
 					icon: "/favicon.svg",
@@ -32,6 +35,8 @@ export const META = {
 				},
 				full_logo: {
 					logo: "/favicon.svg",
+					// avoid changing width and height and instead
+					// try to fit the logo in the given dimensions
 					width: 200,
 					height: 65,
 				},
@@ -43,6 +48,8 @@ export const META = {
 /**
  * Declare any additional stylesheets or scripts that you want to include in the head.
  * `link` is for stylesheets and `scripts` is for scripts.
+ *
+ * The order in which you provide the links is the order in which they will be included in the head.
  */
 export const INLCUDE = {
 	links: [
@@ -68,12 +75,14 @@ export const INLCUDE = {
  */
 export const CUSTOMIZE = {
 	fontFamily: {
+		// Change font here to use your own
 		sans: ["Inter", "sans-serif"],
 		mono: ["Source Code Pro", "monospace"],
 		serif: ["Inter", "sans-serif"],
 	},
 	colors: {
 		primary: {
+			// Change values below to change the primary color
 			50: "#eef7ff",
 			100: "#d9ecff",
 			200: "#bcdfff",
@@ -87,4 +96,11 @@ export const CUSTOMIZE = {
 			950: "#142757",
 		},
 	},
+};
+
+export const SETTINGS = {
+	// Experimental feature: It is recommended to keep this false.
+	// If set to true, it will fetch the page content using JavaScript
+	// and replace the current page content with the fetched content.
+	dynamic_hydration: false,
 };

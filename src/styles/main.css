@@ -496,6 +496,35 @@ section.eqno > span {
 		opacity: 1;
 	}
 }
+#toc-container {
+	@apply grid opacity-0;
+	grid-template-rows: 0fr;
+	transition:
+		grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+		opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#toc-container[data-hidden="false"] {
+	grid-template-rows: 1fr;
+	@apply opacity-100;
+}
+#toc-container > ul {
+	@apply overflow-hidden;
+}
+.toc-toggle-btn {
+	@apply cursor-pointer py-2.5 pl-8 pr-4 hover:bg-zinc-200 dark:hover:bg-zinc-900;
+	@apply relative xl:pointer-events-none xl:px-0 xl:hover:bg-transparent xl:dark:hover:bg-transparent;
+}
+.toc-toggle-btn:after {
+	content: "";
+	@apply absolute left-2 h-5 w-5 rotate-[270deg] dark:invert-[0.7];
+	background: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg width="20px" height="20px" stroke-width="1.6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="%23000000"><path d="M6 9L12 15L18 9" stroke="%23000000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
+	background-repeat: no-repeat;
+	transition: all 0.15s ease-in-out;
+	@apply xl:hidden;
+}
+.rotate-arr:after {
+	@apply rotate-180 scale-110;
+}
 
 /* Table of Contents */
 #toc li a {

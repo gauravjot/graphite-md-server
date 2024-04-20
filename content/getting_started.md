@@ -7,6 +7,26 @@ prev: installation.md
 
 Congratulations on setting up Planum Docs! This page will help you get started with the project.
 
+## Directory Structure
+
+Here is the directory structure of Planum Docs:
+
+```text title="Path: /"
+config/         # configuration files
+content/        # docs and folders
+public/         # static assets
+src/            # source code, don't need to touch
+```
+
+- **config**: Contains configuration files for the project. You can change the website name, logo, and other settings from here.
+- **content**: This is where you will be adding your docs and folders.
+- **public**: Contains static assets such as images, stylesheets, and scripts.
+- **src**: Contains the source code of the project. You don't need to touch this directory unless you want to change how Planum works.
+
+## Home Page
+
+The home page is generated from the `content/index.md` file.
+
 ## Creating Docs and Folders
 
 ### Location
@@ -25,8 +45,8 @@ _Doc_D.md       # draft, is hidden
 
 Here are the **three** rules that apply:
 
-1. File and directory names act as slug in the URL. For files `.md` extension is removed and is replaced with `.html`. For directories, the name is used as is.
-2. Files starting with `_` (_underscore_) are seen as a draft and are hidden inside the navigation tree.
+1. File and directory names act as slug in the URL, and these are case-sensitive. For files `.md` extension is removed and is replaced with `.html`. For directories, the name is used as is.
+2. Files starting with `_` (_underscore_) are seen as a draft and are hidden inside the navigation tree. These files are also not processed during build.
 3. When naming a file or folder:
 
    - Do not to use _spaces_.
@@ -60,17 +80,21 @@ Here are the **three** rules that apply:
 
 ### `meta.json` File
 
-This file is used for sorting the docs in the sidebar. The order of the docs and folders is determined by the order inside the `meta.json` file.
+This file is used for sorting the docs and aliasing folder names in the sidebar. You may make `meta.json` file in each directory you make inside `content`. Example:
 
 ```json title="content/meta.json"
 {
-	"order": [
-		"Installation.md",
-		"Getting_Started.md",
-		"Writing_your_First_Doc.md",
-		"Deploying_Planum",
-		"Markdown",
-		"Customization"
-	]
+	"order": ["installation.md", "getting_started.md", "deploy"],
+	"alias": {
+		"deploy": "Deploying Planum"
+	}
 }
 ```
+
+#### Sorting
+
+The order of the docs and folders is determined by the order inside the `order` key.
+
+#### Aliasing
+
+The `alias` key is used to rename the folder names in the sidebar. The key is the original name and the value is the aliased name.

@@ -1,8 +1,7 @@
 ---
 title: Deploying Static Website (and Vercel)
-date: 2024-03-24T09:31:20Z
 description: This guide will help you deploy your Planum Docs website to any static hosting provider and Vercel.
-prev: writing_first_doc.md
+prev: configuration/sidebar.md
 next: deploying_planum/expressjs.md
 ---
 
@@ -17,13 +16,8 @@ next: deploying_planum/expressjs.md
 You can build static HTML files using the included `build.js` script. This will create a `dist` folder with all the files you need to deploy to a static hosting provider.
 
 ```bash
-npm run build -- --sitemap --baseurl https://example.com
+npm run build
 ```
-
-| Flags       | Type     | Description                                                 |
-| ----------- | -------- | ----------------------------------------------------------- |
-| `--sitemap` | optional | Generate a sitemap.xml file                                 |
-| `--baseurl` | optional | The base URL of your website that is used for sitemap urls. |
 
 If you find any issues while building, please [report them](https://github.com/gauravjot/planum-docs/issues).
 
@@ -44,10 +38,10 @@ If you find any issues while building, please [report them](https://github.com/g
 
 2. Under _Building and Output Settings_, set the commands as follows:
 
-   | Setting          | Value                                                      |
-   | ---------------- | ---------------------------------------------------------- |
-   | Build Command    | `npm run build -- --sitemap --baseurl https://example.com` |
-   | Output Directory | `dist`                                                     |
+   | Setting          | Value           |
+   | ---------------- | --------------- |
+   | Build Command    | `npm run build` |
+   | Output Directory | `dist`          |
 
 Here is an example of the settings:
 

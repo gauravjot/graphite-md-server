@@ -14,6 +14,12 @@ for (let i = 0; i < dynamic_a.length; i++) {
 				dynamic_a[j].setAttribute("aria-current", "false");
 			}
 		}
+		// find any other links with same href
+		let other_links = document.querySelectorAll(`[href="${dynamic_a[i].href}"]`);
+		for (let j = 0; j < other_links.length; j++) {
+			other_links[j].setAttribute("aria-current", "true");
+		}
+		console.log(other_links);
 		loader.classList.add("show");
 		// fetch page contents if base url is same
 		if (dynamic_a[i].href.startsWith(window.location.origin)) {
@@ -41,12 +47,13 @@ function renderContent(html, href) {
 	if (plug(html, "#content")) {
 		// Plug title
 		plug(html, "title");
-		// Scroll to top
-		window.scrollTo(0, 0);
+
 		// Push new location
 		history.pushState({}, "", href);
 		// Hide loader
 		loader.classList.remove("show");
+		// Scroll to top
+		window.scrollTo(0, 0);
 	} else {
 		window.location.replace(href);
 	}
@@ -70,3 +77,10 @@ function plug(html, elementSelector) {
 		return false;
 	}
 }
+
+/**
+ * Fire event on back and forward button click in browser
+ */
+window.addEventListener("popstate", function (e) {
+	window.location.replace(document.location.href);
+});

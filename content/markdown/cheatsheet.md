@@ -1,6 +1,5 @@
 ---
 title: Markdown Cheat Sheet
-date: 2024-03-21T21:15:42Z
 description: A quick reference for general markdown syntax.
 ---
 

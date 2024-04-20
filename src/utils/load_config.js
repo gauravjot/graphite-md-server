@@ -1,8 +1,12 @@
-import {META, INLCUDE} from "../../config/app.js";
+import {META, INLCUDE, SETTINGS} from "../../config/app.js";
 import {SIDEBAR} from "../../config/sidebar.js";
 
 export function loadMeta() {
 	return META;
+}
+
+export function loadSettings() {
+	return SETTINGS;
 }
 
 export function loadLinks() {

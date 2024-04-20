@@ -1,12 +1,11 @@
 ---
 title: Writing your First Doc
-date: 2024-04-03
 description: Let's get you started with writing your first doc! This page will help you understand the layout and adding content such as images, links, and codeblocks to your docs.
-next: deploying_planum/static.md
+next: configuration/index.md
 prev: getting_started.md
 ---
 
-If you are unsure about where to make your file or how to name one, check the [Getting Started](/Getting_Started.html#creating-docs-and-folders) page first.
+If you are unsure about where to make your file or how to name one, check the [Getting Started](/getting_started.html#creating-docs-and-folders) page first.
 
 ## Layout
 
@@ -17,8 +16,8 @@ Here is the layout of a typical doc file:
 title         : Getting started
 date          : 2024-03-18
 description   : Useful information for starting with Planum Docs
-next          : /Writing_your_First_Doc.html
-prev          : /Installation.md
+next          : writing_first_doc.md
+prev          : installation.md
 ---
 
 Your content goes here.
@@ -38,23 +37,23 @@ The content is written in markdown format. If you are not familiar with markdown
 
 ### Using Images and Assets
 
-You can add your assets directly in the `assets` directory or make folders for organization. To use an image in your doc, you can use the following markdown: (assuming the image is in `assets` directory)
+You can add your assets directly in the `public/assets` directory or make sub-directories for organization. To use an image in your doc, you can use the following markdown:
 
 ```text
 ![Alt text](/assets/image_name.png)
 ```
 
-For best performance, it is recommended to convert images to **WebP format** and use maximum **width of 900px**. You can use tools like [CloudConvert](https://cloudconvert.com/webp-converter) to convert images to WebP.
+For best performance, it is recommended to convert images to **WebP format** and use maximum **width of 1000px**. You can use tools like [CloudConvert](https://cloudconvert.com/webp-converter) to convert images to WebP.
 
 ### Linking other Docs
 
 ```text
-[link title](/Folder_1/Folder_2/1_Doc.html)
+[link title](/folder_1/folder_2/doc.html)
 ```
 
 > Notice that when linking, the extension `.html` is used.
 
-This creates a link to a doc located at `content/Folder_1/Folder_2/1_Doc.md` in file tree. Notice that `content` is not included when linking.
+This creates a link to a doc located at `content/folder_1/folder_2/doc.md` in file tree. Notice that `content` is not included when linking.
 
 #### Please Remember
 
@@ -63,7 +62,7 @@ This creates a link to a doc located at `content/Folder_1/Folder_2/1_Doc.md` in 
 - Always start your links with `/`.
 - Non-URL-safe characters are converted to URL-safe characters. For example, spaces are converted to `%20`.
 
-> Related: See how to name your files and folders under [Schema - Getting Started](/Getting_Started.html#schema).
+> Related: See how to name your files and folders under [Schema - Getting Started](/getting_started.html#schema).
 
 ### Codeblocks
 
@@ -228,8 +227,8 @@ You can embed iframes in your docs. This can be useful for embedding videos, map
 
 Please check following resources to learn more about markdown that works with Planum Docs:
 
-- [Using Math in Planum](/Markdown/Using_Math_in_Planum.html)
-- [Markdown Cheatsheet](/Markdown/Markdown_Cheatsheet.html)
+- [Using Math in Planum](/markdown/math.html)
+- [Markdown Cheatsheet](/markdown/cheatsheet.html)
 
 ### Using HTML
 

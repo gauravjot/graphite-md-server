@@ -9,7 +9,7 @@ import tm from "markdown-it-texmath";
 import footnote_plugin from "markdown-it-footnote";
 import markdownItCodeCopy from "markdown-it-code-copy";
 import {parse} from "node-html-parser";
-import {loadLinks, loadMeta, loadScripts, loadSidebarLinks} from "./load_config.js";
+import {loadLinks, loadMeta, loadScripts, loadSettings, loadSidebarLinks} from "./load_config.js";
 
 import {generateSidebarList} from "./generate_sidebar.js";
 import {getDocURL} from "./get_doc_url.js";
@@ -130,6 +130,7 @@ const config_options = {
 	sidebar: {
 		links: loadSidebarLinks(),
 	},
+	settings: loadSettings(),
 };
 
 function highlightCode(str, lang, attrs) {
