@@ -23,7 +23,7 @@ If you find any issues while building, please [report them](https://github.com/g
 
 ## Deploying to Vercel
 
-(As of March 24, 2024)
+(As of April 20, 2024)
 
 [Vercel](https://vercel.com) allows you to host static websites. You start by creating new project in Vercel that points to your repository. Then use these settings:
 
