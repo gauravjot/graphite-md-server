@@ -8,6 +8,18 @@ for (let i = 0; i < dynamic_a.length; i++) {
 		//prevent event action
 		e.preventDefault();
 		dynamic_a[i].setAttribute("aria-current", "true");
+		try {
+			let parent = dynamic_a[i].parentElement;
+			while (parent.id !== "sidebar-doc-list") {
+				// if tagName is button, then it is an accordion
+				if (parent.tagName.toUpperCase() === "LI" && parent.classList.contains("accordion")) {
+					parent.setAttribute("aria-expanded", "true");
+				}
+				parent = parent.parentElement;
+			}
+		} catch (e) {
+			// do nothing
+		}
 		// disable other aria-currents
 		for (let j = 0; j < dynamic_a.length; j++) {
 			if (dynamic_a[j] !== dynamic_a[i]) {
@@ -19,7 +31,6 @@ for (let i = 0; i < dynamic_a.length; i++) {
 		for (let j = 0; j < other_links.length; j++) {
 			other_links[j].setAttribute("aria-current", "true");
 		}
-		console.log(other_links);
 		loader.classList.add("show");
 		// fetch page contents if base url is same
 		if (dynamic_a[i].href.startsWith(window.location.origin)) {

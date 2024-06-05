@@ -12,7 +12,7 @@
 		"css": "npx tailwindcss -i ./src/styles/main.css -o ./src/pd-static/styles.css --minify",
 		"watch-css": "npx tailwindcss -i ./src/styles/main.css -o ./src/pd-static/styles.css --minify --watch",
 		"nodemon": "npx nodemon ./src/server.js",
-		"dev": "run-p watch-css nodemon",
+		"dev": "run-p nodemon",
 		"build": "npm run css > /dev/null 2>&1; npm run test && node ./src/internal/build.js",
 		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --forceExit"
 	},

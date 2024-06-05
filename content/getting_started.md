@@ -78,18 +78,21 @@ Here are the **three** rules that apply:
 
    For character encoding reference, see [W3 Schools - URL Encoding](https://www.w3schools.com/tags/ref_urlencode.ASP).
 
-### `meta.json` File
+### _meta.json_
 
-This file is used for sorting the docs and aliasing folder names in the sidebar. You may make `meta.json` file in each directory you make inside `content`. Example:
+This file is used for sorting the docs and aliasing folder names in the sidebar. You may make _meta.json_ file in each directory you create inside _content_. Example:
 
 ```json title="content/meta.json"
 {
 	"order": ["installation.md", "getting_started.md", "deploy"],
 	"alias": {
-		"deploy": "Deploying Planum"
+		"deploy": "Deploying Planum",
+		"installation.md": "Installation Guide"
 	}
 }
 ```
+
+The file extension _.md_ is required for files.
 
 #### Sorting
 
@@ -97,4 +100,6 @@ The order of the docs and folders is determined by the order inside the `order` 
 
 #### Aliasing
 
-The `alias` key is used to rename the folder names in the sidebar. The key is the original name and the value is the aliased name.
+The `alias` key is used to change folder and file names in the sidebar. The key is the original name and the value is the aliased name.
+
+If file has `title` property in the front matter, the alias will take precedence over it.

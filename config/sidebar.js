@@ -22,7 +22,7 @@ export const SIDEBAR = {
 			enabled: true,
 			links: [
 				{
-					title: "v1.7.0",
+					title: "v1.7.1",
 					href: "https://github.com/gauravjot/planum-docs/releases",
 					open_in_new: true,
 				},

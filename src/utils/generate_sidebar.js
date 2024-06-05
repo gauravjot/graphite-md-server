@@ -75,17 +75,26 @@ function generate(content_dir, data, highlight = "") {
 					html += "</li>";
 				}
 			} else {
+				// file name
+				let file_name = path.basename(item.path);
 				// Ignore index.md
-				if (path.basename(item.path) === "index.md") {
+				if (file_name === "index.md") {
 					continue;
 				}
 				// item is a file
+				// title from md document
 				let name = item.title;
-				// Regex [digit+]_ to remove the number prefix.
-				if (/^\d+_/.test(name)) {
-					// This will only be the case if no title is given inside .md file
-					// and file name is being used for title
-					name = name.replace(/^\d+_/, "");
+				// if an alias is provided in meta.json then we will use that
+				// otherwise we use document title
+				if (aliases[file_name]) {
+					name = aliases[file_name];
+				} else {
+					// Regex [digit+]_ to remove the number prefix.
+					if (/^\d+_/.test(name)) {
+						// This will only be the case if no title is given inside .md file
+						// and file name is being used for title
+						name = name.replace(/^\d+_/, "");
+					}
 				}
 				html +=
 					'<li><a href="' +
