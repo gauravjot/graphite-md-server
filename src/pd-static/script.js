@@ -40,7 +40,7 @@ function showSidebar() {
 	}
 }
 function hideSidebar() {
-	if (window.matchMedia("only screen and (min-width: 1280px)").matches) {
+	if (window.matchMedia("only screen and (min-width: 1536px)").matches) {
 		return; // dont hide sidebar on large screens
 	}
 	if (isMobile) {
@@ -98,7 +98,7 @@ for (let i = 0; i < sbAccordions.length; i++) {
 	const btn = sbAccordions[i].getElementsByTagName("button")[0];
 	btn.addEventListener("click", function (e) {
 		e.preventDefault();
-		let parent = btn.parentElement;
+		let parent = e.target.parentElement;
 		while (!parent.classList.contains("accordion")) {
 			parent = parent.parentElement;
 			if (parent.id === "sidebar-doc-list") {

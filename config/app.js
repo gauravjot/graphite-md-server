@@ -102,5 +102,5 @@ export const SETTINGS = {
 	// Experimental feature: It is recommended to keep this false.
 	// If set to true, it will fetch the page content using JavaScript
 	// and replace the current page content with the fetched content.
-	dynamic_hydration: false,
+	dynamic_hydration: true,
 };
