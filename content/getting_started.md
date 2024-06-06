@@ -53,7 +53,7 @@ Here are the **three** rules that apply:
    - Use these URL safe symbols `-_.!'()`.
    - Use only English (A-Z a-z) and numerical (0-9) characters.
 
-   None of the above are strict rules, but following them will make your life easier when [linking docs](/Writing_your_First_Doc.html#linking-other-docs).
+   None of the above are strict rules, but following them will make your life easier when [linking docs](/writing_first_doc.html#linking-other-docs).
 
    | Not Recommended       | Recommended           |
    | --------------------- | --------------------- |
