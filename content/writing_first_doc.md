@@ -197,6 +197,60 @@ for book in books:
 print("Done")
 ```
 
+### Alert Blockquotes
+
+These use the same format as GitHub. The first line needs to indicate the alert type.
+
+#### Note
+
+```text
+> [!NOTE]
+> This is a note.
+```
+
+> [!NOTE]
+> This is a note.
+
+#### Tip
+
+```text
+> [!TIP]
+> This is a tip.
+```
+
+> [!TIP]
+> This is a tip.
+
+#### Important
+
+```text
+> [!IMPORTANT]
+> Crutial information comes here
+```
+
+> [!IMPORTANT]
+> Crutial information comes here.
+
+#### Caution
+
+```text
+> [!CAUTION]
+> Negative potential consequences of an action.
+```
+
+> [!CAUTION]
+> Negative potential consequences of an action.
+
+#### Warning
+
+```text
+> [!WARNING]
+> Critical content comes here.
+```
+
+> [!WARNING]
+> Critical content comes here.
+
 ### Embed Iframes
 
 You can embed iframes in your docs. This can be useful for embedding videos, maps, and other content.
