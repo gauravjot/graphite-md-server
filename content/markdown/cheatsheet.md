@@ -63,6 +63,7 @@ _italic_
    2. Subitem 2.2
 ```
 
+> [!TIP]
 > To create nested lists, indent the items by four spaces.
 
 ## Links
@@ -71,7 +72,8 @@ _italic_
 [Link title](https://example.com)
 ```
 
-> Note: For linking to internal doc pages, see [Linking other Docs](/Writing_your_First_Doc.html#linking-other-docs) section.
+> [!NOTE]
+> For linking to internal doc pages, see [Linking other Docs](/Writing_your_First_Doc.html#linking-other-docs) section.
 
 ## Images
 
@@ -84,6 +86,9 @@ _italic_
 ```markdown
 > This is a blockquote
 ```
+
+> [!TIP]
+> If you are using Planum Docs, you can use blockquotes to show alerts. Check the [Alert Blockquotes](/writing_first_doc.html#alert-blockquotes) section for more information.
 
 ## Code
 
@@ -103,7 +108,8 @@ print("Hello, World!")
 ```
 ````
 
-> Note: If you are using Planum Docs, you can do alot more with codeblocks. Check the [Codeblocks](/Writing_your_First_Doc.html#codeblocks) section for more information.
+> [!TIP]
+> If you are using Planum Docs, you can do alot more with codeblocks. Check the [Codeblocks](/writing_first_doc.html#codeblocks) section for more information.
 
 ## Tables
 
@@ -142,4 +148,4 @@ Example: Here is a footnote reference[^1].
 
 ## Math
 
-Planum Docs have built-in support for math equations. See the [Using Math in Planum Docs](/Markdown/Using_Math_in_Planum) page for more information.
+Planum Docs have built-in support for math equations. See the [Using Math in Planum Docs](/markdown/math.html) page for more information.

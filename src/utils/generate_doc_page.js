@@ -14,6 +14,7 @@ import {loadLinks, loadMeta, loadScripts, loadSettings, loadSidebarLinks} from "
 import {generateSidebarList} from "./generate_sidebar.js";
 import {getDocURL} from "./get_doc_url.js";
 import {formatDate} from "./datetime.js";
+import { blockquoteAlertWrapper } from "./blockquote_alert_renderer.js";
 
 // get the directory name of the current module
 const __filename = fileURLToPath(import.meta.url);
@@ -44,6 +45,7 @@ md.use(markdownItCodeCopy, {
 	iconStyle: "",
 });
 md.use(footnote_plugin);
+md.use(blockquoteAlertWrapper, {});
 
 /**
  * Generates a doc page for express to render

@@ -29,6 +29,7 @@ Your content goes here.
 - **next** (_optional_): The link to next doc. This is used to create a "Next" button on buttom of the doc page.
 - **prev** (_optional_): The link to previous doc. This creates a "Previous" button.
 
+> [!NOTE]
 > In **next** and **prev** both `.md` and `.html` extensions work. You can choose whatever seems easy for you.
 
 ## Content Formatting
@@ -51,6 +52,7 @@ For best performance, it is recommended to convert images to **WebP format** and
 [link title](/folder_1/folder_2/doc.html)
 ```
 
+> [!IMPORTANT]
 > Notice that when linking, the extension `.html` is used.
 
 This creates a link to a doc located at `content/folder_1/folder_2/doc.md` in file tree. Notice that `content` is not included when linking.
@@ -62,7 +64,8 @@ This creates a link to a doc located at `content/folder_1/folder_2/doc.md` in fi
 - Always start your links with `/`.
 - Non-URL-safe characters are converted to URL-safe characters. For example, spaces are converted to `%20`.
 
-> Related: See how to name your files and folders under [Schema - Getting Started](/getting_started.html#schema).
+> [!TIP]
+> See how to name your files and folders under [Schema - Getting Started](/getting_started.html#schema).
 
 ### Codeblocks
 
@@ -76,6 +79,7 @@ You can customize codeblocks by using attributes. There are five attributes avai
 | `highlight` | `="1,3-5,7-*"`      | Highlight specific lines in the codeblock     |
 | `start`     | `="4"`              | Start line number; Use with `lines` attribute |
 
+> [!IMPORTANT]
 > To use attributes, you need to specify the language name. If you are not using a language, you can use `text` as the language.
 
 #### Add Color for Context
@@ -196,6 +200,60 @@ for book in books:
 
 print("Done")
 ```
+
+### Alert Blockquotes
+
+These use the same format as GitHub. The first line needs to indicate the alert type.
+
+#### Note
+
+```text
+> [!NOTE]
+> This is a note.
+```
+
+> [!NOTE]
+> This is a note.
+
+#### Tip
+
+```text
+> [!TIP]
+> This is a tip.
+```
+
+> [!TIP]
+> This is a tip.
+
+#### Important
+
+```text
+> [!IMPORTANT]
+> Crutial information comes here
+```
+
+> [!IMPORTANT]
+> Crutial information comes here.
+
+#### Caution
+
+```text
+> [!CAUTION]
+> Negative potential consequences of an action.
+```
+
+> [!CAUTION]
+> Negative potential consequences of an action.
+
+#### Warning
+
+```text
+> [!WARNING]
+> Critical content comes here.
+```
+
+> [!WARNING]
+> Critical content comes here.
 
 ### Embed Iframes
 
