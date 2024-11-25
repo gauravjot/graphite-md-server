@@ -7,6 +7,8 @@ const docsCollection = defineCollection({
     description: z.string().nullable().optional(),
     next: z.string().nullable().optional(),
     prev: z.string().nullable().optional(),
+    sort: z.number().nullable().optional(),
+    alias: z.string().nullable().optional(),
   })
 });
 

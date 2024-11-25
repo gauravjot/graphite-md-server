@@ -3,6 +3,8 @@ title: Getting started
 description:
 next: writing_first_doc
 prev: installation
+alias: Getting Started
+sort: 2
 ---
 
 Congratulations on setting up Planum Docs! This page will help you get started with the project.

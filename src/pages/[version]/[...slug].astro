@@ -12,7 +12,7 @@ export async function getStaticPaths() {
   const versions = Object.keys(collections);
   const paths: {}[] = [];
   for (const version of versions) {
-    const docs = await getCollection(version);
+    const docs = await getCollection(version as "v1");
     if (!docs || docs.length === 0) continue;
     paths.push(...docs.map((doc) => ({params: {version: version, slug: doc.slug}, props: {version: version, doc: doc, docs: docs}})));
   }
@@ -30,7 +30,7 @@ const { html, toc } = index_doc ? render(index_doc.body) : {html: "", toc: ""};
   <Topbar />
   <div id="loading"></div>
 	<main class="container">
-    <Sidebar version={version} docs={docs} />
+    <Sidebar version={version} docs={docs} highlight={index_doc?.slug} />
     <div class="sidebar-open mt-16 flex h-[calc(100%-4rem)] flex-col md:gap-6 xl:flex-row xl:gap-12 2xl:gap-16 3xl:gap-32 4xl:gap-48" id="content">
       <div class="order-2 mb-8 flex-1 pt-px @container/doc" id="md-content">
         <!-- Content starts --><div class="mt-8 text-zinc-500 dark:text-zinc-400">

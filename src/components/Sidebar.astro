@@ -5,9 +5,10 @@ import { generateSidebarList } from "../utils/generate_sidebar";
 interface Props {
   version: string;
   docs: any;
+  highlight: string;
 }
 
-const {version, docs} = Astro.props;
+const {version, docs, highlight} = Astro.props;
 
 ---
 
@@ -42,7 +43,7 @@ const {version, docs} = Astro.props;
 		<!-- DO NOT EDIT 5 lINES BELOW-->
 		<div class="mt-8 text-sm font-medium text-zinc-500 dark:text-zinc-400">DOCS</div>
 		<!-- Doc list for navigation -->
-		<div id="sidebar-doc-list" class="my-4"><div set:html={generateSidebarList(version, docs as any, "")}></div></div>
+		<div id="sidebar-doc-list" class="my-4"><div set:html={generateSidebarList(version, docs as any, highlight)}></div></div>
 
 		<!-- Sidebar menu ends -->
 	</div>
@@ -96,18 +97,20 @@ const {version, docs} = Astro.props;
 
 <script>
   // Expand accordion for open page
-  const sbDocList = document.getElementById("sidebar-doc-list").getElementsByTagName("a");
-  for (let i = 0; i < sbDocList.length; i++) {
-    if (sbDocList[i].getAttribute("aria-current") === "true") {
-      let parent = sbDocList[i].parentElement;
-      while (parent.id !== "sidebar-doc-list") {
-        // if tagName is button, then it is an accordion
-        if (parent.tagName.toUpperCase() === "LI" && parent.classList.contains("accordion")) {
-          parent.setAttribute("aria-expanded", "true");
+  const sbDocList = document.getElementById("sidebar-doc-list")?.getElementsByTagName("a");
+  if (sbDocList) {
+    for (let i = 0; i < sbDocList.length; i++) {
+      if (sbDocList[i].getAttribute("aria-current") === "true") {
+        let parent = sbDocList[i].parentElement;
+        while (parent?.id !== "sidebar-doc-list") {
+          // if tagName is button, then it is an accordion
+          if (parent?.tagName.toUpperCase() === "LI" && parent.classList.contains("accordion")) {
+            parent.setAttribute("aria-expanded", "true");
+          }
+          parent = parent?.parentElement || null;
         }
-        parent = parent.parentElement;
+        break;
       }
-      break;
     }
   }
   // Sidebar accordions on click listeners
@@ -118,9 +121,9 @@ const {version, docs} = Astro.props;
     btn.addEventListener("click", function (e) {
       e.preventDefault();
       let parent = (e.target as HTMLElement).parentElement;
-      while (!parent.classList.contains("accordion")) {
-        parent = parent.parentElement;
-        if (parent.id === "sidebar-doc-list") {
+      while (!parent?.classList.contains("accordion")) {
+        parent = parent?.parentElement || null;
+        if (parent?.id === "sidebar-doc-list") {
           break;
         }
       }

@@ -14,16 +14,16 @@ export function generateSidebarList(version: string, docs: any, highlight: strin
 }
 
 function generate(version: string, docs: TreeNode[], highlight = "") {
-	let html = "<div><ul>";
+  let html = "<div><ul>";
 	try {
-		for (let i = 0; i < docs.length; i++) {
-			let doc = docs[i];
+    for (let i = 0; i < docs.length; i++) {
+      let doc = docs[i];
 			if (doc.children.length > 0) {
-				// item is a directory
-				if (doc.id) {
+        // item is a directory
+				if (doc.path && doc.is_empty === false) {
 					html += '<li class="accordion" id="' + doc.slug + '">';
 					html += '<p class="flex place-items-center">';
-					html += `<a href="/${version}/${doc.slug}" class="flex-1" aria-current="${highlight === doc.slug}" ${DYNAMIC ? 'data-type="dynamic"' : ""}><span>${doc.title}</span></a>`;
+					html += `<a href="/${version}/${doc.slug}" class="flex-1" aria-current="${highlight === doc.path}" ${DYNAMIC ? 'data-type="dynamic"' : ""}><span>${doc.title}</span></a>`;
 					html += '<button class="accordion__button" title="Expand"></button>';
 					html += "</p>";
 					html += generate(version, doc.children, highlight); // nested list
@@ -36,14 +36,14 @@ function generate(version: string, docs: TreeNode[], highlight = "") {
 				}
       } else {
         // Skip index.md
-        if (doc.id === "index.md") {
+        if (doc.path === "index.md") {
           continue;
         }
 
 				html +=
 					`<li><a href="/${version}/` + doc.slug +
 					'" aria-current="' +
-					(highlight === doc.slug) +
+					(highlight === doc.path) +
 					`" ${DYNAMIC ? 'data-type="dynamic"' : ""}>` +
 					doc.title +
 					"</a></li>";

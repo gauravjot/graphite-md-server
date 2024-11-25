@@ -10,7 +10,7 @@ export function loadSettings() {
 }
 
 export function loadLinks() {
-	const stylesheets = [];
+	const stylesheets: string[] = [];
 	INLCUDE.links.forEach((link) => {
 		// Create HTML link element
 		let html = `<link rel="${link.rel}" href="${link.href}" ${link.crossorigin ? "crossorigin" : ""}/>`;
@@ -20,8 +20,8 @@ export function loadLinks() {
 }
 
 export function loadScripts() {
-	const scripts = [];
-	INLCUDE.scripts.forEach((script) => {
+	const scripts: string[] = [];
+	INLCUDE.scripts.forEach((script: any) => {
 		// Create HTML script element
 		scripts.push(`<script src="${script.src}"></script>`);
 	});
@@ -31,7 +31,7 @@ export function loadScripts() {
 export function loadSidebarLinks() {
 	const links = SIDEBAR.permalinks;
 	// main
-	let mainlinks = [];
+	let mainlinks: string[] = [];
 	if (links.main.enabled) {
 		mainlinks = links.main.links.map((link) => {
 			return `<li><a href="${link.href}" ${
@@ -43,7 +43,7 @@ export function loadSidebarLinks() {
 		});
 	}
 	// foot
-	let footlinks = [];
+	let footlinks: string[] = [];
 	if (links.foot.enabled) {
 		footlinks = links.foot.links.map((link) => {
 			return `<a href="${link.href}" ${

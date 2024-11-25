@@ -1,46 +1,76 @@
-type Doc = { id: string; slug: string; data: {title:string} };
+type Doc = { id: string; slug: string; body: string; data: { title: string; sort?: number;  alias?: string} };
 
 export type TreeNode = {
   name: string;
   title: string;
   slug: string;
   children: TreeNode[];
-  id?: string;
+  path?: string;
+  sort?: number;
+  is_empty: boolean;
 };
 
-export function buildTree(files: Doc[]): TreeNode[] {
+export function buildTree(docs: Doc[]): TreeNode[] {
   const root: TreeNode[] = [];
 
-  files.forEach((file) => {
-    const parts = file.slug.split("/"); // Split slug into parts
-    let currentLevel = root;
-    let accumulatedSlug = ""; // To construct the slug at each level
+  // change flat list of files into a tree structure
+  // slug is like abc/def.md; abc/ddd.md; abc/index.md; index.md; asb.md
 
-    parts.forEach((part, index) => {
-      accumulatedSlug += (index > 0 ? "/" : "") + part;
+  for (const doc of docs) {
+    const parts = doc.slug.split('/');
+    let parent = root;
+    let path = '';
 
-      // Find or create the node for the current part
-      let node = currentLevel.find((item) => item.name === part);
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      path += i === 0 ? part : `/${part}`;
+      let node = parent.find((n) => n.name === part);
 
       if (!node) {
         node = {
           name: part,
-          title: file.data.title,
-          slug: accumulatedSlug,
+          title: part,
+          slug: path,
           children: [],
+          is_empty: false,
         };
-        currentLevel.push(node);
+        parent.push(node);
       }
 
-      // If it's the last part, add the file ID to the node
-      if (index === parts.length - 1) {
-        node.id = file.id;
+      if (i === parts.length - 1) {
+        node.title = doc.data.alias ?? doc.data.title;
+        node.path = doc.slug;
+        node.sort = doc.data.sort;
+        node.is_empty = doc.body.length === 0;
       }
 
-      // Move to the next level
-      currentLevel = node.children;
-    });
-  });
+      parent = node.children;
+    }
+  }
 
-  return root;
+  function sortTree(tree: TreeNode[]): TreeNode[] {
+    return tree
+      .map((node) => ({
+        ...node,
+        children: sortTree(node.children),
+      }))
+      .sort((a, b) => {
+        if (a.sort && b.sort) {
+          return a.sort - b.sort;
+        }
+
+        if (a.sort) {
+          return -1;
+        }
+
+        if (b.sort) {
+          return 1;
+        }
+
+        return a.name.localeCompare(b.name);
+      });
+  }
+
+  const t = sortTree(root);
+  return t;
 }

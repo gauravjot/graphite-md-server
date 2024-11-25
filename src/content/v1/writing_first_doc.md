@@ -3,6 +3,7 @@ title: Writing your First Doc
 description: Let's get you started with writing your first doc! This page will help you understand the layout and adding content such as images, links, and codeblocks to your docs.
 next: configuration
 prev: getting_started
+sort: 3
 ---
 
 If you are unsure about where to make your file or how to name one, check the [Getting Started](/getting_started.html#creating-docs-and-folders) page first.

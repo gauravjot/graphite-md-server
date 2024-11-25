@@ -77,7 +77,7 @@ function highlightCode(str, lang, attrs) {
 	} else {
 		block += `<code>`;
 	}
-	let classes = [];
+	let classes: string[] = [];
 	if (attr.lines) {
 		classes.push("hljsp-linenums");
 	}
@@ -143,9 +143,9 @@ export function parseCodeBlockAttrs(str) {
  * @param {number} maxLines
  * @returns {number[]} e.g. [1,2,3,5,7,8,9,10,11,12,13,14,15]
  */
-export function highlightedLines(hlLinesAttribute, maxLines) {
+export function highlightedLines(hlLinesAttribute, maxLines): number[] {
 	const hlLinesRanges = hlLinesAttribute.split(","); // Split the hl_lines attribute value by comma
-	const highlightedLines = [];
+	const highlightedLines: number[] = [];
 
 	hlLinesRanges.forEach((range) => {
 		range = range.trim();
@@ -185,7 +185,7 @@ function generateTOC(html) {
 	const mdContent = parse(html);
 	const mdHeads = mdContent.querySelectorAll("h2, h3, h4");
 	// Get all hrefs of a tag inside heading, also note the level
-	const mdHeadingList = [];
+	const mdHeadingList: any[] = [];
 	for (let i = 0; i < mdHeads.length; i++) {
 		mdHeadingList.push({
 			text: mdHeads[i].textContent,

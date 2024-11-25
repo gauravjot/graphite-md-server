@@ -124,37 +124,39 @@ const nav_logo = META.navbar.logo;
   });
 
   function toggleSidebar() {
-    if (sb.dataset.hidden === "true") {
+    if (sb?.dataset.hidden === "true") {
       showSidebar();
     } else {
       hideSidebar();
     }
   }
   function showSidebar() {
+    if (!sb) return;
     if (isMobile) {
       sb.dataset.hidden = "false";
-      content.classList.remove("sidebar-open");
+      content?.classList.remove("sidebar-open");
     } else {
       sb.dataset.hidden = "false";
-      content.classList.add("sidebar-open");
-      content.classList.remove("ml-16");
+      content?.classList.add("sidebar-open");
+      content?.classList.remove("ml-16");
     }
   }
   function hideSidebar() {
     if (window.matchMedia("only screen and (min-width: 1536px)").matches) {
       return; // dont hide sidebar on large screens
     }
+    if (!sb) return;
     if (isMobile) {
       sb.dataset.hidden = "true";
-      content.classList.remove("sidebar-open");
+      content?.classList.remove("sidebar-open");
     } else {
       sb.dataset.hidden = "true";
-      content.classList.remove("sidebar-open");
-      content.classList.add("ml-16");
+      content?.classList.remove("sidebar-open");
+      content?.classList.add("ml-16");
     }
   }
 
-  sidebar_toggler.addEventListener("click", toggleSidebar);
+  sidebar_toggler?.addEventListener("click", toggleSidebar);
 
   // Toggle TOC
   function toggleToc() {
@@ -162,6 +164,7 @@ const nav_logo = META.navbar.logo;
       return; // dont hide
     }
     let toc = document.getElementById("toc-container");
+    if (!toc) return;
     if (toc.dataset.hidden === "true") {
       showToc();
     } else {
@@ -171,19 +174,21 @@ const nav_logo = META.navbar.logo;
   }
   function showToc() {
     let toc = document.getElementById("toc-container");
+    if (!toc) return;
     toc.dataset.hidden = "false";
   }
   function hideToc() {
     let toc = document.getElementById("toc-container");
+    if (!toc) return;
     toc.dataset.hidden = "true";
   }
 
   function toggleTheme() {
-    document.querySelector("html").classList.toggle("dark");
+    document.querySelector("html")?.classList.toggle("dark");
     localStorage.setItem(
       "theme",
-      document.querySelector("html").classList.contains("dark") ? "dark" : "light",
+      document.querySelector("html")?.classList.contains("dark") ? "dark" : "light",
     );
   }
-  theme_toggler.addEventListener("click", toggleTheme);
+  theme_toggler?.addEventListener("click", toggleTheme);
 </script>
