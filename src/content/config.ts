@@ -1,3 +1,12 @@
+export const versions = [
+  {
+    name: 'v2.0',
+    homepage: 'installation' // directly within the version folder
+  },
+];
+
+// Do not change below this line
+
 import { defineCollection, z } from 'astro:content';
 
 const docsCollection = defineCollection({
@@ -12,7 +21,4 @@ const docsCollection = defineCollection({
   })
 });
 
-export const collections = {
-  'v1': docsCollection,
-  'v2': docsCollection,
-};
+export const collections = Object.fromEntries(versions.map(version => [version.name, docsCollection]));

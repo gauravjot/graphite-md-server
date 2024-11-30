@@ -5,17 +5,18 @@ import { getCollection } from 'astro:content';
 import Sidebar from '../../components/Sidebar.astro';
 import { SETTINGS } from '../../config/app';
 import { render } from '../../utils/md_render';
-import { collections } from '../../content/config';
-
-const versions = Object.keys(collections);
+import { versions } from '../../content/config';
 
 export async function getStaticPaths() {
-  const versions = Object.keys(collections);
   const paths: {}[] = [];
-  for (const version of versions) {
-    const docs = await getCollection(version as "v1");
+  const _versions = [...versions];
+  _versions.unshift({name: "latest", homepage: _versions[0].homepage});
+  for (const version of _versions) {
+    let _name = version.name as string;
+    if (_name === "latest") _name = versions[0].name;
+    const docs = await getCollection(_name as any);
     if (!docs || docs.length === 0) continue;
-    paths.push(...docs.map((doc) => ({params: {version: version, slug: doc.slug}, props: {version: version, doc: doc, docs: docs}})));
+    paths.push(...docs.map((doc: any) => ({params: {version: version.name, slug: doc.slug}, props: {version: version.name, doc: doc, docs: docs}})));
   }
   return paths;
 }
@@ -27,8 +28,8 @@ const index_doc = doc as any;
 const { html, toc } = index_doc ? render(index_doc.body) : {html: "", toc: ""};
 ---
 
-<Layout title="Welcome to Astro.">
-  <Topbar version={version} versions={versions} />
+<Layout title={index_doc.data.title + " | Planum Docs"}>
+  <Topbar version={version} />
   <div id="loading"></div>
 	<main class="container">
     <Sidebar version={version} docs={docs} highlight={index_doc?.slug} />

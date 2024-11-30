@@ -3,24 +3,26 @@ import Layout from '../layouts/Layout.astro';
 import Topbar from '../components/Topbar.astro';
 import { getCollection } from 'astro:content';
 import Sidebar from '../components/Sidebar.astro';
-import { collections } from '../content/config';
+import { versions } from '../content/config';
 
-const docs = await getCollection("v1");
-const versions = Object.keys(collections);
+const docs = await getCollection(versions[0].name as any);
 
 ---
 
-<Layout title="Welcome to Astro.">
-  <Topbar versions={versions} version={versions[-1]} />
+<Layout title="Planum Docs | Simple Markdown Documentation">
+  <Topbar version={versions[0].name} />
   <div id="loading"></div>
 	<main class="container">
-    <Sidebar version='v1' docs={docs} highlight='' />
+    <Sidebar version={versions[0].name} docs={docs} highlight='' />
     <div class="sidebar-open mt-16 flex h-[calc(100%-4rem)] flex-col md:gap-6 xl:flex-row xl:gap-12 2xl:gap-16 3xl:gap-32 4xl:gap-48" id="content">
       <div class="order-2 mb-8 flex-1 pt-px @container/doc" id="md-content">
-        <!-- Content starts --><div class="mt-8 text-zinc-500 dark:text-zinc-400">
+        <div class="mt-8 text-zinc-500 dark:text-zinc-400">
+          <!-- Content starts -->
 
-					</div>
-        <!-- Content ends -->
+          <slot />
+
+          <!-- Content ends -->
+				</div>
       </div>
     </div>
 	</main>

@@ -73,7 +73,7 @@ _italic_
 ```
 
 > [!NOTE]
-> For linking to internal doc pages, see [Linking other Docs](/Writing_your_First_Doc.html#linking-other-docs) section.
+> For linking to internal doc pages, see [Linking other Docs](../writing_first_doc#linking-other-docs) section.
 
 ## Images
 
@@ -88,7 +88,7 @@ _italic_
 ```
 
 > [!TIP]
-> If you are using Planum Docs, you can use blockquotes to show alerts. Check the [Alert Blockquotes](/writing_first_doc.html#alert-blockquotes) section for more information.
+> If you are using Planum Docs, you can use blockquotes to show alerts. Check the [Alert Blockquotes](../writing_first_doc#alert-blockquotes) section for more information.
 
 ## Code
 
@@ -109,7 +109,7 @@ print("Hello, World!")
 ````
 
 > [!TIP]
-> If you are using Planum Docs, you can do alot more with codeblocks. Check the [Codeblocks](/writing_first_doc.html#codeblocks) section for more information.
+> If you are using Planum Docs, you can do alot more with codeblocks. Check the [Codeblocks](../writing_first_doc#codeblocks) section for more information.
 
 ## Tables
 
@@ -148,4 +148,4 @@ Example: Here is a footnote reference[^1].
 
 ## Math
 
-Planum Docs have built-in support for math equations. See the [Using Math in Planum Docs](/markdown/math.html) page for more information.
+Planum Docs have built-in support for math equations. See the [Using Math in Planum Docs](../markdown/math.html) page for more information.

@@ -11,12 +11,6 @@ Ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/en/download/)
 
-Then install `nodemon` globally:
-
-```bash
-npm install -g nodemon
-```
-
 ## Getting Planum
 
 You can download the latest release from GitHub and extract the contents.
@@ -44,19 +38,17 @@ Then start the development server:
 npm run dev
 ```
 
-The server will start at <http://localhost:3000>.
+The server will start at <http://localhost:4321>.
 
 ## Cleaning Up
 
-- Empty out `content` directory.
+- Delete any directories inside `src/content` directory. KEEP `src/content/config.ts` file.
 - Empty out `public/assets` directory.
-- Delete hidden `.git` directory if you cloned the repository.
-
-If you will be setting up a repository, make sure to keep at least one file inside `content` and `public/assets`. Usually the empty directories are not pushed to the remote repositories.
+- Delete hidden `.git` directory if it is present.
 
 ## Configuring Planum
 
-For customizations such as changing logo and website name in navigation, check [Configuration](/configuration/index.html) page.
+For customizations such as changing logo and website name in navigation, check [Configuration](configuration/index.html) page.
 
 ## Building for Production
 

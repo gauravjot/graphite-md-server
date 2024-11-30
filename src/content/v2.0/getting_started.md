@@ -14,10 +14,10 @@ Congratulations on setting up Planum Docs! This page will help you get started w
 Here is the directory structure of Planum Docs:
 
 ```text title="Path: /"
-config/         # configuration files
-content/        # docs and folders
-public/         # static assets
-src/            # source code, don't need to touch
+public/             # static assets
+src/                # source code, don't need to touch
+src/config/         # configuration files
+src/content/        # docs
 ```
 
 - **config**: Contains configuration files for the project. You can change the website name, logo, and other settings from here.
@@ -27,15 +27,47 @@ src/            # source code, don't need to touch
 
 ## Home Page
 
-The home page is generated from the `content/index.md` file.
+The home page is `pages/index.astro` file.
 
 ## Creating Docs and Folders
 
 ### Location
 
-The docs are to be stored in the `content` directory. You may make directories inside as well.
+The docs are to be stored in the `content/{version}` directory. You may make directories inside as well.
 
-### Schema
+### Versioning
+
+Versioning is enabled by default. Simply make a directory like `v2.0` inside `content` and start adding your docs there.
+
+You also need to update the `src/content/config.ts` file to add the new version.
+
+```typescript start="1" lines title="src/content/config.ts"
+export const versions = [
+  {
+    name: 'version_name',
+    homepage: 'homepage_filename' // directly within the version folder
+  },
+];
+```
+
+Simply change the values of `name` and `homepage` as required. To add new version, copy content inside `{ }` including brackets and paste it above.
+
+```typescript start="1" lines title="src/content/config.ts"
+export const versions = [
+  {
+    name: 'new_version_name', // new version
+    homepage: 'new_homepage_filename'
+  },
+  {
+    name: 'version_name',
+    homepage: 'homepage_filename'
+  },
+];
+```
+
+This array is in ascending order, where the first element is the latest version and the last element is the oldest version.
+
+### Naming Convention
 
 Use this format to name your files:
 
@@ -48,14 +80,14 @@ _Doc_D.md       # draft, is hidden
 Here are the **three** rules that apply:
 
 1. File and directory names act as slug in the URL, and these are case-sensitive. For files `.md` extension is removed and is replaced with `.html`. For directories, the name is used as is.
-2. Files starting with `_` (_underscore_) are seen as a draft and are hidden inside the navigation tree. These files are also not processed during build.
+2. Files starting with `_` (_underscore_) are seen as a draft and are hidden inside the navigation tree.
 3. When naming a file or folder:
 
    - Do not to use _spaces_.
    - Use these URL safe symbols `-_.!'()`.
    - Use only English (A-Z a-z) and numerical (0-9) characters.
 
-   None of the above are strict rules, but following them will make your life easier when [linking docs](/writing_first_doc.html#linking-other-docs).
+   None of the above are strict rules, but following them will make your life easier when [linking docs](writing_first_doc.html#linking-other-docs).
 
    | Not Recommended       | Recommended           |
    | --------------------- | --------------------- |
@@ -64,44 +96,18 @@ Here are the **three** rules that apply:
 
    When using spaces and special characters other than `-_.!'()`, you should be cautious to how you link other docs.
 
-   ```markdown_good
+   ```markdown color="good"
    [Link to Doc A](Doc_A.md)  # works
    ```
 
-   ```markdown_bad
+   ```markdown color="bad"
    [Link to Doc A](Doc A.md)  # doesn't work
    ```
 
    To make it work, you will have to replace the spaces with `%20`:
 
-   ```markdown_good
+   ```markdown color="good"
    [Link to Doc A](Doc%20A.md) # works although not very readable
    ```
 
    For character encoding reference, see [W3 Schools - URL Encoding](https://www.w3schools.com/tags/ref_urlencode.ASP).
-
-### _meta.json_
-
-This file is used for sorting the docs and aliasing folder names in the sidebar. You may make _meta.json_ file in each directory you create inside _content_. Example:
-
-```json title="content/meta.json"
-{
-	"order": ["installation.md", "getting_started.md", "deploy"],
-	"alias": {
-		"deploy": "Deploying Planum",
-		"installation.md": "Installation Guide"
-	}
-}
-```
-
-The file extension _.md_ is required for files.
-
-#### Sorting
-
-The order of the docs and folders is determined by the order inside the `order` key.
-
-#### Aliasing
-
-The `alias` key is used to change folder and file names in the sidebar. The key is the original name and the value is the aliased name.
-
-If file has `title` property in the front matter, the alias will take precedence over it.

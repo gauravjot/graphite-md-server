@@ -19,6 +19,8 @@ date          : 2024-03-18
 description   : Useful information for starting with Planum Docs
 next          : writing_first_doc.md
 prev          : installation.md
+sort          : 2
+alias         : Getting Started
 ---
 
 Your content goes here.
@@ -29,9 +31,11 @@ Your content goes here.
 - **description** (_recommended_): This shows up under the title on the doc page. For better SEO, it is recommended to have a description for meta tags. As such, no markdown is allowed.
 - **next** (_optional_): The link to next doc. This is used to create a "Next" button on buttom of the doc page.
 - **prev** (_optional_): The link to previous doc. This creates a "Previous" button.
+- **sort** (_optional_): The order in which the doc appears in the sidebar. The lower the number, the higher it appears.
+- **alias** (_optional_): The name that appears in the sidebar. If not present, the title is used.
 
 > [!NOTE]
-> In **next** and **prev** both `.md` and `.html` extensions work. You can choose whatever seems easy for you.
+> In **next** and **prev**, omit the `.md` extension.
 
 ## Content Formatting
 
@@ -50,23 +54,11 @@ For best performance, it is recommended to convert images to **WebP format** and
 ### Linking other Docs
 
 ```text
-[link title](/folder_1/folder_2/doc.html)
+[link title](folder_1/folder_2/doc)
 ```
 
 > [!IMPORTANT]
-> Notice that when linking, the extension `.html` is used.
-
-This creates a link to a doc located at `content/folder_1/folder_2/doc.md` in file tree. Notice that `content` is not included when linking.
-
-#### Please Remember
-
-- The file path is relative to the `content` directory.
-- The file extension `.md` is replaced with `.html`.
-- Always start your links with `/`.
-- Non-URL-safe characters are converted to URL-safe characters. For example, spaces are converted to `%20`.
-
-> [!TIP]
-> See how to name your files and folders under [Schema - Getting Started](/getting_started.html#schema).
+> Notice that when linking, omit the `.md` extension. It is recommended to use relative paths, i.e., not starting with `/`. To go up a directory, use `../`.
 
 ### Codeblocks
 
@@ -286,8 +278,8 @@ You can embed iframes in your docs. This can be useful for embedding videos, map
 
 Please check following resources to learn more about markdown that works with Planum Docs:
 
-- [Using Math in Planum](/markdown/math.html)
-- [Markdown Cheatsheet](/markdown/cheatsheet.html)
+- [Using Math in Planum](markdown/math.html)
+- [Markdown Cheatsheet](markdown/cheatsheet.html)
 
 ### Using HTML
 

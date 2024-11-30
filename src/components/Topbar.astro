@@ -1,12 +1,12 @@
 ---
 import {META} from '../config/app.js';
+import {versions} from '../content/config.js';
 
 interface Props {
   version: string;
-  versions: string[];
 };
 
-const {version, versions} = Astro.props;
+const {version} = Astro.props;
 
 const nav_logo = META.navbar.logo;
 
@@ -54,12 +54,12 @@ const nav_logo = META.navbar.logo;
       <select
         id="version-select"
         class="text-md font-medium text-zinc-500 dark:text-zinc-400 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5"
-        onchange="window.location.href = this.value + '/index'"
+        onchange="window.location.href = this.value"
       >
-        {versions.map((v) => v === version ? (
-          <option value={`/${v}`} selected>{v}</option>
+        {versions.map((v) => v.name === version ? (
+          <option value={`/${v.name}/${v.homepage}`} selected>{v.name}</option>
         ): (
-          <option value={`/${v}`}>{v}</option>
+          <option value={`/${v.name}/${v.homepage}`}>{v.name}</option>
         ))}
       </select>
 			<!-- theme toggler -->

@@ -1,8 +1,9 @@
 ---
-title: Deploying Static Website (and Vercel)
+title: Deploying to Production
 description: This guide will help you deploy your Planum Docs website to any static hosting provider and Vercel.
 prev: configuration/sidebar
 next: deploying_planum/expressjs
+sort: 5
 ---
 
 ## Prerequisites
@@ -13,7 +14,7 @@ next: deploying_planum/expressjs
 
 ## Deploying to a Static Hosting Provider
 
-You can build static HTML files using the included `build.js` script. This will create a `dist` folder with all the files you need to deploy to a static hosting provider.
+You can build static HTML files using Astro's build feature. This will create a `dist` folder with all the files you need to deploy to a static hosting provider.
 
 ```bash
 npm run build
