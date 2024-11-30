@@ -7,6 +7,7 @@ import { SETTINGS } from '../../config/app';
 import { render } from '../../utils/md_render';
 import { collections } from '../../content/config';
 
+const versions = Object.keys(collections);
 
 export async function getStaticPaths() {
   const versions = Object.keys(collections);
@@ -27,7 +28,7 @@ const { html, toc } = index_doc ? render(index_doc.body) : {html: "", toc: ""};
 ---
 
 <Layout title="Welcome to Astro.">
-  <Topbar />
+  <Topbar version={version} versions={versions} />
   <div id="loading"></div>
 	<main class="container">
     <Sidebar version={version} docs={docs} highlight={index_doc?.slug} />

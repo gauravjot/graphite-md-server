@@ -3,13 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import Topbar from '../components/Topbar.astro';
 import { getCollection } from 'astro:content';
 import Sidebar from '../components/Sidebar.astro';
+import { collections } from '../content/config';
 
 const docs = await getCollection("v1");
+const versions = Object.keys(collections);
 
 ---
 
 <Layout title="Welcome to Astro.">
-  <Topbar />
+  <Topbar versions={versions} version={versions[-1]} />
   <div id="loading"></div>
 	<main class="container">
     <Sidebar version='v1' docs={docs} highlight='' />

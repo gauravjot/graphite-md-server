@@ -14,4 +14,5 @@ const docsCollection = defineCollection({
 
 export const collections = {
   'v1': docsCollection,
+  'v2': docsCollection,
 };

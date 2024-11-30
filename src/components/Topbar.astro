@@ -1,6 +1,13 @@
 ---
 import {META} from '../config/app.js';
 
+interface Props {
+  version: string;
+  versions: string[];
+};
+
+const {version, versions} = Astro.props;
+
 const nav_logo = META.navbar.logo;
 
 ---
@@ -44,6 +51,17 @@ const nav_logo = META.navbar.logo;
 			</a>
 		</div>
 		<div class="flex gap-2 place-items-center sm:gap-6">
+      <select
+        id="version-select"
+        class="text-md font-medium text-zinc-500 dark:text-zinc-400 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-1.5"
+        onchange="window.location.href = this.value + '/index'"
+      >
+        {versions.map((v) => v === version ? (
+          <option value={`/${v}`} selected>{v}</option>
+        ): (
+          <option value={`/${v}`}>{v}</option>
+        ))}
+      </select>
 			<!-- theme toggler -->
 			<div class="scale-75 darkmode-toggle md:scale-90">
 				<button aria-label="Toggle Color Theme" id="theme-toggler"></button>
