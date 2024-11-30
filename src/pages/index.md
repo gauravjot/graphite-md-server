@@ -23,7 +23,7 @@ Pure Markdown Docs as a Website
 
 <br/>
 
-**To get started, check [Installation Guide](/latest/installation.html)**
+**To get started, check [Installation Guide](/latest/installation)**
 
 <br/>
 

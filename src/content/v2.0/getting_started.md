@@ -27,7 +27,7 @@ src/content/        # docs
 
 ## Home Page
 
-The home page is `pages/index.astro` file.
+The home page is `pages/index.md` file. Feel free to edit this file to add your content. You can also change the layout of the home page by editing `layouts/IndexLayout.astro`.
 
 ## Creating Docs and Folders
 
