@@ -6,7 +6,6 @@ import tm from "markdown-it-texmath";
 import footnote_plugin from "markdown-it-footnote";
 import markdownItCodeCopy from "markdown-it-code-copy";
 import {parse} from "node-html-parser";
-import {loadLinks, loadMeta, loadScripts, loadSettings, loadSidebarLinks} from "./load_config.js";
 import { blockquoteAlertWrapper } from "./blockquote_alert_renderer.js";
 
 
@@ -45,16 +44,6 @@ export function render(md_content: string) {
 	// in-case a .html path was given, switch it to .md
   return { html: html, toc: generateTOC(html) };
 }
-
-const config_options = {
-	meta: loadMeta(),
-	links: loadLinks(),
-	scripts: loadScripts(),
-	sidebar: {
-		links: loadSidebarLinks(),
-	},
-	settings: loadSettings(),
-};
 
 function highlightCode(str, lang, attrs) {
 	let attr = parseCodeBlockAttrs(attrs);

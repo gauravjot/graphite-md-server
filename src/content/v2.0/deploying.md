@@ -2,7 +2,6 @@
 title: Deploying to Production
 description: This guide will help you deploy your Planum Docs website to any static hosting provider and Vercel.
 prev: configuration/sidebar
-next: deploying_planum/expressjs
 sort: 5
 ---
 

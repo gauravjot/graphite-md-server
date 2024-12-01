@@ -1,7 +1,7 @@
 ---
 title: Sidebar Configuration
 description:
-next: deploying_planum/static
+next: deploying
 prev: configuration/app
 ---
 

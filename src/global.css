@@ -28,7 +28,7 @@
 html,
 :root {
 	font-size: 16px;
-	@apply scroll-smooth bg-white bg-opacity-100 text-zinc-700;
+	@apply scroll-smooth bg-white bg-opacity-100 text-zinc-700 overflow-auto;
 }
 html.dark {
   @apply bg-zinc-950 text-white;
@@ -60,7 +60,7 @@ ul {
 }
 
 a {
-	@apply text-primary-700 no-underline hover:underline focus:outline-none focus-visible:outline-none dark:text-primary-300;
+	@apply text-primary-700 no-underline hover:underline focus:outline-none focus-visible:outline-none dark:text-primary-400;
 }
 
 hr {
@@ -220,7 +220,7 @@ hr {
 	@apply py-3 text-[92%];
 }
 #md-content pre > code > span {
-	display: inline;
+	display: inline-block;
 }
 :not(#md-content pre) > code {
 	/* inline code */
@@ -446,12 +446,17 @@ section.eqno > span {
 	@apply size-6 scale-90 dark:invert-[0.9];
 }
 
-/* Sidebar */
-#sidebar,
-#toc-sidebar,
 #navbar {
 	transition:
 		all 500ms cubic-bezier(0.4, 0, 0.2, 1),
+		background-color 1ms,
+		border-color 1ms;
+}
+/* Sidebar */
+#sidebar,
+#toc-sidebar {
+	transition:
+		all 350ms cubic-bezier(0.4, 0, 0.2, 1),
 		background-color 1ms,
 		border-color 1ms;
 }
@@ -472,8 +477,8 @@ section.eqno > span {
 #toc-sidebar {
 	@apply xl:w-56 3xl:w-64 4xl:w-80;
 }
-#sidebar #sidebar-toggle,
-#sidebar-toggle-closed {
+#sidebar div:has(>#sidebar-toggle),
+#sidebar div:has(>#sidebar-toggle-closed) {
 	@apply my-2 size-10 transition-all;
 	/* at high resolution there is no need for sidebar to collapse*/
 	@apply 2xl:hidden;
@@ -500,10 +505,10 @@ section.eqno > span {
 		animation: fadeIn 0.15s linear forwards;
 	}
 }
-#sidebar[data-hidden="false"] #sidebar-toggle-closed {
+#sidebar[data-hidden="false"] div:has(>#sidebar-toggle-closed) {
 	@apply hidden;
 }
-#sidebar[data-hidden="true"] #sidebar-toggle-closed {
+#sidebar[data-hidden="true"] div:has(>#sidebar-toggle-closed) {
 	animation: none;
 	@apply pointer-events-auto absolute bottom-0 right-0 lg:block;
 }
@@ -714,7 +719,7 @@ section.eqno > span {
 }
 
 .hljs-section {
-	@apply font-bold text-[#005cc5] dark:text-[#1f6feb];
+	@apply font-bold text-[#317cd3] dark:text-[#4386eb];
 }
 
 .hljs-bullet {

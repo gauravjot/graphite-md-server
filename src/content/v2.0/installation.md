@@ -52,8 +52,12 @@ For customizations such as changing logo and website name in navigation, check [
 
 ## Building for Production
 
-There are two ways to use Planum Docs in production:
+With Planum, you are able to build a static HTML, CSS, and JavaScript only website. Run the following command to build the website:
 
-- Static HTML (Recommended): See [Deploying Static Website (and Vercel)](deploying_planum/static.html).
+```bash
+npm run build
+```
 
-- Express Server: See [Deploying ExpressJS Server](deploying_planum/expressjs.html).
+The build files will be generated in the `dist` directory.
+
+See [Deploying Static Website](deploying_planum/static.html) for more information.

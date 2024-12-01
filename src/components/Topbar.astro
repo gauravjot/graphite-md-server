@@ -29,7 +29,7 @@ const nav_logo = META.navbar.logo;
 					<span class="ic-hamburger"></span>
 				</button>
 			</div>
-			<!-- Siedbar toggle button ends -->
+			<!-- Sidebar toggle button ends -->
 			<a
 				href="/"
 				class="flex gap-2 text-lg font-bold text-black truncate place-items-center text-ellipsis hover:no-underline sm:text-2xl dark:text-white"
@@ -117,90 +117,6 @@ const nav_logo = META.navbar.logo;
 
 <script>
   const theme_toggler = document.getElementById('theme-toggler');
-  const sidebar_toggler = document.getElementById('sidebar-toggler');
-  const sb = document.getElementById("sidebar");
-  const content = document.getElementById("content");
-  let isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
-  if (isMobile) {
-    hideSidebar();
-  }
-  if (window.matchMedia("only screen and (max-width: 1279px)").matches) {
-    hideToc();
-  }
-  window.addEventListener("resize", () => {
-    isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
-    if (isMobile) {
-      hideSidebar();
-    } else {
-      showSidebar();
-    }
-    if (window.matchMedia("only screen and (max-width: 1279px)").matches) {
-      hideToc();
-    } else {
-      showToc();
-    }
-  });
-
-  function toggleSidebar() {
-    if (sb?.dataset.hidden === "true") {
-      showSidebar();
-    } else {
-      hideSidebar();
-    }
-  }
-  function showSidebar() {
-    if (!sb) return;
-    if (isMobile) {
-      sb.dataset.hidden = "false";
-      content?.classList.remove("sidebar-open");
-    } else {
-      sb.dataset.hidden = "false";
-      content?.classList.add("sidebar-open");
-      content?.classList.remove("ml-16");
-    }
-  }
-  function hideSidebar() {
-    if (window.matchMedia("only screen and (min-width: 1536px)").matches) {
-      return; // dont hide sidebar on large screens
-    }
-    if (!sb) return;
-    if (isMobile) {
-      sb.dataset.hidden = "true";
-      content?.classList.remove("sidebar-open");
-    } else {
-      sb.dataset.hidden = "true";
-      content?.classList.remove("sidebar-open");
-      content?.classList.add("ml-16");
-    }
-  }
-
-  sidebar_toggler?.addEventListener("click", toggleSidebar);
-
-  // Toggle TOC
-  function toggleToc() {
-    if (window.matchMedia("only screen and (min-width: 1536px)").matches) {
-      return; // dont hide
-    }
-    let toc = document.getElementById("toc-container");
-    if (!toc) return;
-    if (toc.dataset.hidden === "true") {
-      showToc();
-    } else {
-      hideToc();
-    }
-    document.getElementsByClassName("toc-toggle-btn")[0].classList.toggle("rotate-arr");
-  }
-  function showToc() {
-    let toc = document.getElementById("toc-container");
-    if (!toc) return;
-    toc.dataset.hidden = "false";
-  }
-  function hideToc() {
-    let toc = document.getElementById("toc-container");
-    if (!toc) return;
-    toc.dataset.hidden = "true";
-  }
-
   function toggleTheme() {
     document.querySelector("html")?.classList.toggle("dark");
     localStorage.setItem(

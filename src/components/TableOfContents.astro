@@ -1,0 +1,102 @@
+---
+interface Props {
+  toc: string;
+}
+
+const { toc }: Props = Astro.props;
+---
+
+<div
+  id="toc-sidebar"
+  class="order-1 flex-1 md:flex-initial xl:sticky xl:top-16 xl:order-3 xl:max-h-[calc(100vh-4rem)] xl:overflow-auto"
+>
+  <div class="mt-8 border rounded-md xl:border-none dark:border-zinc-900">
+    <div
+      class="text-sm font-medium toc-toggle-btn text-zinc-700 dark:text-zinc-300"
+      id="toc-toggle-btn"
+    >
+      TABLE OF CONTENTS
+    </div>
+    <div id="toc-container" class="px-4 xl:p-0" data-hidden="false" set:html={toc}></div>
+  </div>
+</div>
+
+<script>
+  const toc_toggle_btn = document.getElementById("toc-toggle-btn");
+  toc_toggle_btn?.addEventListener("click", toggleToc);
+
+  // Hide TOC on small screens
+  if (window.matchMedia("only screen and (max-width: 1279px)").matches) {
+    hideToc();
+  }
+
+  // Listen for window resize
+  window.addEventListener("resize", () => {
+    if (window.matchMedia("only screen and (max-width: 1279px)").matches) {
+      hideToc();
+    } else {
+      showToc();
+    }
+  });
+
+  // Toggle TOC
+  function toggleToc() {
+    if (window.matchMedia("only screen and (min-width: 1536px)").matches) {
+      return; // dont hide
+    }
+    let toc = document.getElementById("toc-container");
+    if (!toc) return;
+    if (toc.dataset.hidden === "true") {
+      showToc();
+    } else {
+      hideToc();
+    }
+    toc_toggle_btn?.classList.toggle("rotate-arr");
+  }
+
+  function showToc() {
+    let toc = document.getElementById("toc-container");
+    if (!toc) return;
+    toc.dataset.hidden = "false";
+  }
+  function hideToc() {
+    let toc = document.getElementById("toc-container");
+    if (!toc) return;
+    toc.dataset.hidden = "true";
+  }
+
+  // Highlight the current heading in toc on page scroll
+  const toc = document.getElementById("toc");
+  window.addEventListener("scroll", () => {
+    const tocLinks = toc?.getElementsByTagName("a");
+    if (tocLinks) {
+      // If mobile, return
+      if (isMobile) {
+        return;
+      }
+      let latest;
+      let fromTop = window.scrollY;
+      // Get all headings under the element with id `md-content`
+      const mdContent = document.getElementById("md-content");
+      const mdHeads = mdContent?.querySelectorAll("h2, h3, h4");
+      if (mdHeads) {
+        for (let i = 0; i < mdHeads.length; i++) {
+          // When heading is halfway from top, highlight the toc link
+          if (
+            (mdHeads[i] as HTMLElement).offsetTop <= fromTop + 50 &&
+            (mdHeads[i] as HTMLElement).offsetTop + (mdHeads[i] as HTMLElement).offsetHeight > fromTop + 50
+          ) {
+            // Remove if new heading is selected
+            latest = tocLinks[i];
+          }
+        }
+      }
+      if (latest) {
+        for (let i = 0; i < tocLinks.length; i++) {
+          tocLinks[i].setAttribute("aria-current", "false");
+        }
+        latest.setAttribute("aria-current", "true");
+      }
+    }
+  });
+</script>

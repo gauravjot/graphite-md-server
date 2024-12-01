@@ -68,9 +68,9 @@ const {version, docs, highlight} = Astro.props;
 		<!-- NO NEED TO CHANGE ANYTHING BELOW -->
 
 		<!-- Sidebar toggle button (appears when sidebar open) -->
-		<div id="sidebar-toggle">
+		<div>
 			<button
-				id="sidebar-toggler"
+        id="sidebar-toggle"
 				title="Toggle Sidebar"
 				class="flex size-10 place-items-center justify-center rounded-md hover:bg-black/10 dark:hover:bg-zinc-800"
 			>
@@ -80,9 +80,9 @@ const {version, docs, highlight} = Astro.props;
 		<!-- Siedbar toggle button ends -->
 	</div>
 	<!-- Sidebar toggle button (appears when sidebar closed) -->
-	<div id="sidebar-toggle-closed">
+	<div>
 		<button
-			id="sidebar-toggler"
+    id="sidebar-toggle-closed"
 			title="Toggle Sidebar"
 			class="flex size-10 place-items-center justify-center rounded-md hover:bg-black/10 dark:hover:bg-zinc-800"
 		>
@@ -94,6 +94,7 @@ const {version, docs, highlight} = Astro.props;
 </div>
 <!-- Sidebar ends -->
 
+<div class="ml-16 hidden"></div>
 
 <script>
   // Expand accordion for open page
