@@ -22,6 +22,7 @@ const { toc }: Props = Astro.props;
 </div>
 
 <script>
+
   const toc_toggle_btn = document.getElementById("toc-toggle-btn");
   toc_toggle_btn?.addEventListener("click", toggleToc);
 
@@ -65,38 +66,37 @@ const { toc }: Props = Astro.props;
     toc.dataset.hidden = "true";
   }
 
-  // Highlight the current heading in toc on page scroll
-  const toc = document.getElementById("toc");
-  window.addEventListener("scroll", () => {
-    const tocLinks = toc?.getElementsByTagName("a");
-    if (tocLinks) {
-      // If mobile, return
-      if (isMobile) {
-        return;
-      }
-      let latest;
-      let fromTop = window.scrollY;
-      // Get all headings under the element with id `md-content`
+  // Intersection observer for toc highlighting
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.getAttribute("id");
+        if (entry.intersectionRatio > 0) {
+          console.log(id);
+          // disable all current toc links
+          document
+            .querySelectorAll("#toc a")
+            .forEach((el) => el.setAttribute("aria-current", "false"));
+          // enable current toc link
+          document
+            .querySelector(`#toc a[href="#${id}"]`)
+            ?.setAttribute("aria-current", "true");
+        }
+      });
+    },
+    { rootMargin: "0% 0% -70% 0%" }
+  );
+  let current_uri: string | null = null;
+
+  window.addEventListener('scroll', function () {
+    if (current_uri !== window.location.href) {
+      current_uri = window.location.href;
+      console.log('uri changed');
       const mdContent = document.getElementById("md-content");
-      const mdHeads = mdContent?.querySelectorAll("h2, h3, h4");
-      if (mdHeads) {
-        for (let i = 0; i < mdHeads.length; i++) {
-          // When heading is halfway from top, highlight the toc link
-          if (
-            (mdHeads[i] as HTMLElement).offsetTop <= fromTop + 50 &&
-            (mdHeads[i] as HTMLElement).offsetTop + (mdHeads[i] as HTMLElement).offsetHeight > fromTop + 50
-          ) {
-            // Remove if new heading is selected
-            latest = tocLinks[i];
-          }
-        }
-      }
-      if (latest) {
-        for (let i = 0; i < tocLinks.length; i++) {
-          tocLinks[i].setAttribute("aria-current", "false");
-        }
-        latest.setAttribute("aria-current", "true");
-      }
+      mdContent?.querySelectorAll("h2, h3, h4").forEach((heading) => {
+        observer.observe(heading);
+      });
     }
   });
 </script>

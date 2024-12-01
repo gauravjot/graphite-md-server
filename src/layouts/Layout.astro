@@ -24,10 +24,10 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<slot />
-    <script src="/js/main.js" is:inline></script>
-    <script src="/js/dynamic_hydration.js" is:inline></script>
-    <script src="/js/clipboard.min.js" is:inline></script>
-    <script src="/js/anchor_click_spacer.js" is:inline></script>
+    <script src="/js/clipboard.min.js" type="text/javascript" is:inline></script>
+    <script src="/js/main.js" type="text/javascript" is:inline></script>
+    <script src="/js/dynamic_hydration.js" type="text/javascript" is:inline></script>
+    <script src="/js/anchor_click_spacer.js" type="text/javascript" is:inline></script>
     {loadScripts().map((scripts) => {
       return <Fragment set:html={scripts} />;
     })}

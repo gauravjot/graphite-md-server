@@ -12,57 +12,56 @@ clipboard.on("success", function (e) {
 
 // Sidebar toggle
 // Topbar toggler
-const sidebar_toggler = document.getElementById('sidebar-toggler');
+const sidebar_toggler_topbar = document.getElementById('sidebar-toggler');
 // Togglers inside the sidebar
-const sidebar_toggle = document.getElementById("sidebar-toggle");
-const sidebar_toggle_closed = document.getElementById("sidebar-toggle-closed");
+const sidebar_toggler_sbot = document.getElementById("sidebar-toggle");
+const sidebar_toggler_sbot_closed = document.getElementById("sidebar-toggle-closed");
 // Sidebar and content
-const sidebar = document.getElementById("sidebar");
-const content = document.getElementById("content");
+const sidebar_pane = document.getElementById("sidebar");
+const content_pane = document.getElementById("content");
 // Check if the screen is mobile
-let isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
+function isMobile() { return window.matchMedia("only screen and (max-width: 1023px)").matches; }
 
 function toggleSidebar() {
-  if (sidebar?.dataset.hidden === "true") {
+  if (sidebar_pane?.dataset.hidden === "true") {
     showSidebar();
   } else {
     hideSidebar();
   }
 }
 function showSidebar() {
-  if (!sidebar) return;
-  if (isMobile) {
-    sidebar.dataset.hidden = "false";
-    content?.classList.remove("sidebar-open");
+  if (!sidebar_pane) return;
+  if (isMobile()) {
+    sidebar_pane.dataset.hidden = "false";
+    content_pane?.classList.remove("sidebar-open");
   } else {
-    sidebar.dataset.hidden = "false";
-    content?.classList.add("sidebar-open");
-    content?.classList.remove("ml-16");
+    sidebar_pane.dataset.hidden = "false";
+    content_pane?.classList.add("sidebar-open");
+    content_pane?.classList.remove("ml-16");
   }
 }
 function hideSidebar() {
   if (window.matchMedia("only screen and (min-width: 1536px)").matches) {
     return; // dont hide sidebar on large screens
   }
-  if (!sidebar) return;
-  if (isMobile) {
-    sidebar.dataset.hidden = "true";
-    content?.classList.remove("sidebar-open");
+  if (!sidebar_pane) return;
+  if (isMobile()) {
+    sidebar_pane.dataset.hidden = "true";
+    content_pane?.classList.remove("sidebar-open");
   } else {
-    sidebar.dataset.hidden = "true";
-    content?.classList.remove("sidebar-open");
-    content?.classList.add("ml-16");
+    sidebar_pane.dataset.hidden = "true";
+    content_pane?.classList.remove("sidebar-open");
+    content_pane?.classList.add("ml-16");
   }
 }
 
 // Initial setup
-if (isMobile) {
+if (isMobile()) {
   hideSidebar();
 }
 // Show/hide sidebar on resize
 window.addEventListener("resize", () => {
-  isMobile = window.matchMedia("only screen and (max-width: 1023px)").matches;
-  if (isMobile) {
+  if (isMobile()) {
     hideSidebar();
   } else {
     showSidebar();
@@ -70,6 +69,6 @@ window.addEventListener("resize", () => {
 });
 
 // Add event listeners
-sidebar_toggler?.addEventListener("click", toggleSidebar);
-sidebar_toggle?.addEventListener("click", hideSidebar);
-sidebar_toggle_closed?.addEventListener("click", showSidebar);
+sidebar_toggler_topbar?.addEventListener("click", toggleSidebar);
+sidebar_toggler_sbot?.addEventListener("click", hideSidebar);
+sidebar_toggler_sbot_closed?.addEventListener("click", showSidebar);
